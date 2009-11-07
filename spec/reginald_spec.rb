@@ -198,23 +198,23 @@ describe Reginald do
 
   private
     def anchor(value)
-      Reginald::Parser::Anchor.new(value)
+      Reginald::Anchor.new(value)
     end
 
     def char(value, options = {})
-      char = Reginald::Parser::Character.new(value)
+      char = Reginald::Character.new(value)
       options.each { |k, v| char.send("#{k}=", v) }
       char
     end
 
     def range(value, options = {})
-      range = Reginald::Parser::CharacterRange.new(value)
+      range = Reginald::CharacterRange.new(value)
       options.each { |k, v| range.send("#{k}=", v) }
       range
     end
 
     def group(value, options = {})
-      group = Reginald::Parser::Group.new(value)
+      group = Reginald::Group.new(value)
       options.each { |k, v| group.send("#{k}=", v) }
       group
     end

@@ -1,4 +1,10 @@
 module Reginald
+  autoload :Anchor, 'reginald/anchor'
+  autoload :Character, 'reginald/character'
+  autoload :CharacterRange, 'reginald/character_range'
+  autoload :Expression, 'reginald/expression'
+  autoload :Group, 'reginald/group'
+  autoload :Node, 'reginald/node'
   autoload :Parser, 'reginald/parser'
 
   begin
