@@ -1,6 +1,6 @@
 require 'reginald'
 
-describe Reginald do
+describe Reginald::Parser do
   it "should parse slashes" do
     Reginald.parse(/\//).should eql([char('/')])
     Reginald.parse(%r{/}).should eql([char('/')])
