@@ -1,6 +1,11 @@
 module Reginald
-  class Character < Struct.new(:value)
+  class Character < String
     attr_accessor :quantifier
+
+    def initialize(char)
+      raise ArgumentError if char.length != 1
+      super
+    end
 
     # DEPRECATE
     def regexp_source
@@ -8,16 +13,32 @@ module Reginald
     end
 
     def to_s
-      "#{value}#{quantifier}"
+      "#{super}#{quantifier}"
+    end
+
+    def to_regexp
+      Regexp.compile("\\A#{to_s}\\Z")
+    end
+
+    def to_set
+      Set.new([self])
+    end
+
+    def match(str)
+      to_regexp.match(str)
+    end
+
+    def include?(char)
+      to_set.include?(char)
     end
 
     def ==(other)
-      self.value == other.value &&
+      super &&
         self.quantifier == other.quantifier
     end
 
     def freeze
-      value.freeze
+      quantifier.freeze
       super
     end
   end
