@@ -6,8 +6,7 @@ module Reginald
       negate ? true : false
     end
 
-    # DEPRECATE
-    def regexp_source
+    def to_s
       if value == '.' || value == '\d'
         "#{value}#{quantifier}"
       else
@@ -15,8 +14,17 @@ module Reginald
       end
     end
 
+    def to_regexp
+      Regexp.compile("\\A#{to_s}\\Z")
+    end
+
+    def match(char)
+      to_regexp.match(char)
+    end
+
     def include?(char)
-      Regexp.compile("^#{regexp_source}$") =~ char.to_s
+      re = quantifier ? to_s.sub(/#{Regexp.escape(quantifier)}$/, '') : to_s
+      Regexp.compile("\\A#{re}\\Z").match(char)
     end
 
     def ==(other)

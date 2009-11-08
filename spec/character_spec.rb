@@ -62,7 +62,6 @@ describe Reginald::Character, "with value 'a'" do
   end
 end
 
-
 describe Reginald::Character, "with value 'a' and optional quantifier" do
   before do
     @character = Reginald::Character.new('a')
