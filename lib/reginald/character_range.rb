@@ -2,6 +2,11 @@ module Reginald
   class CharacterRange < Struct.new(:value)
     attr_accessor :negate, :quantifier
 
+    def negated?
+      negate ? true : false
+    end
+
+    # DEPRECATE
     def regexp_source
       if value == '.' || value == '\d'
         "#{value}#{quantifier}"
@@ -22,6 +27,7 @@ module Reginald
 
     def freeze
       value.freeze
+      super
     end
   end
 end

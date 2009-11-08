@@ -53,7 +53,7 @@ describe Reginald::Character do
     @character.to_set.should == Set.new(['a'])
   end
 
-  it "should == another character if the quantifier is different" do
+  it "should not == another character if the quantifier is different" do
     other_char = Reginald::Character.new('a')
     other_char.quantifier = '?'
     @character.should_not == other_char
