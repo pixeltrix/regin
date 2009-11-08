@@ -58,7 +58,6 @@ describe Reginald::Character, "with value 'a'" do
   it "should be freezable" do
     @character.freeze
     @character.should be_frozen
-    @character.quantifier.should be_frozen
   end
 end
 
@@ -163,5 +162,11 @@ describe Reginald::Character, "with value 'a' and repeator quantifier" do
 
   it "should not include 'b'" do
     @character.should_not include('b')
+  end
+
+  it "should be freezable" do
+    @character.freeze
+    @character.should be_frozen
+    @character.quantifier.should be_frozen
   end
 end
