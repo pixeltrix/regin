@@ -152,6 +152,13 @@ describe Reginald::Parser do
     re.should be_casefold
   end
 
+  it "should parse extend expression" do
+    re = /     # foo
+           bar # baz
+         /x
+    Reginald.parse(re)
+  end
+
   it "should parse noncapture group" do
     Reginald.parse(%r{/foo(?:/bar)}).should eql([
       char('/'),
