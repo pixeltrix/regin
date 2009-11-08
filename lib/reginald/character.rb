@@ -7,11 +7,6 @@ module Reginald
       super
     end
 
-    # DEPRECATE
-    def regexp_source
-      to_s
-    end
-
     def to_s
       "#{super}#{quantifier}"
     end
@@ -20,8 +15,8 @@ module Reginald
       Regexp.compile("\\A#{to_s}\\Z")
     end
 
-    def match(str)
-      to_regexp.match(str)
+    def match(char)
+      to_regexp.match(char)
     end
 
     def include?(char)
@@ -29,8 +24,7 @@ module Reginald
     end
 
     def ==(other)
-      super &&
-        self.quantifier == other.quantifier
+      super && self.quantifier == other.quantifier
     end
 
     def freeze
