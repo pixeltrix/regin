@@ -20,16 +20,12 @@ module Reginald
       Regexp.compile("\\A#{to_s}\\Z")
     end
 
-    def to_set
-      Set.new([self])
-    end
-
     def match(str)
       to_regexp.match(str)
     end
 
     def include?(char)
-      to_set.include?(char)
+      to_str == char
     end
 
     def ==(other)

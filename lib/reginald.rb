@@ -1,5 +1,3 @@
-require 'set'
-
 module Reginald
   autoload :Anchor, 'reginald/anchor'
   autoload :Character, 'reginald/character'
