@@ -213,22 +213,22 @@ end
 # reduce 7 omitted
 
 def _reduce_8(val, _values, result)
- result = CharacterRange.new(val[1]) 
+ result = CharacterClass.new(val[1]) 
     result
 end
 
 def _reduce_9(val, _values, result)
- result = CharacterRange.new(val[2]); result.negate = true 
+ result = CharacterClass.new(val[2]); result.negate = true 
     result
 end
 
 def _reduce_10(val, _values, result)
- result = CharacterRange.new(val[0]) 
+ result = CharacterClass.new(val[0]) 
     result
 end
 
 def _reduce_11(val, _values, result)
- result = CharacterRange.new(val[0]) 
+ result = CharacterClass.new(val[0]) 
     result
 end
 

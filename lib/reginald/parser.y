@@ -15,10 +15,10 @@ rule
         | atom
 
   atom: group
-      | LBRACK bracket_expression RBRACK { result = CharacterRange.new(val[1]) }
-      | LBRACK L_ANCHOR bracket_expression RBRACK { result = CharacterRange.new(val[2]); result.negate = true }
-      | CHAR_CLASS { result = CharacterRange.new(val[0]) }
-      | DOT { result = CharacterRange.new(val[0]) }
+      | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
+      | LBRACK L_ANCHOR bracket_expression RBRACK { result = CharacterClass.new(val[2]); result.negate = true }
+      | CHAR_CLASS { result = CharacterClass.new(val[0]) }
+      | DOT { result = CharacterClass.new(val[0]) }
       | anchor { result = Anchor.new(val[0]) }
       | CHAR { result = Character.new(val[0]) }
 

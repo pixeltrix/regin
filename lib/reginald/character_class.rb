@@ -1,5 +1,5 @@
 module Reginald
-  class CharacterRange < Struct.new(:value)
+  class CharacterClass < Struct.new(:value)
     attr_accessor :negate, :quantifier
 
     def negated?

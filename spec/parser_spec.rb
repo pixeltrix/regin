@@ -223,7 +223,7 @@ describe Reginald::Parser do
     end
 
     def range(value, options = {})
-      range = Reginald::CharacterRange.new(value)
+      range = Reginald::CharacterClass.new(value)
       options.each { |k, v| range.send("#{k}=", v) }
       range
     end

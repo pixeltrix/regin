@@ -1,11 +1,11 @@
 require 'reginald'
 
-describe Reginald::CharacterRange, "from a-z" do
+describe Reginald::CharacterClass, "from a-z" do
   before do
-    # TODO: Range should be constructed from a set
+    # TODO: Character class should be constructed from a set
     # of chars not a string. We should do the parsing
     # in the actual parser, not here.
-    @range = Reginald::CharacterRange.new('a-z')
+    @range = Reginald::CharacterClass.new('a-z')
   end
 
   it "should have no quantifier" do
@@ -45,21 +45,21 @@ describe Reginald::CharacterRange, "from a-z" do
   end
 
   it "should == another character with the same value" do
-    @range.should == Reginald::CharacterRange.new('a-z')
+    @range.should == Reginald::CharacterClass.new('a-z')
   end
 
   it "should eql another character with the same value" do
-    @range.should eql(Reginald::CharacterRange.new('a-z'))
+    @range.should eql(Reginald::CharacterClass.new('a-z'))
   end
 
   it "should not == another character if the quantifier is different" do
-    other_range = Reginald::CharacterRange.new('a-z')
+    other_range = Reginald::CharacterClass.new('a-z')
     other_range.quantifier = '?'
     @range.should_not == other_range
   end
 
   it "should not eql another character if the quantifier is different" do
-    other_range = Reginald::CharacterRange.new('a-z')
+    other_range = Reginald::CharacterClass.new('a-z')
     other_range.quantifier = '?'
     @range.should_not eql(other_range)
   end
@@ -70,9 +70,9 @@ describe Reginald::CharacterRange, "from a-z" do
   end
 end
 
-describe Reginald::CharacterRange, "from a-z and and repeator quantifier" do
+describe Reginald::CharacterClass, "from a-z and and repeator quantifier" do
   before do
-    @range = Reginald::CharacterRange.new('a-z')
+    @range = Reginald::CharacterClass.new('a-z')
 
     # TODO: Repeator should be constructed from an integer
     # Range not a string. We should do the parsing
