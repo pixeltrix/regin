@@ -49,10 +49,20 @@ describe Reginald::Character, "with value 'a'" do
     @character.should == Reginald::Character.new('a')
   end
 
+  it "should eql another 'a' character" do
+    @character.should eql(Reginald::Character.new('a'))
+  end
+
   it "should not == another 'a' character if the quantifier is different" do
     other_char = Reginald::Character.new('a')
     other_char.quantifier = '?'
     @character.should_not == other_char
+  end
+
+  it "should not eql another 'a' character if the quantifier is different" do
+    other_char = Reginald::Character.new('a')
+    other_char.quantifier = '?'
+    @character.should_not eql(other_char)
   end
 
   it "should be freezable" do

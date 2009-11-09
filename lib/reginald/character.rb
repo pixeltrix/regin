@@ -24,7 +24,17 @@ module Reginald
     end
 
     def ==(other)
-      super && self.quantifier == other.quantifier
+      case other
+      when String
+        other == to_s
+      else
+        eql?(other)
+      end
+    end
+
+    def eql?(other)
+      other.is_a?(self.class) && super &&
+        self.quantifier == other.quantifier
     end
 
     def freeze

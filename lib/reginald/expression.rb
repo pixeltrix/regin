@@ -3,6 +3,8 @@ module Reginald
     attr_accessor :ignorecase
 
     def initialize(ary)
+      @ignorecase = false
+
       if ary.is_a?(Node)
         super(ary.flatten)
       elsif ary.is_a?(Array)
@@ -30,6 +32,22 @@ module Reginald
 
     def casefold?
       ignorecase
+    end
+
+    def ==(other)
+      case other
+      when String
+        other == to_s
+      when Array
+        super
+      else
+        eql?(other)
+      end
+    end
+
+    def eql?(other)
+      other.is_a?(self.class) && super &&
+        self.ignorecase == other.ignorecase
     end
 
     def freeze

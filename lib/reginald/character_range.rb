@@ -28,13 +28,25 @@ module Reginald
     end
 
     def ==(other)
-      self.value == other.value &&
+      case other
+      when String
+        other == to_s
+      else
+        eql?(other)
+      end
+    end
+
+    def eql?(other)
+      other.is_a?(self.class) &&
+        self.value == other.value &&
         self.negate == other.negate &&
         self.quantifier == other.quantifier
     end
 
     def freeze
       value.freeze
+      negate.freeze
+      quantifier.freeze
       super
     end
   end

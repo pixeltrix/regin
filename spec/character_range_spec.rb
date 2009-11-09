@@ -48,10 +48,20 @@ describe Reginald::CharacterRange, "from a-z" do
     @range.should == Reginald::CharacterRange.new('a-z')
   end
 
+  it "should eql another character with the same value" do
+    @range.should eql(Reginald::CharacterRange.new('a-z'))
+  end
+
   it "should not == another character if the quantifier is different" do
     other_range = Reginald::CharacterRange.new('a-z')
     other_range.quantifier = '?'
     @range.should_not == other_range
+  end
+
+  it "should not eql another character if the quantifier is different" do
+    other_range = Reginald::CharacterRange.new('a-z')
+    other_range.quantifier = '?'
+    @range.should_not eql(other_range)
   end
 
   it "should be freezable" do

@@ -27,8 +27,18 @@ module Reginald
       capture
     end
 
+    def ==(other)
+      case other
+      when String
+        other == to_s
+      else
+        eql?(other)
+      end
+    end
+
     def eql?(other)
-      self.expression == other.expression &&
+      other.is_a?(self.class) &&
+        self.expression == other.expression &&
         self.quantifier == other.quantifier &&
         self.capture == other.capture &&
         self.index == other.index &&
