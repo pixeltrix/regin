@@ -104,7 +104,7 @@ describe Reginald::Parser do
       char('o'),
       char('o'),
       char('/'),
-      group([range('/.?', :negate => true, :quantifier => '+')])
+      group([range('/.?', :negate => true, :quantifier => '+')], :index => 0)
     ])
   end
 
@@ -128,7 +128,7 @@ describe Reginald::Parser do
         char('b'),
         char('a'),
         char('r')
-      ])
+      ], :index => 0)
     ])
   end
 
@@ -143,7 +143,7 @@ describe Reginald::Parser do
         char('b'),
         char('a'),
         char('r')
-      ], :quantifier => '?')
+      ], :quantifier => '?', :index => 0)
     ])
   end
 
@@ -187,7 +187,7 @@ describe Reginald::Parser do
           char('b'),
           char('a'),
           char('z')
-        ], :name => 'bar')
+        ], :name => 'bar', :index => 0)
       ])
     end
 
@@ -197,8 +197,8 @@ describe Reginald::Parser do
       Reginald.parse(regexp).should eql([
         char('a'),
         group([
-          group([char('c')], :name => 'b')
-        ], :quantifier => '?')
+          group([char('c')], :name => 'b', :index => 1)
+        ], :quantifier => '?', :index => 0)
       ])
     end
   end

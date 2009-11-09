@@ -33,6 +33,23 @@ module Reginald
     parser = Parser.new
     expression = parser.scan_str(regexp.source)
     expression.ignorecase = regexp.casefold?
+
+    capture_index = 0
+    tag_captures = Proc.new do |expr|
+      expr.each do |atom|
+        if atom.is_a?(Group)
+          if atom.capture
+            atom.index = capture_index
+            capture_index += 1
+          end
+          tag_captures.call(atom)
+        elsif atom.is_a?(Expression)
+          tag_captures.call(atom)
+        end
+      end
+    end
+    tag_captures.call(expression)
+
     expression
   end
 end
