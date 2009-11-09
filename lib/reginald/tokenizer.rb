@@ -102,8 +102,11 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/\}/))
          action { [:RCURLY,  text] }
 
+      when (text = @ss.scan(/\|/))
+         action { [:BAR, text]   }
+
       when (text = @ss.scan(/\./))
-         action { [:DOT, text] }
+         action { [:DOT, text]   }
 
       when (text = @ss.scan(/\?/))
          action { [:QMARK, text] }

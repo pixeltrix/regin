@@ -21,7 +21,8 @@ rule
   \{          { [:LCURLY,  text] }
   \}          { [:RCURLY,  text] }
 
-  \.          { [:DOT, text] }
+  \|          { [:BAR, text]   }
+  \.          { [:DOT, text]   }
   \?          { [:QMARK, text] }
   \+          { [:PLUS,  text] }
   \*          { [:STAR,  text] }

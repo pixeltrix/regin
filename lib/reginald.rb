@@ -1,4 +1,5 @@
 module Reginald
+  autoload :Alternation, 'reginald/alternation'
   autoload :Anchor, 'reginald/anchor'
   autoload :Character, 'reginald/character'
   autoload :CharacterRange, 'reginald/character_range'

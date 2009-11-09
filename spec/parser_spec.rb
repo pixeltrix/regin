@@ -117,6 +117,14 @@ describe Reginald::Parser do
     Reginald.parse(%r{[a-z]+}).should == [range('a-z', :quantifier => '+')]
   end
 
+  it "should parse alternation" do
+    Reginald.parse(%r{foo|bar}).should ==
+      Reginald::Alternation.new([
+        expr([char('f'), char('o'), char('o')]),
+        expr([char('b'), char('a'), char('r')])
+      ])
+  end
+
   it "should parse group" do
     Reginald.parse(%r{/foo(/bar)}).should == [
       char('/'),
