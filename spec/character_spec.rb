@@ -17,6 +17,10 @@ describe Reginald::Character, "with value 'a'" do
     @character.quantifier.should be_nil
   end
 
+  it "should be a literal character" do
+    @character.should be_literal
+  end
+
   it "should return a string expression of itself" do
     @character.to_s.should == "a"
   end
@@ -81,6 +85,10 @@ describe Reginald::Character, "with value 'a' and optional quantifier" do
     @character.quantifier.should == '?'
   end
 
+  it "should not be a literal character" do
+    @character.should_not be_literal
+  end
+
   it "should return a string expression of itself" do
     @character.to_s.should == 'a?'
   end
@@ -136,6 +144,10 @@ describe Reginald::Character, "with value 'a' and repeator quantifier" do
 
   it "should have repeator quantifier" do
     @character.quantifier.should == '{2,3}'
+  end
+
+  it "should not be a literal character" do
+    @character.should_not be_literal
   end
 
   it "should return a string expression of itself" do

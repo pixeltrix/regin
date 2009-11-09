@@ -13,6 +13,10 @@ describe Reginald::Expression, "with capture" do
     @expression.size.should == 3
   end
 
+  it "should be a literal expression" do
+    @expression.should be_literal
+  end
+
   it "should return a string expression of itself" do
     @expression.to_s.should == "foo"
   end

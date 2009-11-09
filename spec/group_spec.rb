@@ -22,6 +22,10 @@ describe Reginald::Group, "with capture" do
     @group.name.should be_nil
   end
 
+  it "should be a literal expression" do
+    @group.should be_literal
+  end
+
   it "should return a string expression of itself" do
     @group.to_s.should == "(foo)"
   end

@@ -14,6 +14,10 @@ module Reginald
       end
     end
 
+    def literal?
+      ignorecase == false && all? { |e| e.literal? }
+    end
+
     def to_s
       map { |e| e.to_s }.join
     end

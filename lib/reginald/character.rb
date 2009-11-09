@@ -7,6 +7,10 @@ module Reginald
       super
     end
 
+    def literal?
+      quantifier.nil?
+    end
+
     def to_s
       "#{super}#{quantifier}"
     end

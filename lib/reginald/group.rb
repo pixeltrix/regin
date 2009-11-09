@@ -7,6 +7,10 @@ module Reginald
       super
     end
 
+    def literal?
+      quantifier.nil? && expression.literal?
+    end
+
     def to_s
       "(#{capture ? '' : '?:'}#{expression.to_s})#{quantifier}"
     end

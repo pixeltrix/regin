@@ -16,6 +16,10 @@ describe Reginald::CharacterClass, "from a-z" do
     @range.should_not be_negated
   end
 
+  it "should not be a literal character" do
+    @range.should_not be_literal
+  end
+
   it "should return a string expression of itself" do
     @range.to_s.should == "[a-z]"
   end

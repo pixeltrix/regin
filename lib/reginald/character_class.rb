@@ -6,6 +6,10 @@ module Reginald
       negate ? true : false
     end
 
+    def literal?
+      false
+    end
+
     def to_s
       if value == '.' || value == '\d'
         "#{value}#{quantifier}"
