@@ -2,15 +2,11 @@ require 'reginald'
 
 describe Reginald::Expression, "with capture" do
   before do
-    @expression = Reginald::Expression.new([
+    @expression = Reginald::Expression.new(
       Reginald::Character.new('f'),
       Reginald::Character.new('o'),
       Reginald::Character.new('o')
-    ])
-  end
-
-  it "should have 3 children" do
-    @expression.size.should == 3
+    )
   end
 
   it "should be a literal expression" do
@@ -49,5 +45,33 @@ describe Reginald::Expression, "with capture" do
     @expression.freeze
     @expression.should be_frozen
     @expression.each { |child| child.should be_frozen }
+  end
+end
+
+describe Reginald::Expression, "initialize with array" do
+  before do
+    @expression = Reginald::Expression.new([
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o')
+    ])
+  end
+
+  it "should have 3 children" do
+    @expression.size.should == 3
+  end
+end
+
+describe Reginald::Expression, "initialize with args" do
+  before do
+    @expression = Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o')
+    )
+  end
+
+  it "should have 3 children" do
+    @expression.size.should == 3
   end
 end

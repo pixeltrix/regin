@@ -42,42 +42,42 @@ describe Reginald::Parser do
   end
 
   it "should parse anchors" do
-    Reginald.parse(%r{^foo}).should eql(expr([
+    Reginald.parse(%r{^foo}).should eql(expr(
       anchor('^'),
       char('f'),
       char('o'),
       char('o')
-    ]))
+    ))
 
-    Reginald.parse(%r{\Afoo}).should eql(expr([
+    Reginald.parse(%r{\Afoo}).should eql(expr(
       anchor('\A'),
       char('f'),
       char('o'),
       char('o')
-    ]))
+    ))
 
-    Reginald.parse(%r{foo$}).should eql(expr([
+    Reginald.parse(%r{foo$}).should eql(expr(
       char('f'),
       char('o'),
       char('o'),
       anchor('$')
-    ]))
+    ))
 
-    Reginald.parse(%r{foo\Z}).should eql(expr([
+    Reginald.parse(%r{foo\Z}).should eql(expr(
       char('f'),
       char('o'),
       char('o'),
       anchor('\Z')
-    ]))
+    ))
   end
 
   it "should parse wild card range" do
-    Reginald.parse(%r{f..k}).should eql(expr([
+    Reginald.parse(%r{f..k}).should eql(expr(
       char('f'),
       range('.'),
       range('.'),
       char('k')
-    ]))
+    ))
 
     result = Reginald.parse(%r{f..k})
     result[0].should include('f')
@@ -120,8 +120,8 @@ describe Reginald::Parser do
   it "should parse alternation" do
     Reginald.parse(%r{foo|bar}).should ==
       Reginald::Alternation.new([
-        expr([char('f'), char('o'), char('o')]),
-        expr([char('b'), char('a'), char('r')])
+        expr(char('f'), char('o'), char('o')),
+        expr(char('b'), char('a'), char('r'))
       ])
   end
 
@@ -232,8 +232,9 @@ describe Reginald::Parser do
       range
     end
 
-    def expr(ary, options = {})
-      expression = Reginald::Expression.new(ary)
+    def expr(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      expression = Reginald::Expression.new(*args)
       options.each { |k, v| expression.send("#{k}=", v) }
       expression
     end

@@ -2,15 +2,24 @@ module Reginald
   class Expression < Array
     attr_accessor :ignorecase
 
-    def initialize(ary)
+    def self.reduce(expression_or_atom, atom = nil)
+      if expression_or_atom.is_a?(Expression)
+        expression_or_atom << atom if atom
+        new(*expression_or_atom)
+      elsif atom.nil?
+        new(expression_or_atom)
+      else
+        new(expression_or_atom, atom)
+      end
+    end
+
+    def initialize(*args)
       @ignorecase = false
 
-      if ary.is_a?(Node)
-        super(ary.flatten)
-      elsif ary.is_a?(Array)
-        super(ary)
+      if args.first.is_a?(Array)
+        super(args.first)
       else
-        super([ary])
+        super(args)
       end
     end
 

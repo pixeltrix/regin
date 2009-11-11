@@ -12,60 +12,60 @@ module Reginald
 ##### State transition tables begin ###
 
 racc_action_table = [
-     4,    45,     6,     7,     8,     9,    41,    11,    34,    24,
-     4,     3,     6,     7,     8,     9,    40,    11,    46,    24,
-     4,     3,     6,     7,     8,     9,    28,    11,    47,    24,
-     4,     3,     6,     7,     8,     9,    48,    11,    38,   nil,
-     4,     3,     6,     7,     8,     9,    25,    11,    36,    37,
-     4,     3,     6,     7,     8,     9,    23,    11,    24,   nil,
-     4,     3,     6,     7,     8,     9,    17,    11,   nil,    17,
-   nil,     3,    14,    15,    16,    14,    15,    16,    29,   nil,
-   nil,    30,    31,    32,    42,   nil,   nil,    30,    31,    32,
-    19,   nil,    20,    21,    22,    20,    21,    22 ]
+     5,    31,    11,     6,     7,     9,    40,    10,    45,    14,
+     5,    12,    11,     6,     7,     9,    41,    10,    37,    14,
+     5,    12,    11,     6,     7,     9,    28,    10,    47,    14,
+     5,    12,    11,     6,     7,     9,    48,    10,    46,   nil,
+     5,    12,    11,     6,     7,     9,    13,    10,    14,   nil,
+     5,    12,    11,     6,     7,     9,    27,    10,    38,    39,
+     5,    12,    11,     6,     7,     9,    19,    10,   nil,    19,
+   nil,    12,    17,    18,    20,    17,    18,    20,    32,   nil,
+   nil,    34,    33,    35,    42,   nil,   nil,    34,    33,    35,
+    22,   nil,    24,    23,    25,    24,    23,    25 ]
 
 racc_action_check = [
-     0,    41,     0,     0,     0,     0,    28,     0,    23,    43,
-    35,     0,    35,    35,    35,    35,    28,    35,    43,    44,
-    37,    35,    37,    37,    37,    37,    16,    37,    44,    26,
-    24,    37,    24,    24,    24,    24,    45,    24,    26,   nil,
-    11,    24,    11,    11,    11,    11,    11,    11,    25,    25,
-    12,    11,    12,    12,    12,    12,    10,    12,    10,   nil,
-    36,    12,    36,    36,    36,    36,    27,    36,   nil,     1,
-   nil,    36,    27,    27,    27,     1,     1,     1,    18,   nil,
-   nil,    18,    18,    18,    33,   nil,   nil,    33,    33,    33,
-     4,   nil,     4,     4,     4,    19,    19,    19 ]
+     0,    20,     0,     0,     0,     0,    31,     0,    40,    26,
+    39,     0,    39,    39,    39,    39,    31,    39,    26,    44,
+     2,    39,     2,     2,     2,     2,    13,     2,    44,    43,
+    14,     2,    14,    14,    14,    14,    45,    14,    43,   nil,
+    29,    14,    29,    29,    29,    29,     1,    29,     1,   nil,
+    10,    29,    10,    10,    10,    10,    10,    10,    27,    27,
+    38,    10,    38,    38,    38,    38,     3,    38,   nil,    15,
+   nil,    38,     3,     3,     3,    15,    15,    15,    21,   nil,
+   nil,    21,    21,    21,    36,   nil,   nil,    36,    36,    36,
+     5,   nil,     5,     5,     5,    22,    22,    22 ]
 
 racc_action_pointer = [
-    -3,    60,   nil,   nil,    85,   nil,   nil,   nil,   nil,   nil,
-    56,    37,    47,   nil,   nil,   nil,    18,   nil,    74,    88,
-   nil,   nil,   nil,     8,    27,    36,    27,    57,    -2,   nil,
-   nil,   nil,   nil,    80,   nil,     7,    57,    17,   nil,   nil,
-   nil,    -7,   nil,     7,    17,    18,   nil,   nil,   nil ]
+    -3,    46,    17,    57,   nil,    85,   nil,   nil,   nil,   nil,
+    47,   nil,   nil,    26,    27,    60,   nil,   nil,   nil,   nil,
+    -7,    74,    88,   nil,   nil,   nil,     7,    46,   nil,    37,
+   nil,    -2,   nil,   nil,   nil,   nil,    80,   nil,    57,     7,
+     0,   nil,   nil,    27,    17,    18,   nil,   nil,   nil ]
 
 racc_action_default = [
-   -30,    -6,    -7,   -24,   -30,   -12,   -23,   -10,   -11,   -13,
-   -30,   -30,    -2,    -5,   -25,   -26,   -30,   -27,   -30,   -30,
-   -18,   -17,   -19,   -30,   -30,   -30,   -30,    -4,   -30,    -8,
-   -15,   -14,   -16,   -30,    49,    -1,   -30,   -30,   -20,    -3,
-   -29,   -30,    -9,   -30,   -30,   -30,   -21,   -22,   -28 ]
+   -30,   -30,    -2,    -6,    -7,   -30,   -10,   -11,   -12,   -13,
+   -30,   -23,   -24,   -30,   -30,    -4,    -5,   -25,   -26,   -27,
+   -30,   -30,   -30,   -17,   -18,   -19,   -30,   -30,    49,    -1,
+    -3,   -30,    -8,   -14,   -15,   -16,   -30,   -20,   -30,   -30,
+   -30,   -29,    -9,   -30,   -30,   -30,   -21,   -22,   -28 ]
 
 racc_goto_table = [
-    10,    13,    27,    18,    35,   nil,   nil,   nil,   nil,   nil,
-   nil,    26,   nil,   nil,   nil,   nil,   nil,   nil,    33,   nil,
-   nil,   nil,   nil,   nil,   nil,    27,   nil,    39,   nil,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,    43,    44 ]
+     1,    15,    21,    16,    29,   nil,   nil,   nil,   nil,   nil,
+    26,   nil,   nil,   nil,   nil,    30,   nil,   nil,   nil,    36,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,    15,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,    43,    44 ]
 
 racc_goto_check = [
-     1,     4,     3,     6,     2,   nil,   nil,   nil,   nil,   nil,
-   nil,     1,   nil,   nil,   nil,   nil,   nil,   nil,     6,   nil,
-   nil,   nil,   nil,   nil,   nil,     3,   nil,     4,   nil,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,     1,     1 ]
+     1,     3,     6,     4,     2,   nil,   nil,   nil,   nil,   nil,
+     1,   nil,   nil,   nil,   nil,     4,   nil,   nil,   nil,     6,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,     3,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,     1,     1 ]
 
 racc_goto_pointer = [
-   nil,     0,   -20,   -10,     0,   nil,    -1,   nil ]
+   nil,     0,   -10,    -1,     0,   nil,    -3,   nil ]
 
 racc_goto_default = [
-   nil,   nil,    12,     1,   nil,     2,   nil,     5 ]
+   nil,   nil,     2,     3,   nil,     4,   nil,     8 ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
@@ -185,19 +185,19 @@ def _reduce_1(val, _values, result)
 end
 
 def _reduce_2(val, _values, result)
- result = Expression.new(val[0]) 
+ result = Expression.reduce(val[0]) 
     result
 end
 
 def _reduce_3(val, _values, result)
             val[1].quantifier = val[2]
-            result = Node.new(val[0], val[1])
+            result = Expression.reduce(val[0], val[1])
           
     result
 end
 
 def _reduce_4(val, _values, result)
- result = Node.new(val[0], val[1]) 
+ result = Expression.reduce(val[0], val[1]) 
     result
 end
 

@@ -1,13 +1,13 @@
 class Reginald::Parser
 rule
   expression: expression BAR branch { result = Expression.new(Alternation.new([Expression.new(val[0]), Expression.new(val[2])])) }
-            | branch { result = Expression.new(val[0]) }
+            | branch { result = Expression.reduce(val[0]) }
 
   branch: branch atom quantifier {
             val[1].quantifier = val[2]
-            result = Node.new(val[0], val[1])
+            result = Expression.reduce(val[0], val[1])
           }
-        | branch atom { result = Node.new(val[0], val[1]) }
+        | branch atom { result = Expression.reduce(val[0], val[1]) }
         | atom quantifier {
             val[0].quantifier = val[1]
             result = val[0]
