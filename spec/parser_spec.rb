@@ -125,6 +125,10 @@ describe Reginald::Parser do
       ])
   end
 
+  it "should parse multiple alternations" do
+    Reginald.parse(%r{abc/(foo|bar|baz)/xyz})
+  end
+
   it "should parse group" do
     Reginald.parse(%r{/foo(/bar)}).should == [
       char('/'),

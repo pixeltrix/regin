@@ -1,6 +1,6 @@
 class Reginald::Parser
 rule
-  expression: branch BAR branch { result = Expression.new(Alternation.new([Expression.new(val[0]), Expression.new(val[2])])) }
+  expression: expression BAR branch { result = Expression.new(Alternation.new([Expression.new(val[0]), Expression.new(val[2])])) }
             | branch { result = Expression.new(val[0]) }
 
   branch: branch atom quantifier {
