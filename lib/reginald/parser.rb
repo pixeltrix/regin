@@ -180,7 +180,7 @@ Racc_debug_parser = false
 # reduce 0 omitted
 
 def _reduce_1(val, _values, result)
- result = Expression.new(Alternation.new([Expression.new(val[0]), Expression.new(val[2])])) 
+ result = Expression.new([Alternation.reduce(val[0], val[2])]) 
     result
 end
 

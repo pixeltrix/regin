@@ -16,7 +16,7 @@ module Reginald
     def initialize(*args)
       @ignorecase = false
 
-      if args.first.is_a?(Array)
+      if args.length == 1 && args.first.is_a?(Array)
         super(args.first)
       else
         super(args)
@@ -33,6 +33,10 @@ module Reginald
 
     def to_regexp
       Regexp.compile("\\A#{to_s}\\Z")
+    end
+
+    def inspect
+      "#<Expression #{to_s.inspect}>"
     end
 
     def match(char)

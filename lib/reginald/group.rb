@@ -19,6 +19,10 @@ module Reginald
       Regexp.compile("\\A#{to_s}\\Z")
     end
 
+    def inspect
+      to_s.inspect
+    end
+
     def match(char)
       to_regexp.match(char)
     end

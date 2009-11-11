@@ -119,14 +119,24 @@ describe Reginald::Parser do
 
   it "should parse alternation" do
     Reginald.parse(%r{foo|bar}).should ==
-      Reginald::Alternation.new([
+      expr([alt(
         expr(char('f'), char('o'), char('o')),
         expr(char('b'), char('a'), char('r'))
-      ])
+      )])
   end
 
   it "should parse multiple alternations" do
-    Reginald.parse(%r{abc/(foo|bar|baz)/xyz})
+    Reginald.parse(%r{abc/(foo|bar|baz)/xyz}).should == expr(
+      char('a'), char('b'), char('c'), char('/'),
+      group(expr([
+        alt(
+          expr(char('f'), char('o'), char('o')),
+          expr(char('b'), char('a'), char('r')),
+          expr(char('b'), char('a'), char('z'))
+        )
+      ]), :index => 0),
+      char('/'), char('x'), char('y'), char('z')
+    )
   end
 
   it "should parse group" do
@@ -218,6 +228,13 @@ describe Reginald::Parser do
   private
     def anchor(value)
       Reginald::Anchor.new(value)
+    end
+
+    def alt(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      alternation = Reginald::Alternation.new(*args)
+      options.each { |k, v| alternation.send("#{k}=", v) }
+      alternation
     end
 
     def char(value, options = {})
