@@ -18,6 +18,10 @@ module Reginald
       end
     end
 
+    def literal?
+      false
+    end
+
     def to_s
       map { |e| e.to_s }.join('|')
     end
@@ -30,8 +34,17 @@ module Reginald
       to_s.inspect
     end
 
-    def literal?
-      false
+    def match(char)
+      to_regexp.match(char)
+    end
+
+    def include?(char)
+      any? { |e| e.include?(char) }
+    end
+
+    def freeze
+      each { |e| e.freeze }
+      super
     end
   end
 end
