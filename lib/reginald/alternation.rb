@@ -11,7 +11,7 @@ module Reginald
     end
 
     def initialize(*args)
-      if args.length == 1 && args.first.is_a?(Array)
+      if args.length == 1 && args.first.instance_of?(Array)
         super(args.first)
       else
         super(args)

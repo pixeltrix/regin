@@ -1,6 +1,6 @@
 class Reginald::Parser
 rule
-  expression: expression BAR branch { result = Expression.new([Alternation.reduce(val[0], val[2])]) }
+  expression: expression BAR branch { result = Expression.new(Alternation.reduce(val[0], val[2])) }
             | branch { result = Expression.reduce(val[0]) }
 
   branch: branch atom quantifier {
@@ -30,8 +30,18 @@ rule
                     | QMARK
 
   group: LPAREN expression RPAREN { result = Group.new(val[1]) }
-       | LPAREN QMARK COLON expression RPAREN { result = Group.new(val[3]); result.capture = false }
-       | LPAREN QMARK NAME expression RPAREN { result = Group.new(val[3]); result.name = val[2] }
+       | LPAREN options expression RPAREN {
+          options = val[1];
+          result = Group.new(val[2]);
+          result.capture = options[:capture];
+          result.expression.multiline = options[:multiline];
+          result.expression.ignorecase = options[:ignorecase];
+          result.expression.extended = options[:extended];
+        }
+       | LPAREN OPTIONS_QMARK NAME expression RPAREN {
+          result = Group.new(val[3]);
+          result.name = val[2];
+        }
 
   anchor: L_ANCHOR
         | R_ANCHOR
@@ -41,6 +51,16 @@ rule
             | QMARK
             | LCURLY CHAR CHAR CHAR RCURLY { result = val.join }
             | LCURLY CHAR RCURLY { result = val.join }
+
+  options: OPTIONS_QMARK OPTIONS_MINUS OPTIONS_MULTILINE OPTIONS_IGNORECASE OPTIONS_EXTENDED OPTIONS_COLON {
+            result = { :capture => false, :multiline => false, :ignorecase => false, :extended => false }
+          }
+         | OPTIONS_QMARK OPTIONS_IGNORECASE OPTIONS_MINUS OPTIONS_MULTILINE OPTIONS_EXTENDED OPTIONS_COLON {
+            result = { :capture => false, :ignorecase => true, :multiline => false, :extended => false }
+          }
+         | OPTIONS_QMARK OPTIONS_COLON {
+           result = { :capture => false, :multiline => false, :ignorecase => false, :extended => false }
+          }
 end
 
 ---- header

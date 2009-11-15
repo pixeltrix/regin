@@ -1,6 +1,6 @@
 module Reginald
   class Expression < Array
-    attr_accessor :ignorecase
+    attr_accessor :multiline, :ignorecase, :extended
 
     def self.reduce(expression_or_atom, atom = nil)
       if expression_or_atom.is_a?(Expression)
@@ -14,9 +14,9 @@ module Reginald
     end
 
     def initialize(*args)
-      @ignorecase = false
+      @multiline = @ignorecase = @extended = false
 
-      if args.length == 1 && args.first.is_a?(Array)
+      if args.length == 1 && args.first.instance_of?(Array)
         super(args.first)
       else
         super(args)
@@ -27,12 +27,36 @@ module Reginald
       ignorecase == false && all? { |e| e.literal? }
     end
 
-    def to_s
+    def options
+      flag = 0
+      flag |= Regexp::MULTILINE if multiline
+      flag |= Regexp::IGNORECASE if ignorecase
+      flag |= Regexp::EXTENDED if extended
+      flag
+    end
+
+    def to_s_without_options
       map { |e| e.to_s }.join
     end
 
+    def to_s
+      if options == 0
+        to_s_without_options
+      else
+        with, without = [], []
+        multiline ? (with << 'm') : (without << 'm')
+        ignorecase ? (with << 'i') : (without << 'i')
+        extended ? (with << 'x') : (without << 'x')
+
+        with = with.join
+        without = without.any? ? "-#{without.join}" : ''
+
+        "(?#{with}#{without}:#{to_s_without_options})"
+      end
+    end
+
     def to_regexp
-      Regexp.compile("\\A#{to_s}\\Z")
+      Regexp.compile("\\A#{to_s_without_options}\\Z", options)
     end
 
     def inspect
@@ -64,7 +88,9 @@ module Reginald
 
     def eql?(other)
       other.is_a?(self.class) && super &&
-        self.ignorecase == other.ignorecase
+        self.multiline == other.multiline &&
+        self.ignorecase == other.ignorecase &&
+        self.extended == other.extended
     end
 
     def freeze

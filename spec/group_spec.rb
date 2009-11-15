@@ -2,11 +2,11 @@ require 'reginald'
 
 describe Reginald::Group, "with capture" do
   before do
-    @expression = Reginald::Expression.new([
+    @expression = Reginald::Expression.new(
       Reginald::Character.new('f'),
       Reginald::Character.new('o'),
       Reginald::Character.new('o')
-    ])
+    )
     @group = Reginald::Group.new(@expression)
   end
 

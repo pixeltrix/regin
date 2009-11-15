@@ -85,7 +85,11 @@ class Parser < Racc::Parser
          action { [:NAME, @ss[1]] }
 
       when (text = @ss.scan(/\(/))
-         action { [:LPAREN,  text] }
+         action {
+    @state = :OPTIONS if @ss.peek(1) == '?';
+    [:LPAREN, text]
+  }
+
 
       when (text = @ss.scan(/\)/))
          action { [:RPAREN,  text] }
@@ -125,6 +129,55 @@ class Parser < Racc::Parser
 
       when (text = @ss.scan(/./))
          action { [:CHAR, text] }
+
+      else
+        text = @ss.string[@ss.pos .. -1]
+        raise  ScanError, "can not match: '" + text + "'"
+      end  # if
+
+    when :OPTIONS
+      case
+      when (text = @ss.scan(/\?/))
+         action {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_QMARK, text]
+  }
+
+
+      when (text = @ss.scan(/\-/))
+         action {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_MINUS, text]
+  }
+
+
+      when (text = @ss.scan(/m/))
+         action {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_MULTILINE, text]
+  }
+
+
+      when (text = @ss.scan(/i/))
+         action {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_IGNORECASE, text]
+  }
+
+
+      when (text = @ss.scan(/x/))
+         action {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_EXTENDED, text]
+  }
+
+
+      when (text = @ss.scan(/\:/))
+         action {
+    @state = nil;
+    [:OPTIONS_COLON, text]
+  }
+
 
       else
         text = @ss.string[@ss.pos .. -1]

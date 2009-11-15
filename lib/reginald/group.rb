@@ -12,7 +12,7 @@ module Reginald
     end
 
     def to_s
-      "(#{capture ? '' : '?:'}#{expression.to_s})#{quantifier}"
+      "(#{capture ? '' : '?:'}#{expression.to_s_without_options})#{quantifier}"
     end
 
     def to_regexp

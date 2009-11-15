@@ -14,7 +14,11 @@ rule
 
   <(\w+)>     { [:NAME, @ss[1]] }
 
-  \(          { [:LPAREN,  text] }
+  \(          {
+    @state = :OPTIONS if @ss.peek(1) == '?';
+    [:LPAREN, text]
+  }
+
   \)          { [:RPAREN,  text] }
   \[          { [:LBRACK,  text] }
   \]          { [:RBRACK,  text] }
@@ -30,4 +34,29 @@ rule
 
   \\(.)       { [:CHAR, @ss[1]] }
   .           { [:CHAR, text] }
+
+  :OPTIONS  \?  {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_QMARK, text]
+  }
+  :OPTIONS  \-  {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_MINUS, text]
+  }
+  :OPTIONS  m {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_MULTILINE, text]
+  }
+  :OPTIONS  i {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_IGNORECASE, text]
+  }
+  :OPTIONS  x {
+    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
+    [:OPTIONS_EXTENDED, text]
+  }
+  :OPTIONS  \:  {
+    @state = nil;
+    [:OPTIONS_COLON, text]
+  }
 end

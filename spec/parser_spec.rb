@@ -119,22 +119,22 @@ describe Reginald::Parser do
 
   it "should parse alternation" do
     Reginald.parse(%r{foo|bar}).should ==
-      expr([alt(
+      expr(alt(
         expr(char('f'), char('o'), char('o')),
         expr(char('b'), char('a'), char('r'))
-      )])
+      ))
   end
 
   it "should parse multiple alternations" do
     Reginald.parse(%r{abc/(foo|bar|baz)/xyz}).should == expr(
       char('a'), char('b'), char('c'), char('/'),
-      group(expr([
+      group(expr(
         alt(
           expr(char('f'), char('o'), char('o')),
           expr(char('b'), char('a'), char('r')),
           expr(char('b'), char('a'), char('z'))
         )
-      ]), :index => 0),
+      ), :index => 0),
       char('/'), char('x'), char('y'), char('z')
     )
   end
@@ -194,6 +194,24 @@ describe Reginald::Parser do
         char('r')
       ], :capture => false)
     ]
+  end
+
+  it "should parse joined expression with no options" do
+    Reginald.parse(Regexp.union(/skiing/, /sledding/)).should == expr(
+      alt(
+        expr(group(expr(char('s'), char('k'), char('i'), char('i'), char('n'), char('g')), :capture => false)),
+        group(expr(char('s'), char('l'), char('e'), char('d'), char('d'), char('i'), char('n'), char('g')), :capture => false)
+      )
+    )
+  end
+
+  it "should parse joined expression with ignore case" do
+    Reginald.parse(Regexp.union(/dogs/, /cats/i)).should == expr(
+      alt(
+        expr(group(expr(char('d'), char('o'), char('g'), char('s')), :capture => false)),
+        group(expr(char('c'), char('a'), char('t'), char('s'), :ignorecase => true), :capture => false)
+      )
+    )
   end
 
   if Reginald.regexp_supports_named_captures?
