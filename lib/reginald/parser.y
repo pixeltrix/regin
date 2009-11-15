@@ -30,15 +30,19 @@ rule
                     | QMARK
 
   group: LPAREN expression RPAREN { result = Group.new(val[1]) }
-       | LPAREN options expression RPAREN {
-          options = val[1];
-          result = Group.new(val[2]);
-          result.capture = options[:capture];
+       | LPAREN QMARK options COLON expression RPAREN {
+          result = Group.new(val[4]);
+          result.capture = false;
+          options = val[2];
           result.expression.multiline = options[:multiline];
           result.expression.ignorecase = options[:ignorecase];
           result.expression.extended = options[:extended];
         }
-       | LPAREN OPTIONS_QMARK NAME expression RPAREN {
+       | LPAREN QMARK COLON expression RPAREN {
+          result = Group.new(val[3]);
+          result.capture = false;
+        }
+       | LPAREN QMARK NAME expression RPAREN {
           result = Group.new(val[3]);
           result.name = val[2];
         }
@@ -52,15 +56,15 @@ rule
             | LCURLY CHAR CHAR CHAR RCURLY { result = val.join }
             | LCURLY CHAR RCURLY { result = val.join }
 
-  options: OPTIONS_QMARK OPTIONS_MINUS OPTIONS_MULTILINE OPTIONS_IGNORECASE OPTIONS_EXTENDED OPTIONS_COLON {
-            result = { :capture => false, :multiline => false, :ignorecase => false, :extended => false }
-          }
-         | OPTIONS_QMARK OPTIONS_IGNORECASE OPTIONS_MINUS OPTIONS_MULTILINE OPTIONS_EXTENDED OPTIONS_COLON {
-            result = { :capture => false, :ignorecase => true, :multiline => false, :extended => false }
-          }
-         | OPTIONS_QMARK OPTIONS_COLON {
-           result = { :capture => false, :multiline => false, :ignorecase => false, :extended => false }
-          }
+  # Inline options
+  options: MINUS modifier modifier modifier { result = { val[1] => false, val[2] => false, val[3] => false } }
+         | modifier MINUS modifier modifier { result = { val[0] => true, val[2] => false, val[3] => false } }
+         | modifier modifier MINUS modifier { result = { val[0] => true, val[1] => true, val[3] => false } }
+         | modifier modifier modifier       { result = { val[0] => true, val[1] => true, val[2] => true } }
+
+  modifier: MULTILINE  { result = :multiline }
+          | IGNORECASE { result = :ignorecase }
+          | EXTENDED   { result = :extended }
 end
 
 ---- header

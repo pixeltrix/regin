@@ -140,44 +140,24 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/\?/))
          action {
     @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
-    [:OPTIONS_QMARK, text]
+    [:QMARK, text]
   }
 
 
       when (text = @ss.scan(/\-/))
-         action {
-    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
-    [:OPTIONS_MINUS, text]
-  }
-
+         action { [:MINUS, text] }
 
       when (text = @ss.scan(/m/))
-         action {
-    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
-    [:OPTIONS_MULTILINE, text]
-  }
-
+         action { [:MULTILINE, text] }
 
       when (text = @ss.scan(/i/))
-         action {
-    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
-    [:OPTIONS_IGNORECASE, text]
-  }
-
+         action { [:IGNORECASE, text] }
 
       when (text = @ss.scan(/x/))
-         action {
-    @state = nil unless @ss.peek(1) =~ /-|m|i|x|:/
-    [:OPTIONS_EXTENDED, text]
-  }
-
+         action { [:EXTENDED, text] }
 
       when (text = @ss.scan(/\:/))
-         action {
-    @state = nil;
-    [:OPTIONS_COLON, text]
-  }
-
+         action { @state = nil; [:COLON, text] }
 
       else
         text = @ss.string[@ss.pos .. -1]
