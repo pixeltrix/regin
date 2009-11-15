@@ -19,6 +19,7 @@ module Reginald
       if args.length == 1 && args.first.instance_of?(Array)
         super(args.first)
       else
+        args = args.map { |e| e.instance_of?(String) ? Character.new(e) : e }
         super(args)
       end
     end

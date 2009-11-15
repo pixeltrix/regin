@@ -25,11 +25,7 @@ describe Reginald::Parser do
   end
 
   it "should parse characters" do
-    Reginald.parse(%r{foo}).should == [
-      char('f'),
-      char('o'),
-      char('o')
-    ]
+    Reginald.parse(%r{foo}).should == expr('f', 'o', 'o')
   end
 
   it "should parse character with quantifier" do
@@ -43,40 +39,30 @@ describe Reginald::Parser do
 
   it "should parse anchors" do
     Reginald.parse(%r{^foo}).should eql(expr(
-      anchor('^'),
-      char('f'),
-      char('o'),
-      char('o')
+      anchor('^'), 'f', 'o', 'o'
     ))
 
     Reginald.parse(%r{\Afoo}).should eql(expr(
-      anchor('\A'),
-      char('f'),
-      char('o'),
-      char('o')
+      anchor('\A'), 'f', 'o', 'o'
     ))
 
     Reginald.parse(%r{foo$}).should eql(expr(
-      char('f'),
-      char('o'),
-      char('o'),
+      'f', 'o', 'o',
       anchor('$')
     ))
 
     Reginald.parse(%r{foo\Z}).should eql(expr(
-      char('f'),
-      char('o'),
-      char('o'),
+      'f', 'o', 'o',
       anchor('\Z')
     ))
   end
 
   it "should parse wild card range" do
     Reginald.parse(%r{f..k}).should eql(expr(
-      char('f'),
+      'f',
       range('.'),
       range('.'),
-      char('k')
+      'k'
     ))
 
     result = Reginald.parse(%r{f..k})
@@ -99,11 +85,7 @@ describe Reginald::Parser do
 
   it "should parse bracket expression with special characters" do
     Reginald.parse(%r{/foo/([^/.?]+)}).should == [
-      char('/'),
-      char('f'),
-      char('o'),
-      char('o'),
-      char('/'),
+      '/', 'f', 'o', 'o', '/',
       group([range('/.?', :negate => true, :quantifier => '+')], :index => 0)
     ]
   end
@@ -120,52 +102,36 @@ describe Reginald::Parser do
   it "should parse alternation" do
     Reginald.parse(%r{foo|bar}).should ==
       expr(alt(
-        expr(char('f'), char('o'), char('o')),
-        expr(char('b'), char('a'), char('r'))
+        expr('f', 'o', 'o'),
+        expr('b', 'a', 'r')
       ))
   end
 
   it "should parse multiple alternations" do
     Reginald.parse(%r{abc/(foo|bar|baz)/xyz}).should == expr(
-      char('a'), char('b'), char('c'), char('/'),
+      'a', 'b', 'c', '/',
       group(expr(
         alt(
-          expr(char('f'), char('o'), char('o')),
-          expr(char('b'), char('a'), char('r')),
-          expr(char('b'), char('a'), char('z'))
+          expr('f', 'o', 'o'),
+          expr('b', 'a', 'r'),
+          expr('b', 'a', 'z')
         )
       ), :index => 0),
-      char('/'), char('x'), char('y'), char('z')
+      '/', 'x', 'y', 'z'
     )
   end
 
   it "should parse group" do
     Reginald.parse(%r{/foo(/bar)}).should == [
-      char('/'),
-      char('f'),
-      char('o'),
-      char('o'),
-      group([
-        char('/'),
-        char('b'),
-        char('a'),
-        char('r')
-      ], :index => 0)
+      '/', 'f', 'o', 'o',
+      group(expr('/', 'b', 'a', 'r'), :index => 0)
     ]
   end
 
   it "should parse group with quantifier" do
     Reginald.parse(%r{/foo(/bar)?}).should == [
-      char('/'),
-      char('f'),
-      char('o'),
-      char('o'),
-      group([
-        char('/'),
-        char('b'),
-        char('a'),
-        char('r')
-      ], :quantifier => '?', :index => 0)
+      '/', 'f', 'o', 'o',
+      group(expr('/', 'b', 'a', 'r'), :quantifier => '?', :index => 0)
     ]
   end
 
@@ -183,24 +149,16 @@ describe Reginald::Parser do
 
   it "should parse noncapture group" do
     Reginald.parse(%r{/foo(?:/bar)}).should == [
-      char('/'),
-      char('f'),
-      char('o'),
-      char('o'),
-      group([
-        char('/'),
-        char('b'),
-        char('a'),
-        char('r')
-      ], :capture => false)
+      '/', 'f', 'o', 'o',
+      group(expr('/', 'b', 'a', 'r'), :capture => false)
     ]
   end
 
   it "should parse joined expression with no options" do
     Reginald.parse(Regexp.union(/skiing/, /sledding/)).should == expr(
       alt(
-        expr(group(expr(char('s'), char('k'), char('i'), char('i'), char('n'), char('g')), :capture => false)),
-        group(expr(char('s'), char('l'), char('e'), char('d'), char('d'), char('i'), char('n'), char('g')), :capture => false)
+        expr(group(expr('s', 'k', 'i', 'i', 'n', 'g'), :capture => false)),
+        group(expr('s', 'l', 'e', 'd', 'd', 'i', 'n', 'g'), :capture => false)
       )
     )
   end
@@ -208,8 +166,8 @@ describe Reginald::Parser do
   it "should parse joined expression with ignore case" do
     Reginald.parse(Regexp.union(/dogs/, /cats/i)).should == expr(
       alt(
-        expr(group(expr(char('d'), char('o'), char('g'), char('s')), :capture => false)),
-        group(expr(char('c'), char('a'), char('t'), char('s'), :ignorecase => true), :capture => false)
+        expr(group(expr('d', 'o', 'g', 's'), :capture => false)),
+        group(expr('c', 'a', 't', 's', :ignorecase => true), :capture => false)
       )
     )
   end
@@ -219,15 +177,8 @@ describe Reginald::Parser do
       regexp = eval('%r{/foo(?<bar>baz)}')
 
       Reginald.parse(regexp).should == [
-        char('/'),
-        char('f'),
-        char('o'),
-        char('o'),
-        group([
-          char('b'),
-          char('a'),
-          char('z')
-        ], :name => 'bar', :index => 0)
+        '/', 'f', 'o', 'o',
+        group(expr('b', 'a', 'z'), :name => 'bar', :index => 0)
       ]
     end
 
@@ -235,9 +186,9 @@ describe Reginald::Parser do
       regexp = eval('%r{a((?<b>c))?}')
 
       Reginald.parse(regexp).should == [
-        char('a'),
+        'a',
         group([
-          group([char('c')], :name => 'b', :index => 1)
+          group(expr('c'), :name => 'b', :index => 1)
         ], :quantifier => '?', :index => 0)
       ]
     end
