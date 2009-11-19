@@ -144,7 +144,9 @@ describe Reginald::Parser do
     re = /     # foo
            bar # baz
          /x
-    Reginald.parse(re)
+    Reginald.parse(re).should == expr(
+      'b', 'a', 'r'
+    )
   end
 
   it "should parse noncapture group" do
