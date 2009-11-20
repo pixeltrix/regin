@@ -12,7 +12,11 @@ module Reginald
     end
 
     def to_s
-      "(#{capture ? '' : '?:'}#{expression.to_s_without_options})#{quantifier}"
+      if expression.options == 0
+        "(#{capture ? '' : '?:'}#{expression.to_s_without_options})#{quantifier}"
+      else
+        expression.to_s
+      end
     end
 
     def to_regexp
