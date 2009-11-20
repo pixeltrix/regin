@@ -14,8 +14,10 @@ module Reginald
     def to_s
       if expression.options == 0
         "(#{capture ? '' : '?:'}#{expression.to_s_without_options})#{quantifier}"
+      elsif capture == false
+        "#{expression.to_s}#{quantifier}"
       else
-        expression.to_s
+        "(#{expression.to_s})#{quantifier}"
       end
     end
 
