@@ -20,7 +20,7 @@ module Reginald
     end
 
     def inspect
-      to_s.inspect
+      "#<Character #{to_s.inspect}>"
     end
 
     def match(char)
