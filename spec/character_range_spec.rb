@@ -1,4 +1,4 @@
-require 'reginald'
+require 'test_helper'
 
 describe Reginald::CharacterClass, "from a-z" do
   before do

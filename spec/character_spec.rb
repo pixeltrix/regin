@@ -1,4 +1,4 @@
-require 'reginald'
+require 'test_helper'
 
 describe Reginald::Character, "with value 'a'" do
   before do

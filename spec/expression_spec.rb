@@ -1,4 +1,4 @@
-require 'reginald'
+require 'test_helper'
 
 describe Reginald::Expression, "with capture" do
   before do

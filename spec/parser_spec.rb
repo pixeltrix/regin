@@ -1,4 +1,4 @@
-require 'reginald'
+require 'test_helper'
 
 describe Reginald::Parser do
   it "should parse slashes" do

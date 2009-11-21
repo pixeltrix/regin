@@ -1,4 +1,4 @@
-require 'reginald'
+require 'test_helper'
 
 describe Reginald::Group, "with capture" do
   before do
