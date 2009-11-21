@@ -17,9 +17,7 @@ describe Reginald::Character, "with value 'a'" do
     @character.quantifier.should be_nil
   end
 
-  it "should be a literal character" do
-    @character.should be_literal
-  end
+  it { @character.should be_literal }
 
   it "should return a string expression of itself" do
     @character.to_s.should == "a"
@@ -29,25 +27,12 @@ describe Reginald::Character, "with value 'a'" do
     @character.to_regexp.should == /\Aa\Z/
   end
 
-  it "should match 'a'" do
-    @character.match('a').should be_true
-  end
+  it { @character.should match('a') }
+  it { @character.should_not match('b') }
 
-  it "should not match 'b'" do
-    @character.match('b').should be_nil
-  end
-
-  it "should include 'a'" do
-    @character.should include('a')
-  end
-
-  it "should not include 'b'" do
-    @character.should_not include('b')
-  end
-
-  it "should not include empty string" do
-    @character.should_not include('')
-  end
+  it { @character.should include('a') }
+  it { @character.should_not include('b') }
+  it { @character.should_not include('') }
 
   it "should == another 'a' character" do
     @character.should == Reginald::Character.new('a')
@@ -85,9 +70,7 @@ describe Reginald::Character, "with value 'a' and optional quantifier" do
     @character.quantifier.should == '?'
   end
 
-  it "should not be a literal character" do
-    @character.should_not be_literal
-  end
+  it { @character.should_not be_literal }
 
   it "should return a string expression of itself" do
     @character.to_s.should == 'a?'
@@ -97,29 +80,13 @@ describe Reginald::Character, "with value 'a' and optional quantifier" do
     @character.to_regexp.should == /\Aa?\Z/
   end
 
-  it "should match 'a'" do
-    @character.match('a').should be_true
-  end
+  it { @character.should match('a') }
+  it { @character.should_not match('b') }
+  it { @character.should match('') }
 
-  it "should not match 'b'" do
-    @character.match('b').should be_nil
-  end
-
-  it "should match empty string" do
-    @character.match('').should be_true
-  end
-
-  it "should include 'a'" do
-    @character.should include('a')
-  end
-
-  it "should not include 'b'" do
-    @character.should_not include('b')
-  end
-
-  it "should not include ''" do
-    @character.should_not include('')
-  end
+  it { @character.should include('a') }
+  it { @character.should_not include('b') }
+  it { @character.should_not include('') }
 
   it "should == another 'a' character" do
     other_char = Reginald::Character.new('a')
@@ -146,9 +113,7 @@ describe Reginald::Character, "with value 'a' and repeator quantifier" do
     @character.quantifier.should == '{2,3}'
   end
 
-  it "should not be a literal character" do
-    @character.should_not be_literal
-  end
+  it { @character.should_not be_literal }
 
   it "should return a string expression of itself" do
     @character.to_s.should == 'a{2,3}'
@@ -158,33 +123,14 @@ describe Reginald::Character, "with value 'a' and repeator quantifier" do
     @character.to_regexp.should == /\Aa{2,3}\Z/
   end
 
-  it "should match 'aa'" do
-    @character.match('aa').should be_true
-  end
+  it { @character.should match('aa') }
+  it { @character.should match('aaa') }
+  it { @character.should_not match('a') }
+  it { @character.should_not match('aaaa') }
+  it { @character.should_not match('') }
 
-  it "should match 'aaa'" do
-    @character.match('aaa').should be_true
-  end
-
-  it "should not match 'a'" do
-    @character.match('a').should be_nil
-  end
-
-  it "should not match 'aaaa'" do
-    @character.match('aaaa').should be_nil
-  end
-
-  it "should not match empty string" do
-    @character.match('').should be_nil
-  end
-
-  it "should include 'a'" do
-    @character.should include('a')
-  end
-
-  it "should not include 'b'" do
-    @character.should_not include('b')
-  end
+  it { @character.should include('a') }
+  it { @character.should_not include('b') }
 
   it "should be freezable" do
     @character.freeze
