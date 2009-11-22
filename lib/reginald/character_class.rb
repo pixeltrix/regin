@@ -1,6 +1,6 @@
 module Reginald
   class CharacterClass < Character
-    attr_accessor :negate, :quantifier
+    attr_accessor :negate
 
     def negated?
       negate ? true : false
