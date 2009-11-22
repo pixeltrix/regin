@@ -1,9 +1,9 @@
 module Reginald
-  class Character < String
+  class Character < Struct.new(:value)
     attr_accessor :quantifier
 
-    def initialize(char)
-      raise ArgumentError if char.length != 1
+    def initialize(value)
+      raise ArgumentError if value.length != 1
       super
     end
 
@@ -12,7 +12,7 @@ module Reginald
     end
 
     def to_s
-      "#{super}#{quantifier}"
+      "#{value}#{quantifier}"
     end
 
     def to_regexp
@@ -28,7 +28,7 @@ module Reginald
     end
 
     def include?(char)
-      to_str == char
+      value == char
     end
 
     def ==(other)
@@ -41,8 +41,9 @@ module Reginald
     end
 
     def eql?(other)
-      other.is_a?(self.class) && super &&
-        self.quantifier == other.quantifier
+      other.is_a?(self.class) &&
+        value.eql?(other.value) &&
+        quantifier.eql?(other.quantifier)
     end
 
     def freeze

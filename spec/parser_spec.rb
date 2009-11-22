@@ -2,26 +2,26 @@ require 'test_helper'
 
 describe Reginald::Parser do
   it "should parse slashes" do
-    /\//.should parse(char('/'))
-    %r{/}.should parse(char('/'))
-    %r{\/}.should parse(char('/'))
+    /\//.should parse(expr(char('/')))
+    %r{/}.should parse(expr(char('/')))
+    %r{\/}.should parse(expr(char('/')))
   end
 
   it "should parse escaped specials" do
-    %r{\^}.should parse(char('^'))
-    %r{\.}.should parse(char('.'))
-    %r{\[}.should parse(char('['))
-    %r{\]}.should parse(char(']'))
-    %r{\$}.should parse(char('$'))
-    %r{\(}.should parse(char('('))
-    %r{\)}.should parse(char(')'))
-    %r{\|}.should parse(char('|'))
-    %r{\*}.should parse(char('*'))
-    %r{\+}.should parse(char('+'))
-    %r{\?}.should parse(char('?'))
-    %r{\{}.should parse(char('{'))
-    %r{\}}.should parse(char('}'))
-    %r{\\}.should parse(char('\\'))
+    %r{\^}.should parse(expr(char('^')))
+    %r{\.}.should parse(expr(char('.')))
+    %r{\[}.should parse(expr(char('[')))
+    %r{\]}.should parse(expr(char(']')))
+    %r{\$}.should parse(expr(char('$')))
+    %r{\(}.should parse(expr(char('(')))
+    %r{\)}.should parse(expr(char(')')))
+    %r{\|}.should parse(expr(char('|')))
+    %r{\*}.should parse(expr(char('*')))
+    %r{\+}.should parse(expr(char('+')))
+    %r{\?}.should parse(expr(char('?')))
+    %r{\{}.should parse(expr(char('{')))
+    %r{\}}.should parse(expr(char('}')))
+    %r{\\}.should parse(expr(char('\\')))
   end
 
   it "should parse characters" do
@@ -29,12 +29,12 @@ describe Reginald::Parser do
   end
 
   it "should parse character with quantifier" do
-    %r{a*}.should parse(char('a', :quantifier => '*'))
-    %r{a+}.should parse(char('a', :quantifier => '+'))
-    %r{a?}.should parse(char('a', :quantifier => '?'))
-    %r{a?}.should parse(char('a', :quantifier => '?'))
-    %r{a{3}}.should parse(char('a', :quantifier => '{3}'))
-    %r{a{3,4}}.should parse(char('a', :quantifier => '{3,4}'))
+    %r{a*}.should parse(expr(char('a', :quantifier => '*')))
+    %r{a+}.should parse(expr(char('a', :quantifier => '+')))
+    %r{a?}.should parse(expr(char('a', :quantifier => '?')))
+    %r{a?}.should parse(expr(char('a', :quantifier => '?')))
+    %r{a{3}}.should parse(expr(char('a', :quantifier => '{3}')))
+    %r{a{3,4}}.should parse(expr(char('a', :quantifier => '{3,4}')))
   end
 
   it "should parse anchors" do
