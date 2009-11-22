@@ -47,6 +47,7 @@ module Reginald
     end
 
     def freeze
+      value.freeze
       quantifier.freeze
       super
     end

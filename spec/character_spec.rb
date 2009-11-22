@@ -162,6 +162,10 @@ describe Reginald::Character do
 
     it { @character.should be_frozen }
 
+    it "value should be frozen" do
+      @character.value.should be_frozen
+    end
+
     it "quantifier should be frozen" do
       @character.quantifier.should be_frozen
     end

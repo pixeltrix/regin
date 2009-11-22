@@ -23,7 +23,7 @@ module Reginald
     end
 
     def inspect
-      to_s.inspect
+      "#<CharacterClass #{to_s.inspect}>"
     end
 
     def match(char)
@@ -46,9 +46,9 @@ module Reginald
 
     def eql?(other)
       other.is_a?(self.class) &&
-        self.value == other.value &&
-        self.negate == other.negate &&
-        self.quantifier == other.quantifier
+        value == other.value &&
+        negate == other.negate &&
+        quantifier == other.quantifier
     end
 
     def freeze
