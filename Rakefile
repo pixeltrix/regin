@@ -1,10 +1,3 @@
-begin
-  require 'mg'
-  $spec = MG.new('reginald.gemspec').spec
-rescue LoadError
-end
-
-
 task :default => [:compile, :spec]
 
 
