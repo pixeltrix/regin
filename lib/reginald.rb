@@ -53,4 +53,10 @@ module Reginald
 
     expression
   end
+
+  def self.compile(source)
+    regexp = Regexp.compile(source)
+    expression = parse(regexp)
+    Regexp.compile(expression.to_s_without_options, expression.options)
+  end
 end
