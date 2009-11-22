@@ -15,6 +15,9 @@ rule
   <(\w+)>     { [:NAME, @ss[1]] }
 
   \(          {
+    @capture_index_stack << @capture_index
+    @capture_index += 1
+
     @state = :OPTIONS if @ss.peek(1) == '?';
     [:LPAREN, text]
   }
@@ -30,7 +33,6 @@ rule
   \?          { [:QMARK, text] }
   \+          { [:PLUS,  text] }
   \*          { [:STAR,  text] }
-  \:          { [:COLON, text] }
 
   \\(.)       { [:CHAR, @ss[1]] }
   .           { [:CHAR, text] }
@@ -43,5 +45,10 @@ rule
   :OPTIONS  m   { [:MULTILINE, text] }
   :OPTIONS  i   { [:IGNORECASE, text] }
   :OPTIONS  x   { [:EXTENDED, text] }
-  :OPTIONS  \:  { @state = nil; [:COLON, text] }
+  :OPTIONS  \:  {
+    @capture_index_stack.pop
+    @capture_index -= 1
+    @state = nil;
+    [:COLON, text]
+  }
 end

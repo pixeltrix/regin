@@ -25,11 +25,11 @@ module Reginald
       regexp = strip_extended_whitespace_and_comments(regexp)
 
       parser = Parser.new
+      parser.capture_index = 0
+      parser.capture_index_stack = []
       expression = parser.scan_str(regexp.source)
 
       expression.ignorecase = regexp.casefold?
-
-      tag_captures!(expression)
 
       expression
     end
@@ -53,25 +53,6 @@ module Reginald
         else
           regexp
         end
-      end
-
-      # TODO: The parser should tag capture indexes
-      def tag_captures!(expression)
-        capture_index = 0
-        iterator = Proc.new do |expr|
-          expr.each do |atom|
-            if atom.is_a?(Group)
-              if atom.capture
-                atom.index = capture_index
-                capture_index += 1
-              end
-              iterator.call(atom)
-            elsif atom.is_a?(Expression)
-              iterator.call(atom)
-            end
-          end
-        end
-        iterator.call(expression)
       end
   end
 end

@@ -29,7 +29,10 @@ rule
                     | DOT
                     | QMARK
 
-  group: LPAREN expression RPAREN { result = Group.new(val[1]) }
+  group: LPAREN expression RPAREN {
+          result = Group.new(val[1])
+          result.index = @capture_index_stack.pop
+        }
        | LPAREN QMARK options COLON expression RPAREN {
           result = Group.new(val[4]);
           result.capture = false;
@@ -45,6 +48,7 @@ rule
        | LPAREN QMARK NAME expression RPAREN {
           result = Group.new(val[3]);
           result.name = val[2];
+          result.index = @capture_index_stack.pop
         }
 
   anchor: L_ANCHOR
@@ -69,3 +73,7 @@ end
 
 ---- header
 require 'reginald/tokenizer'
+
+---- inner
+attr_accessor :capture_index
+attr_accessor :capture_index_stack

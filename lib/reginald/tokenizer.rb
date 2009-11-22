@@ -86,6 +86,8 @@ class Parser < Racc::Parser
 
       when (text = @ss.scan(/\(/))
          action {
+    @capture_index_stack << @capture_index
+    @capture_index += 1
     @state = :OPTIONS if @ss.peek(1) == '?';
     [:LPAREN, text]
   }
@@ -121,9 +123,6 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/\*/))
          action { [:STAR,  text] }
 
-      when (text = @ss.scan(/\:/))
-         action { [:COLON, text] }
-
       when (text = @ss.scan(/\\(.)/))
          action { [:CHAR, @ss[1]] }
 
@@ -157,7 +156,13 @@ class Parser < Racc::Parser
          action { [:EXTENDED, text] }
 
       when (text = @ss.scan(/\:/))
-         action { @state = nil; [:COLON, text] }
+         action {
+    @capture_index_stack.pop
+    @capture_index -= 1
+    @state = nil;
+    [:COLON, text]
+  }
+
 
       else
         text = @ss.string[@ss.pos .. -1]

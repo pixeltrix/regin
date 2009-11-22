@@ -148,6 +148,15 @@ describe Reginald::Parser do
     re.should parse(['b', 'a', 'r'])
   end
 
+  it "should parse capture and noncapture groups and set their indexes" do
+    re = Reginald.parse(/(foo(?:non))(bar(sub))(baz)/)
+    re[0].index.should eql(0)
+    re[0][0][3].index.should be_nil
+    re[1].index.should eql(1)
+    re[1][0][3].index.should eql(2)
+    re[2].index.should eql(3)
+  end
+
   it "should parse noncapture group" do
     %r{/foo(?:/bar)}.should parse([
       '/', 'f', 'o', 'o',
