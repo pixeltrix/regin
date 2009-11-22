@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'reginald'
   s.version     = '0.0.1'
-  s.date        = '2009-11-07'
+  s.date        = '2009-11-22'
   s.summary     = 'Ruby Regexp syntax parser'
 
   s.files = Dir['lib/**/*.rb']
