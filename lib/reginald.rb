@@ -10,7 +10,7 @@ module Reginald
 
   class << self
     begin
-      eval('/(?<foo>.*)/').named_captures
+      eval('foo = /(?<foo>.*)/').named_captures
 
       def regexp_supports_named_captures?
         true
