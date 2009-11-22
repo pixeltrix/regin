@@ -51,23 +51,23 @@ class Parser < Racc::Parser
     token = case @state
     when nil
       case
-      when (text = @ss.scan(/\\c/))
-         action { [:CHAR_CLASS, text] }
+      when (text = @ss.scan(/\\d/))
+         action { [:CCLASS, CharacterClass.new('\d')] }
+
+      when (text = @ss.scan(/\\D/))
+         action { [:CCLASS, CharacterClass.new('\D')] }
 
       when (text = @ss.scan(/\\s/))
-         action { [:CHAR_CLASS, text] }
+         action { [:CCLASS, CharacterClass.new('\s')] }
 
       when (text = @ss.scan(/\\S/))
-         action { [:CHAR_CLASS, text] }
-
-      when (text = @ss.scan(/\\d/))
-         action { [:CHAR_CLASS, text] }
+         action { [:CCLASS, CharacterClass.new('\S')] }
 
       when (text = @ss.scan(/\\w/))
-         action { [:CHAR_CLASS, text] }
+         action { [:CCLASS, CharacterClass.new('\w')] }
 
       when (text = @ss.scan(/\\W/))
-         action { [:CHAR_CLASS, text] }
+         action { [:CCLASS, CharacterClass.new('\W')] }
 
       when (text = @ss.scan(/\^/))
          action { [:L_ANCHOR, text] }
@@ -97,10 +97,7 @@ class Parser < Racc::Parser
          action { [:RPAREN,  text] }
 
       when (text = @ss.scan(/\[/))
-         action { [:LBRACK,  text] }
-
-      when (text = @ss.scan(/\]/))
-         action { [:RBRACK,  text] }
+         action { @state = :CCLASS; [:LBRACK,  text] }
 
       when (text = @ss.scan(/\{/))
          action { [:LCURLY,  text] }
@@ -128,6 +125,67 @@ class Parser < Racc::Parser
 
       when (text = @ss.scan(/./))
          action { [:CHAR, text] }
+
+      else
+        text = @ss.string[@ss.pos .. -1]
+        raise  ScanError, "can not match: '" + text + "'"
+      end  # if
+
+    when :CCLASS
+      case
+      when (text = @ss.scan(/\]/))
+         action { @state = nil; [:RBRACK, text] }
+
+      when (text = @ss.scan(/\^/))
+         action { [:NEGATE, text] }
+
+      when (text = @ss.scan(/:alnum:/))
+         action { [:LC_CTYPE, CharacterClass::ALNUM] }
+
+      when (text = @ss.scan(/:alpha:/))
+         action { [:LC_CTYPE, CharacterClass::ALPHA] }
+
+      when (text = @ss.scan(/:ascii:/))
+         action { [:LC_CTYPE, CharacterClass::ASCII] }
+
+      when (text = @ss.scan(/:blank:/))
+         action { [:LC_CTYPE, CharacterClass::BLANK] }
+
+      when (text = @ss.scan(/:cntrl:/))
+         action { [:LC_CTYPE, CharacterClass::CNTRL] }
+
+      when (text = @ss.scan(/:digit:/))
+         action { [:LC_CTYPE, CharacterClass::DIGIT] }
+
+      when (text = @ss.scan(/:graph:/))
+         action { [:LC_CTYPE, CharacterClass::GRAPH] }
+
+      when (text = @ss.scan(/:lower:/))
+         action { [:LC_CTYPE, CharacterClass::LOWER] }
+
+      when (text = @ss.scan(/:print:/))
+         action { [:LC_CTYPE, CharacterClass::PRINT] }
+
+      when (text = @ss.scan(/:punct:/))
+         action { [:LC_CTYPE, CharacterClass::PUNCT] }
+
+      when (text = @ss.scan(/:space:/))
+         action { [:LC_CTYPE, CharacterClass::SPACE] }
+
+      when (text = @ss.scan(/:upper:/))
+         action { [:LC_CTYPE, CharacterClass::UPPER] }
+
+      when (text = @ss.scan(/:word;/))
+         action { [:LC_CTYPE, CharacterClass::WORD] }
+
+      when (text = @ss.scan(/:xdigit:/))
+         action { [:LC_CTYPE, CharacterClass::XDIGIT] }
+
+      when (text = @ss.scan(/\\(.)/))
+         action { [:CHAR, @ss[1]] }
+
+      when (text = @ss.scan(/./))
+         action { [:CHAR,     text] }
 
       else
         text = @ss.string[@ss.pos .. -1]

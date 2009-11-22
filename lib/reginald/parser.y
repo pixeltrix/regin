@@ -15,19 +15,16 @@ rule
         | atom
 
   atom: group
+      | LBRACK LC_CTYPE RBRACK { result = val[1] }
       | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
-      | LBRACK L_ANCHOR bracket_expression RBRACK { result = CharacterClass.new(val[2]); result.negate = true }
-      | CHAR_CLASS { result = CharacterClass.new(val[0]) }
-      | DOT { result = CharacterClass.new(val[0]) }
+      | LBRACK NEGATE bracket_expression RBRACK { result = CharacterClass.new(val[2]); result.negate = true }
+      | CCLASS { result = val[0] }
+      | DOT { result = CharacterClass.new('.') }
       | anchor { result = Anchor.new(val[0]) }
       | CHAR { result = Character.new(val[0]) }
 
   bracket_expression: bracket_expression CHAR { result = val.join }
-                    | bracket_expression DOT { result = val.join }
-                    | bracket_expression QMARK { result = val.join }
                     | CHAR
-                    | DOT
-                    | QMARK
 
   group: LPAREN expression RPAREN {
           result = Group.new(val[1])

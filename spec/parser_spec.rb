@@ -73,8 +73,28 @@ describe Reginald::Parser do
     result[3].should include('k')
   end
 
-  it "should parse digit range" do
-    %r{\ds}.should parse([range('\d'), char('s')])
+  it "should parse character ranges" do
+    %r{\d}.should parse([range('\d')])
+    %r{\D}.should parse([range('\D')])
+    %r{\s}.should parse([range('\s')])
+    %r{\S}.should parse([range('\S')])
+    %r{\w}.should parse([range('\w')])
+    %r{\W}.should parse([range('\W')])
+
+    %r{[:alnum:]}.should parse([Reginald::CharacterClass::ALNUM])
+    %r{[:alpha:]}.should parse([Reginald::CharacterClass::ALPHA])
+    %r{[:ascii:]}.should parse([Reginald::CharacterClass::ASCII])
+    %r{[:blank:]}.should parse([Reginald::CharacterClass::BLANK])
+    %r{[:cntrl:]}.should parse([Reginald::CharacterClass::CNTRL])
+    %r{[:digit:]}.should parse([Reginald::CharacterClass::DIGIT])
+    %r{[:graph:]}.should parse([Reginald::CharacterClass::GRAPH])
+    %r{[:lower:]}.should parse([Reginald::CharacterClass::LOWER])
+    %r{[:print:]}.should parse([Reginald::CharacterClass::PRINT])
+    %r{[:punct:]}.should parse([Reginald::CharacterClass::PUNCT])
+    %r{[:space:]}.should parse([Reginald::CharacterClass::SPACE])
+    %r{[:upper:]}.should parse([Reginald::CharacterClass::UPPER])
+    %r{[:word:]}.should parse([Reginald::CharacterClass::WORD])
+    %r{[:xdigit:]}.should parse([Reginald::CharacterClass::XDIGIT])
   end
 
   it "should parse bracket expression" do

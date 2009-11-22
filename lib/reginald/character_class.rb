@@ -1,5 +1,20 @@
 module Reginald
   class CharacterClass < Character
+    ALNUM = new(':alnum:').freeze
+    ALPHA = new(':alpha:').freeze
+    ASCII = new(':ascii:').freeze
+    BLANK = new(':blank:').freeze
+    CNTRL = new(':cntrl:').freeze
+    DIGIT = new(':digit:').freeze
+    GRAPH = new(':graph:').freeze
+    LOWER = new(':lower:').freeze
+    PRINT = new(':print:').freeze
+    PUNCT = new(':punct:').freeze
+    SPACE = new(':space:').freeze
+    UPPER = new(':upper:').freeze
+    WORD = new(':word:').freeze
+    XDIGIT = new(':xdigit:').freeze
+
     attr_accessor :negate
 
     def negated?
@@ -11,7 +26,7 @@ module Reginald
     end
 
     def to_s
-      if value == '.' || value == '\d'
+      if value == '.' || value =~ /^\\[dDsSwW]$/
         super
       else
         "[#{negate && '^'}#{value}]#{quantifier}"
