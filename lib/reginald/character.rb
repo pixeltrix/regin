@@ -1,5 +1,5 @@
 module Reginald
-  class Character < Struct.new(:value)
+  class Character < Atom
     attr_accessor :quantifier
 
     def literal?
@@ -12,10 +12,6 @@ module Reginald
 
     def to_regexp
       Regexp.compile("\\A#{to_s}\\Z")
-    end
-
-    def inspect
-      "#<#{self.class.to_s.sub('Reginald::', '')} #{to_s.inspect}>"
     end
 
     def match(char)
@@ -42,7 +38,6 @@ module Reginald
     end
 
     def freeze
-      value.freeze
       quantifier.freeze
       super
     end
