@@ -68,9 +68,9 @@ rule
           | EXTENDED   { result = :extended }
 end
 
----- header
-require 'reginald/tokenizer'
-
 ---- inner
 attr_accessor :capture_index
 attr_accessor :capture_index_stack
+
+---- footer
+require 'reginald/tokenizer'

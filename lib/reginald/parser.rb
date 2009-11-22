@@ -5,14 +5,12 @@
 #
 
 require 'racc/parser.rb'
-
-require 'reginald/tokenizer'
-
 module Reginald
   class Parser < Racc::Parser
 
 attr_accessor :capture_index
 attr_accessor :capture_index_stack
+
 ##### State transition tables begin ###
 
 racc_action_table = [
@@ -385,3 +383,5 @@ end
 
   end   # class Parser
 end   # module Reginald
+
+require 'reginald/tokenizer'
