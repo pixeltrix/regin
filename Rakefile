@@ -26,5 +26,5 @@ end
 require 'spec/rake/spectask'
 
 Spec::Rake::SpecTask.new do |t|
-  t.ruby_opts = ['-w']
+  t.warning = true
 end
