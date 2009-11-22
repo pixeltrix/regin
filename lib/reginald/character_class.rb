@@ -1,5 +1,5 @@
 module Reginald
-  class CharacterClass < Struct.new(:value)
+  class CharacterClass < Character
     attr_accessor :negate, :quantifier
 
     def negated?
@@ -12,22 +12,10 @@ module Reginald
 
     def to_s
       if value == '.' || value == '\d'
-        "#{value}#{quantifier}"
+        super
       else
         "[#{negate && '^'}#{value}]#{quantifier}"
       end
-    end
-
-    def to_regexp
-      Regexp.compile("\\A#{to_s}\\Z")
-    end
-
-    def inspect
-      "#<CharacterClass #{to_s.inspect}>"
-    end
-
-    def match(char)
-      to_regexp.match(char)
     end
 
     def include?(char)
@@ -35,26 +23,14 @@ module Reginald
       Regexp.compile("\\A#{re}\\Z").match(char)
     end
 
-    def ==(other)
-      case other
-      when String
-        other == to_s
-      else
-        eql?(other)
-      end
-    end
-
     def eql?(other)
       other.is_a?(self.class) &&
-        value == other.value &&
         negate == other.negate &&
-        quantifier == other.quantifier
+        super
     end
 
     def freeze
-      value.freeze
       negate.freeze
-      quantifier.freeze
       super
     end
   end

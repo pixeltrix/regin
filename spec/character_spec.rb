@@ -1,18 +1,6 @@
 require 'test_helper'
 
 describe Reginald::Character do
-  context "with value 'ab'" do
-    it "can not have a length greater than 1" do
-      lambda { Reginald::Character.new('ab') }.should raise_error(ArgumentError)
-    end
-  end
-
-  context "with value ''" do
-    it "can not have a length less than 1" do
-      lambda { Reginald::Character.new('') }.should raise_error(ArgumentError)
-    end
-  end
-
   context "with value 'a'" do
     before do
       @character = Reginald::Character.new('a')

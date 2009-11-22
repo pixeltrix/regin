@@ -2,11 +2,6 @@ module Reginald
   class Character < Struct.new(:value)
     attr_accessor :quantifier
 
-    def initialize(value)
-      raise ArgumentError if value.length != 1
-      super
-    end
-
     def literal?
       quantifier.nil?
     end
@@ -20,7 +15,7 @@ module Reginald
     end
 
     def inspect
-      "#<Character #{to_s.inspect}>"
+      "#<#{self.class.to_s.sub('Reginald::', '')} #{to_s.inspect}>"
     end
 
     def match(char)
