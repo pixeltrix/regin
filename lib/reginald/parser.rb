@@ -300,9 +300,9 @@ def _reduce_18(val, _values, result)
           result = Group.new(val[4]);
           result.capture = false;
           options = val[2];
-          result.expression.multiline = options[:multiline];
+          result.expression.multiline  = options[:multiline];
           result.expression.ignorecase = options[:ignorecase];
-          result.expression.extended = options[:extended];
+          result.expression.extended   = options[:extended];
         
     result
 end

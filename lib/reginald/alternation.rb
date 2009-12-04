@@ -1,5 +1,5 @@
 module Reginald
-  class Alternation < Array
+  class Alternation < Collection
     def self.reduce(alternation_or_expression, expression)
       if alternation_or_expression.first.is_a?(Alternation)
         alternation_or_expression = alternation_or_expression.first
@@ -22,29 +22,16 @@ module Reginald
       false
     end
 
-    def to_s
-      map { |e| e.to_s }.join('|')
+    def options
+      0
     end
 
-    def to_regexp
-      Regexp.compile("\\A#{to_s}\\Z")
+    def to_s(parent = false)
+      map { |e| e.to_s(parent) }.join('|')
     end
 
     def inspect
       to_s.inspect
-    end
-
-    def match(char)
-      to_regexp.match(char)
-    end
-
-    def include?(char)
-      any? { |e| e.include?(char) }
-    end
-
-    def freeze
-      each { |e| e.freeze }
-      super
     end
   end
 end

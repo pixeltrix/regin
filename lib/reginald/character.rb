@@ -3,15 +3,19 @@ module Reginald
     attr_accessor :quantifier
 
     def literal?
-      quantifier.nil?
+      quantifier.nil? && !ignorecase
     end
 
-    def to_s
-      "#{value}#{quantifier}"
+    def to_s(parent = false)
+      if !parent && ignorecase
+        "(?i-mx:#{value})#{quantifier}"
+      else
+        "#{value}#{quantifier}"
+      end
     end
 
     def to_regexp
-      Regexp.compile("\\A#{to_s}\\Z")
+      Regexp.compile("\\A#{to_s(true)}\\Z", ignorecase)
     end
 
     def match(char)
@@ -19,22 +23,15 @@ module Reginald
     end
 
     def include?(char)
-      value == char
-    end
-
-    def ==(other)
-      case other
-      when String
-        other == to_s
+      if ignorecase
+        value.downcase == char.downcase
       else
-        eql?(other)
+        value == char
       end
     end
 
     def eql?(other)
-      other.is_a?(self.class) &&
-        value.eql?(other.value) &&
-        quantifier.eql?(other.quantifier)
+      super && quantifier.eql?(other.quantifier)
     end
 
     def freeze

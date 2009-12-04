@@ -1,6 +1,7 @@
 module Reginald
-  class Expression < Array
-    attr_accessor :multiline, :ignorecase, :extended
+  class Expression < Collection
+    attr_reader :ignorecase
+    attr_accessor :multiline, :extended
 
     def self.reduce(expression_or_atom, atom = nil)
       if expression_or_atom.is_a?(Expression)
@@ -14,7 +15,7 @@ module Reginald
     end
 
     def initialize(*args)
-      @multiline = @ignorecase = @extended = false
+      @multiline = @ignorecase = @extended = nil
 
       if args.length == 1 && args.first.instance_of?(Array)
         super(args.first)
@@ -24,8 +25,17 @@ module Reginald
       end
     end
 
+    def ignorecase=(ignorecase)
+      if @ignorecase.nil?
+        super
+        @ignorecase = ignorecase
+      else
+        false
+      end
+    end
+
     def literal?
-      ignorecase == false && all? { |e| e.literal? }
+      !ignorecase && all? { |e| e.literal? }
     end
 
     def options
@@ -43,13 +53,9 @@ module Reginald
       nil
     end
 
-    def to_s_without_options
-      map { |e| e.to_s }.join
-    end
-
-    def to_s
-      if options == 0
-        to_s_without_options
+    def to_s(parent = false)
+      if parent || options == 0
+        map { |e| e.to_s(parent) }.join
       else
         with, without = [], []
         multiline ? (with << 'm') : (without << 'm')
@@ -59,51 +65,23 @@ module Reginald
         with = with.join
         without = without.any? ? "-#{without.join}" : ''
 
-        "(?#{with}#{without}:#{to_s_without_options})"
+        "(?#{with}#{without}:#{map { |e| e.to_s(true) }.join})"
       end
-    end
-
-    def to_regexp
-      Regexp.compile("\\A#{to_s_without_options}\\Z", options)
     end
 
     def inspect
       "#<Expression #{to_s.inspect}>"
     end
 
-    def match(char)
-      to_regexp.match(char)
-    end
-
-    def include?(char)
-      any? { |e| e.include?(char) }
-    end
-
     def casefold?
       ignorecase
     end
 
-    def ==(other)
-      case other
-      when String
-        other == to_s
-      when Array
-        super
-      else
-        eql?(other)
-      end
-    end
-
     def eql?(other)
-      other.is_a?(self.class) && super &&
+      super &&
         self.multiline == other.multiline &&
         self.ignorecase == other.ignorecase &&
         self.extended == other.extended
-    end
-
-    def freeze
-      each { |e| e.freeze }
-      super
     end
   end
 end

@@ -141,6 +141,40 @@ describe Reginald::Character do
     it { @character.should_not include('b') }
   end
 
+  context "with value 'a' and ignorecase" do
+    before do
+      @character = Reginald::Character.new('a')
+      @character.ignorecase = true
+    end
+
+    it "should have no quantifier" do
+      @character.quantifier.should be_nil
+    end
+
+    it { @character.should_not be_literal }
+
+    it "should return a string expression of itself" do
+      @character.to_s.should == "(?i-mx:a)"
+    end
+
+    it "should return a regexp of itself" do
+      @character.to_regexp.should == /\Aa\Z/i
+    end
+
+    it "should be inspectable" do
+      @character.inspect.should == '#<Character "(?i-mx:a)">'
+    end
+
+    it { @character.should match('a') }
+    it { @character.should match('A') }
+    it { @character.should_not match('b') }
+
+    it { @character.should include('a') }
+    it { @character.should include('A') }
+    it { @character.should_not include('b') }
+    it { @character.should_not include('') }
+  end
+
   context "that is frozen" do
     before do
       @character = Reginald::Character.new('a')

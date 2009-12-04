@@ -15,6 +15,12 @@ module Reginald
     WORD = new(':word:').freeze
     XDIGIT = new(':xdigit:').freeze
 
+    def ignorecase=(ignorecase)
+      if to_s !~ /\A\[:.*:\]\Z/
+        super
+      end
+    end
+
     attr_accessor :negate
 
     def negated?
@@ -25,11 +31,19 @@ module Reginald
       false
     end
 
-    def to_s
-      if value == '.' || value =~ /^\\[dDsSwW]$/
-        super
+    def bracketed?
+      value != '.' && value !~ /^\\[dDsSwW]$/
+    end
+
+    def to_s(parent = false)
+      if bracketed?
+        if !parent && ignorecase
+          "(?i-mx:[#{negate && '^'}#{value}])#{quantifier}"
+        else
+          "[#{negate && '^'}#{value}]#{quantifier}"
+        end
       else
-        "[#{negate && '^'}#{value}]#{quantifier}"
+        super
       end
     end
 
@@ -39,9 +53,7 @@ module Reginald
     end
 
     def eql?(other)
-      other.is_a?(self.class) &&
-        negate == other.negate &&
-        super
+      super && negate == other.negate
     end
 
     def freeze

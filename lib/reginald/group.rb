@@ -7,13 +7,17 @@ module Reginald
       super
     end
 
+    def ignorecase=(ignorecase)
+      expression.ignorecase = ignorecase
+    end
+
     def literal?
       quantifier.nil? && expression.literal?
     end
 
-    def to_s
+    def to_s(parent = false)
       if expression.options == 0
-        "(#{capture ? '' : '?:'}#{expression.to_s_without_options})#{quantifier}"
+        "(#{capture ? '' : '?:'}#{expression.to_s(parent)})#{quantifier}"
       elsif capture == false
         "#{expression.to_s}#{quantifier}"
       else

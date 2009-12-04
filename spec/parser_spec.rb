@@ -157,8 +157,12 @@ describe Reginald::Parser do
   end
 
   it "should parse ignorecase option" do
+    %r{abc}i.should parse(expr('a', 'b', 'c', :ignorecase => true))
+
     re = Reginald.parse(/abc/i)
     re.should be_casefold
+    re.to_s.should eql('(?i-mx:abc)')
+    re.to_regexp.should eql(%r{\Aabc\Z}i)
   end
 
   it "should parse extend expression" do
