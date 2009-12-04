@@ -36,6 +36,13 @@ module Reginald
       flag
     end
 
+    def options=(flag)
+      self.multiline  = flag & Regexp::MULTILINE != 0
+      self.ignorecase = flag & Regexp::IGNORECASE != 0
+      self.extended   = flag & Regexp::EXTENDED != 0
+      nil
+    end
+
     def to_s_without_options
       map { |e| e.to_s }.join
     end

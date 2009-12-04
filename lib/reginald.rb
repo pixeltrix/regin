@@ -29,7 +29,7 @@ module Reginald
       parser.capture_index_stack = []
       expression = parser.scan_str(regexp.source)
 
-      expression.ignorecase = regexp.casefold?
+      expression.options = regexp.options
 
       expression
     end
@@ -49,7 +49,7 @@ module Reginald
           source.gsub!(/#.+$/, '')
           source.gsub!(/\s+/, '')
           source.gsub!(/\\\//, '/')
-          regexp = Regexp.compile(source)
+          regexp = Regexp.compile(source, regexp.options)
         else
           regexp
         end
