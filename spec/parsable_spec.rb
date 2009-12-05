@@ -42,7 +42,6 @@ describe Reginald::Parser do
   it { (/abc/).should be_parsable }
   it { (/abc/x).should be_parsable }
   it { (/abc/i).should be_parsable }
-  it { (/abc/n).should be_parsable }
   it { (/^[a-z]*$/).should be_parsable }
   it { (/^[A-Z]*$/).should be_parsable }
   it { (/(.)(.)(.)/).should be_parsable }
