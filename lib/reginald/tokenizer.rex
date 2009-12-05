@@ -53,7 +53,7 @@ rule
   :CCLASS :word;    { [:LC_CTYPE, CharacterClass::WORD] }
   :CCLASS :xdigit:  { [:LC_CTYPE, CharacterClass::XDIGIT] }
   :CCLASS \\(.)     { [:CHAR, @ss[1]] }
-  :CCLASS .         { [:CHAR,     text] }
+  :CCLASS .         { [:CHAR, text] }
 
 
   :OPTIONS  \?  {
