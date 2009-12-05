@@ -78,14 +78,18 @@ rule
        | "xdigit" { result = CharacterClass::XDIGIT }
 
   # Inline options
-  options: options_str {
-    @options_stack << val[0]
-  }
-
-  options_str: MINUS modifier modifier modifier { result = { val[1] => false, val[2] => false, val[3] => false } }
-             | modifier MINUS modifier modifier { result = { val[0] => true, val[2] => false, val[3] => false } }
-             | modifier modifier MINUS modifier { result = { val[0] => true, val[1] => true, val[3] => false } }
-             | modifier modifier modifier       { result = { val[0] => true, val[1] => true, val[2] => true } }
+  options: MINUS modifier modifier modifier {
+            @options_stack << result = { val[1] => false, val[2] => false, val[3] => false }
+          }
+         | modifier MINUS modifier modifier {
+            @options_stack << result = { val[0] => true, val[2] => false, val[3] => false }
+          }
+         | modifier modifier MINUS modifier {
+            @options_stack << result = { val[0] => true, val[1] => true, val[3] => false }
+          }
+         | modifier modifier modifier       {
+            @options_stack << result = { val[0] => true, val[1] => true, val[2] => true }
+          }
 
   modifier: MULTILINE  { result = :multiline }
           | IGNORECASE { result = :ignorecase }
