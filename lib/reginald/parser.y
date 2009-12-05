@@ -15,16 +15,13 @@ rule
         | atom
 
   atom: group
-      | LBRACK LC_CTYPE RBRACK { result = val[1] }
+      | LBRACK ctype RBRACK { result = val[1] }
       | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
       | LBRACK NEGATE bracket_expression RBRACK { result = CharacterClass.new(val[2]); result.negate = true }
-      | CCLASS { result = val[0] }
+      | CCLASS { result = CharacterClass.new(val[0]) }
       | DOT { result = CharacterClass.new('.') }
       | anchor { result = Anchor.new(val[0]) }
       | CHAR { result = Character.new(val[0]) }
-
-  bracket_expression: bracket_expression CHAR { result = val.join }
-                    | CHAR
 
   group: LPAREN expression RPAREN {
           result = Group.new(val[1])
@@ -56,6 +53,28 @@ rule
             | QMARK
             | LCURLY CHAR CHAR CHAR RCURLY { result = val.join }
             | LCURLY CHAR RCURLY { result = val.join }
+
+
+  # Bracketed expressions
+  bracket_expression: bracket_expression CHAR   { result = val.join }
+                    | bracket_expression NEGATE { result = val.join }
+                    | CHAR
+                    | NEGATE
+
+  ctype: "alnum"  { result = CharacterClass::ALNUM }
+       | "alpha"  { result = CharacterClass::ALPHA }
+       | "ascii"  { result = CharacterClass::ASCII }
+       | "blank"  { result = CharacterClass::BLANK }
+       | "cntrl"  { result = CharacterClass::CNTRL }
+       | "digit"  { result = CharacterClass::DIGIT }
+       | "graph"  { result = CharacterClass::GRAPH }
+       | "lower"  { result = CharacterClass::LOWER }
+       | "print"  { result = CharacterClass::PRINT }
+       | "punct"  { result = CharacterClass::PUNCT }
+       | "space"  { result = CharacterClass::SPACE }
+       | "upper"  { result = CharacterClass::UPPER }
+       | "word"   { result = CharacterClass::WORD  }
+       | "xdigit" { result = CharacterClass::XDIGIT }
 
   # Inline options
   options: MINUS modifier modifier modifier { result = { val[1] => false, val[2] => false, val[3] => false } }

@@ -1,11 +1,8 @@
 class Reginald::Parser
+macro
+  CTYPES      alnum|alpha|ascii|blank|cntrl|digit|graph|lower|print|punct|space|upper|word|xdigit
 rule
-  \\d         { [:CCLASS, CharacterClass.new('\d')] }
-  \\D         { [:CCLASS, CharacterClass.new('\D')] }
-  \\s         { [:CCLASS, CharacterClass.new('\s')] }
-  \\S         { [:CCLASS, CharacterClass.new('\S')] }
-  \\w         { [:CCLASS, CharacterClass.new('\w')] }
-  \\W         { [:CCLASS, CharacterClass.new('\W')] }
+  \\[dDsSwW]  { [:CCLASS, text] }
 
   \^          { [:L_ANCHOR, text] }
   \\A         { [:L_ANCHOR, text] }
@@ -36,24 +33,12 @@ rule
   \\(.)       { [:CHAR, @ss[1]] }
   .           { [:CHAR, text] }
 
-  :CCLASS \]        { @state = nil; [:RBRACK, text] }
-  :CCLASS \^        { [:NEGATE, text] }
-  :CCLASS :alnum:   { [:LC_CTYPE, CharacterClass::ALNUM] }
-  :CCLASS :alpha:   { [:LC_CTYPE, CharacterClass::ALPHA] }
-  :CCLASS :ascii:   { [:LC_CTYPE, CharacterClass::ASCII] }
-  :CCLASS :blank:   { [:LC_CTYPE, CharacterClass::BLANK] }
-  :CCLASS :cntrl:   { [:LC_CTYPE, CharacterClass::CNTRL] }
-  :CCLASS :digit:   { [:LC_CTYPE, CharacterClass::DIGIT] }
-  :CCLASS :graph:   { [:LC_CTYPE, CharacterClass::GRAPH] }
-  :CCLASS :lower:   { [:LC_CTYPE, CharacterClass::LOWER] }
-  :CCLASS :print:   { [:LC_CTYPE, CharacterClass::PRINT] }
-  :CCLASS :punct:   { [:LC_CTYPE, CharacterClass::PUNCT] }
-  :CCLASS :space:   { [:LC_CTYPE, CharacterClass::SPACE] }
-  :CCLASS :upper:   { [:LC_CTYPE, CharacterClass::UPPER] }
-  :CCLASS :word;    { [:LC_CTYPE, CharacterClass::WORD] }
-  :CCLASS :xdigit:  { [:LC_CTYPE, CharacterClass::XDIGIT] }
-  :CCLASS \\(.)     { [:CHAR, @ss[1]] }
-  :CCLASS .         { [:CHAR, text] }
+
+  :CCLASS \]           { @state = nil; [:RBRACK, text] }
+  :CCLASS \^           { [:NEGATE, text] }
+  :CCLASS :({CTYPES}): { [@ss[1], text] }
+  :CCLASS \\(.)        { [:CHAR, @ss[1]] }
+  :CCLASS .            { [:CHAR, text] }
 
 
   :OPTIONS  \?  {

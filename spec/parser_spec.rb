@@ -97,6 +97,14 @@ describe Reginald::Parser do
     %r{[:xdigit:]}.should parse([Reginald::CharacterClass::XDIGIT])
   end
 
+  it "should parse unknown character range" do
+    %r{[:foo:]}.should parse(expr(range(':foo:')))
+  end
+
+  it "should parse alnum as a character range" do
+    %r{[alnum]}.should parse(expr(range('alnum')))
+  end
+
   it "should parse bracket expression" do
     %r{[a-z]}.should parse(expr(range('a-z')))
     %r{[0-9]}.should parse(expr(range('0-9')))
@@ -113,6 +121,10 @@ describe Reginald::Parser do
   it "should parse negated bracket expression" do
     %r{[^abc]}.should parse(expr(range('abc', :negate => true)))
     %r{[^/\.\?]}.should parse(expr(range('/.?', :negate => true)))
+  end
+
+  it "should parse bracket expression with negated not first" do
+    %r{[ab^c]}.should parse(expr(range('ab^c')))
   end
 
   it "should parse bracket expression with quantifier" do
