@@ -69,8 +69,14 @@ rule
 end
 
 ---- inner
-attr_accessor :capture_index
-attr_accessor :capture_index_stack
+def self.scan_str(str)
+  new.scan_str(str)
+end
+
+def initialize
+  @capture_index = 0
+  @capture_index_stack = []
+end
 
 ---- footer
 require 'reginald/tokenizer'

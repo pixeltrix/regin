@@ -25,13 +25,8 @@ module Reginald
     def parse(regexp)
       regexp = strip_extended_whitespace_and_comments(regexp)
 
-      parser = Parser.new
-      parser.capture_index = 0
-      parser.capture_index_stack = []
-      expression = parser.scan_str(regexp.source)
-
+      expression = Parser.scan_str(regexp.source)
       expression.options = regexp.options
-
       expression
     end
 
