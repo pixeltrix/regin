@@ -79,9 +79,9 @@ module Reginald
 
     def eql?(other)
       super &&
-        self.multiline == other.multiline &&
-        self.ignorecase == other.ignorecase &&
-        self.extended == other.extended
+        !!self.multiline == !!other.multiline &&
+        !!self.ignorecase == !!other.ignorecase &&
+        !!self.extended == !!other.extended
     end
   end
 end

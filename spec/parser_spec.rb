@@ -189,10 +189,20 @@ describe Reginald::Parser do
   end
 
   it "should parse inline extended expression" do
-    pending
-    re = %r{/foo/((?x-mi: # comment
-              (bar|baz)))}
-    re.should parse([])
+    re = %r{/foo/(?x-mi: # comment
+              (bar|baz))/ z}
+    re.should parse(expr(
+      '/', 'f', 'o', 'o', '/',
+      group(expr(
+        group(expr(
+          alt(
+            expr('b', 'a', 'r'),
+            expr('b', 'a', 'z')
+          )
+        ), :index => 0),
+      :extended => true), :capture => false),
+      '/', ' ', 'z')
+    )
   end
 
   it "should parse capture and noncapture groups and set their indexes" do

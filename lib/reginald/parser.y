@@ -34,6 +34,7 @@ rule
           result.expression.multiline  = options[:multiline];
           result.expression.ignorecase = options[:ignorecase];
           result.expression.extended   = options[:extended];
+          @options_stack.pop
         }
        | LPAREN QMARK COLON expression RPAREN {
           result = Group.new(val[3]);
@@ -77,10 +78,14 @@ rule
        | "xdigit" { result = CharacterClass::XDIGIT }
 
   # Inline options
-  options: MINUS modifier modifier modifier { result = { val[1] => false, val[2] => false, val[3] => false } }
-         | modifier MINUS modifier modifier { result = { val[0] => true, val[2] => false, val[3] => false } }
-         | modifier modifier MINUS modifier { result = { val[0] => true, val[1] => true, val[3] => false } }
-         | modifier modifier modifier       { result = { val[0] => true, val[1] => true, val[2] => true } }
+  options: options_str {
+    @options_stack << val[0]
+  }
+
+  options_str: MINUS modifier modifier modifier { result = { val[1] => false, val[2] => false, val[3] => false } }
+             | modifier MINUS modifier modifier { result = { val[0] => true, val[2] => false, val[3] => false } }
+             | modifier modifier MINUS modifier { result = { val[0] => true, val[1] => true, val[3] => false } }
+             | modifier modifier modifier       { result = { val[0] => true, val[1] => true, val[2] => true } }
 
   modifier: MULTILINE  { result = :multiline }
           | IGNORECASE { result = :ignorecase }
@@ -90,20 +95,23 @@ end
 ---- inner
 def self.parse_regexp(regexp)
   parser = new
-  if regexp.options & Regexp::EXTENDED != 0
-    parser.ignore_whitespace = true
-  end
+  parser.options_stack << {
+    :multiline => (regexp.options & Regexp::MULTILINE != 0),
+    :ignorecase => (regexp.options & Regexp::IGNORECASE != 0),
+    :extended => (regexp.options & Regexp::EXTENDED != 0)
+  }
+
   expression = parser.scan_str(regexp.source)
   expression.options = regexp.options
   expression
 end
 
-attr_writer :ignore_whitespace
+attr_accessor :options_stack
 
 def initialize
   @capture_index = 0
   @capture_index_stack = []
-  @ignore_whitespace = false
+  @options_stack = []
 end
 
 ---- footer

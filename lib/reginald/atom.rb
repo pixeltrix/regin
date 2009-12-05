@@ -35,7 +35,7 @@ module Reginald
     def eql?(other)
       other.instance_of?(self.class) &&
         self.value.eql?(other.value) &&
-        self.casefold?.eql?(other.casefold?)
+        (!!self.ignorecase).eql?(!!other.ignorecase)
     end
 
     def freeze

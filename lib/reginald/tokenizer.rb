@@ -107,7 +107,7 @@ class Parser < Racc::Parser
 
       when (text = @ss.scan(/\#/))
          action {
-    if @ignore_whitespace
+    if @options_stack[-1][:extended]
       @state = :COMMENT;
       next_token
     else
@@ -118,7 +118,7 @@ class Parser < Racc::Parser
 
       when (text = @ss.scan(/\s|\n/))
          action {
-    if @ignore_whitespace
+    if @options_stack[-1][:extended]
       next_token
     else
       [:CHAR, text]

@@ -31,7 +31,7 @@ rule
   \*          { [:STAR,  text] }
 
   \#          {
-    if @ignore_whitespace
+    if @options_stack[-1][:extended]
       @state = :COMMENT;
       next_token
     else
@@ -39,7 +39,7 @@ rule
     end
   }
   \s|\n       {
-    if @ignore_whitespace
+    if @options_stack[-1][:extended]
       next_token
     else
       [:CHAR, text]
