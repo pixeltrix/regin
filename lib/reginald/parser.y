@@ -88,13 +88,22 @@ rule
 end
 
 ---- inner
-def self.scan_str(str)
-  new.scan_str(str)
+def self.parse_regexp(regexp)
+  parser = new
+  if regexp.options & Regexp::EXTENDED != 0
+    parser.ignore_whitespace = true
+  end
+  expression = parser.scan_str(regexp.source)
+  expression.options = regexp.options
+  expression
 end
+
+attr_writer :ignore_whitespace
 
 def initialize
   @capture_index = 0
   @capture_index_stack = []
+  @ignore_whitespace = false
 end
 
 ---- footer

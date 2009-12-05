@@ -30,6 +30,22 @@ rule
   \+          { [:PLUS,  text] }
   \*          { [:STAR,  text] }
 
+  \#          {
+    if @ignore_whitespace
+      @state = :COMMENT;
+      next_token
+    else
+      [:CHAR, text]
+    end
+  }
+  \s|\n       {
+    if @ignore_whitespace
+      next_token
+    else
+      [:CHAR, text]
+    end
+  }
+
   \\(.)       { [:CHAR, @ss[1]] }
   .           { [:CHAR, text] }
 
@@ -55,4 +71,8 @@ rule
     @state = nil;
     [:COLON, text]
   }
+
+
+  :COMMENT  \n  { @state = nil; next_token }
+  :COMMENT  .   { next_token }
 end

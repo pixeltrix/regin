@@ -177,6 +177,10 @@ describe Reginald::Parser do
     re.to_regexp.should eql(%r{\Aabc\Z}i)
   end
 
+  it "should parse spaces and pound sign in normal expression" do
+    /foo # bar/.should parse(expr('f', 'o', 'o', ' ', '#', ' ', 'b', 'a', 'r'))
+  end
+
   it "should parse extended expression" do
     re = /     # foo
            bar # baz

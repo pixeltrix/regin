@@ -23,11 +23,7 @@ module Reginald
     end
 
     def parse(regexp)
-      regexp = strip_extended_whitespace_and_comments(regexp)
-
-      expression = Parser.scan_str(regexp.source)
-      expression.options = regexp.options
-      expression
+      Parser.parse_regexp(regexp)
     end
 
     def compile(source)
@@ -35,20 +31,5 @@ module Reginald
       expression = parse(regexp)
       Regexp.compile(expression.to_s(true), expression.options)
     end
-
-    private
-      # TODO: The parser should be aware of extended expressions
-      # instead of having to sanitize them before.
-      def strip_extended_whitespace_and_comments(regexp)
-        if regexp.options & Regexp::EXTENDED != 0
-          source = regexp.source
-          source.gsub!(/#.+$/, '')
-          source.gsub!(/\s+/, '')
-          source.gsub!(/\\\//, '/')
-          regexp = Regexp.compile(source, regexp.options)
-        else
-          regexp
-        end
-      end
   end
 end

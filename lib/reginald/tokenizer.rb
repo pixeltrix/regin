@@ -105,6 +105,27 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/\*/))
          action { [:STAR,  text] }
 
+      when (text = @ss.scan(/\#/))
+         action {
+    if @ignore_whitespace
+      @state = :COMMENT;
+      next_token
+    else
+      [:CHAR, text]
+    end
+  }
+
+
+      when (text = @ss.scan(/\s|\n/))
+         action {
+    if @ignore_whitespace
+      next_token
+    else
+      [:CHAR, text]
+    end
+  }
+
+
       when (text = @ss.scan(/\\(.)/))
          action { [:CHAR, @ss[1]] }
 
@@ -167,6 +188,19 @@ class Parser < Racc::Parser
     [:COLON, text]
   }
 
+
+      else
+        text = @ss.string[@ss.pos .. -1]
+        raise  ScanError, "can not match: '" + text + "'"
+      end  # if
+
+    when :COMMENT
+      case
+      when (text = @ss.scan(/\n/))
+         action { @state = nil; next_token }
+
+      when (text = @ss.scan(/./))
+         action { next_token }
 
       else
         text = @ss.string[@ss.pos .. -1]
