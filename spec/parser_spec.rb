@@ -165,11 +165,18 @@ describe Reginald::Parser do
     re.to_regexp.should eql(%r{\Aabc\Z}i)
   end
 
-  it "should parse extend expression" do
+  it "should parse extended expression" do
     re = /     # foo
            bar # baz
          /x
     re.should parse(['b', 'a', 'r'])
+  end
+
+  it "should parse inline extended expression" do
+    pending
+    re = %r{/foo/((?x-mi: # comment
+              (bar|baz)))}
+    re.should parse([])
   end
 
   it "should parse capture and noncapture groups and set their indexes" do
