@@ -26,10 +26,15 @@ module Reginald
       end
     end
 
+    # Parses Regexp and returns a Expression data structure.
     def parse(regexp)
       Parser.parse_regexp(regexp)
     end
 
+    # Recompiles Regexp by parsing it and turning it back into a Regexp.
+    #
+    # (In the future Reginald will perform some Regexp optimizations
+    # such as removing unnecessary captures and options)
     def compile(source)
       regexp = Regexp.compile(source)
       expression = parse(regexp)
