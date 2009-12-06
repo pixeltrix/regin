@@ -29,7 +29,7 @@ module Reginald
       Regexp.compile("\\A#{to_s}\\Z")
     end
 
-    def inspect
+    def inspect #:nodoc:
       to_s.inspect
     end
 

@@ -19,7 +19,7 @@ module Reginald
       "#{value}"
     end
 
-    def inspect
+    def inspect #:nodoc:
       "#<#{self.class.to_s.sub('Reginald::', '')} #{to_s.inspect}>"
     end
 

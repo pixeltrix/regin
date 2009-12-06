@@ -30,7 +30,7 @@ module Reginald
       map { |e| e.to_s(parent) }.join('|')
     end
 
-    def inspect
+    def inspect #:nodoc:
       to_s.inspect
     end
   end

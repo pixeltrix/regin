@@ -69,7 +69,7 @@ module Reginald
       end
     end
 
-    def inspect
+    def inspect #:nodoc:
       "#<Expression #{to_s.inspect}>"
     end
 
