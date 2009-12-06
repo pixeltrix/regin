@@ -23,7 +23,7 @@ module Reginald
       "#<#{self.class.to_s.sub('Reginald::', '')} #{to_s.inspect}>"
     end
 
-    def ==(other)
+    def ==(other) #:nodoc:
       case other
       when String
         other == to_s
@@ -32,7 +32,7 @@ module Reginald
       end
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       other.instance_of?(self.class) &&
         self.value.eql?(other.value) &&
         (!!self.ignorecase).eql?(!!other.ignorecase)

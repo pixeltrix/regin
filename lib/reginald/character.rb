@@ -30,7 +30,7 @@ module Reginald
       end
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       super && quantifier.eql?(other.quantifier)
     end
 

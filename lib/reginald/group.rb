@@ -45,7 +45,7 @@ module Reginald
       capture
     end
 
-    def ==(other)
+    def ==(other) #:nodoc:
       case other
       when String
         other == to_s
@@ -54,7 +54,7 @@ module Reginald
       end
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       other.is_a?(self.class) &&
         self.expression == other.expression &&
         self.quantifier == other.quantifier &&

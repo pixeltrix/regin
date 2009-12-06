@@ -52,7 +52,7 @@ module Reginald
       Regexp.compile("\\A#{re}\\Z").match(char)
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       super && negate == other.negate
     end
 

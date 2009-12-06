@@ -77,7 +77,7 @@ module Reginald
       ignorecase
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       super &&
         !!self.multiline == !!other.multiline &&
         !!self.ignorecase == !!other.ignorecase &&

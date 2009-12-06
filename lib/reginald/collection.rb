@@ -17,7 +17,7 @@ module Reginald
       any? { |e| e.include?(char) }
     end
 
-    def ==(other)
+    def ==(other) #:nodoc:
       case other
       when String
         other == to_s
@@ -28,7 +28,7 @@ module Reginald
       end
     end
 
-    def eql?(other)
+    def eql?(other) #:nodoc:
       other.instance_of?(self.class) && super
     end
 
