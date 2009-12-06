@@ -27,6 +27,9 @@ module Reginald
       negate ? true : false
     end
 
+    # Returns true if expression could be treated as a literal string.
+    #
+    # A CharacterClass is never literal.
     def literal?
       false
     end

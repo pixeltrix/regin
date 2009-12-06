@@ -34,6 +34,9 @@ module Reginald
       end
     end
 
+    # Returns true if expression could be treated as a literal string.
+    #
+    # A Expression is literal if all its elements are literal.
     def literal?
       !ignorecase && all? { |e| e.literal? }
     end

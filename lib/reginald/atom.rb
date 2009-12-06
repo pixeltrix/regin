@@ -7,6 +7,7 @@ module Reginald
       super
     end
 
+    # Returns true if expression could be treated as a literal string.
     def literal?
       false
     end

@@ -18,6 +18,9 @@ module Reginald
       end
     end
 
+    # Returns true if expression could be treated as a literal string.
+    #
+    # Alternation groups are never literal.
     def literal?
       false
     end
