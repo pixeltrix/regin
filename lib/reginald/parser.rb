@@ -6,7 +6,7 @@
 
 require 'racc/parser.rb'
 module Reginald
-  class Parser < Racc::Parser
+  class Parser < Racc::Parser #:nodoc: all
 
 def self.parse_regexp(regexp)
   parser = new

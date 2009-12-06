@@ -20,6 +20,7 @@ task :compile => [
 
 file 'lib/reginald/parser.rb' => 'lib/reginald/parser.y' do |t|
   sh "racc -l -o #{t.name} #{t.prerequisites.first}"
+  sh "sed -i '' -e 's/  class Parser < Racc::Parser/  class Parser < Racc::Parser #:nodoc: all/' #{t.name}"
   sh "sed -i '' -e 's/  end   # module Reginald/end   # module Reginald/' #{t.name}"
 end
 
