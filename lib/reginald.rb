@@ -13,11 +13,15 @@ module Reginald
     begin
       eval('foo = /(?<foo>.*)/').named_captures
 
+      # Returns true if the interpreter is using the Oniguruma Regexp lib
+      # and supports named captures.
+      #
+      #   /(?<foo>bar)/
       def regexp_supports_named_captures?
         true
       end
     rescue SyntaxError, NoMethodError
-      def regexp_supports_named_captures?
+      def regexp_supports_named_captures? #:nodoc:
         false
       end
     end
