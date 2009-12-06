@@ -3,7 +3,7 @@ module Reginald
     attr_reader :ignorecase
     attr_accessor :multiline, :extended
 
-    def self.reduce(expression_or_atom, atom = nil)
+    def self.reduce(expression_or_atom, atom = nil) #:nodoc:
       if expression_or_atom.is_a?(Expression)
         expression_or_atom << atom if atom
         new(*expression_or_atom)

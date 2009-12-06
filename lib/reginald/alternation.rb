@@ -1,6 +1,6 @@
 module Reginald
   class Alternation < Collection
-    def self.reduce(alternation_or_expression, expression)
+    def self.reduce(alternation_or_expression, expression) #:nodoc:
       if alternation_or_expression.first.is_a?(Alternation)
         alternation_or_expression = alternation_or_expression.first
         alternation_or_expression << expression
