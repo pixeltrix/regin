@@ -56,7 +56,7 @@ module Reginald
       super && negate == other.negate
     end
 
-    def freeze
+    def freeze #:nodoc:
       negate.freeze
       super
     end

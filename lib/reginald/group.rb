@@ -63,7 +63,7 @@ module Reginald
         self.name == other.name
     end
 
-    def freeze
+    def freeze #:nodoc:
       expression.freeze
       super
     end

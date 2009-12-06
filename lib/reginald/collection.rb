@@ -32,7 +32,7 @@ module Reginald
       other.instance_of?(self.class) && super
     end
 
-    def freeze
+    def freeze #:nodoc:
       each { |e| e.freeze }
       super
     end

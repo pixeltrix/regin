@@ -34,7 +34,7 @@ module Reginald
       super && quantifier.eql?(other.quantifier)
     end
 
-    def freeze
+    def freeze #:nodoc:
       quantifier.freeze
       super
     end

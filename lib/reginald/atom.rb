@@ -38,7 +38,7 @@ module Reginald
         (!!self.ignorecase).eql?(!!other.ignorecase)
     end
 
-    def freeze
+    def freeze #:nodoc:
       value.freeze
       super
     end
