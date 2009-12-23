@@ -4,10 +4,8 @@ macro
 rule
   \\[dDsSwW]  { [:CCLASS, text] }
 
-  \^          { [:L_ANCHOR, text] }
-  \\A         { [:L_ANCHOR, text] }
-  \$          { [:R_ANCHOR, text] }
-  \\Z         { [:R_ANCHOR, text] }
+  \^|\\A      { [:L_ANCHOR, text] }
+  \$|\\Z      { [:R_ANCHOR, text] }
 
   <(\w+)>     { [:NAME, @ss[1]] }
 

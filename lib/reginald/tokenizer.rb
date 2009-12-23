@@ -54,16 +54,10 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/\\[dDsSwW]/))
          action { [:CCLASS, text] }
 
-      when (text = @ss.scan(/\^/))
+      when (text = @ss.scan(/\^|\\A/))
          action { [:L_ANCHOR, text] }
 
-      when (text = @ss.scan(/\\A/))
-         action { [:L_ANCHOR, text] }
-
-      when (text = @ss.scan(/\$/))
-         action { [:R_ANCHOR, text] }
-
-      when (text = @ss.scan(/\\Z/))
+      when (text = @ss.scan(/\$|\\Z/))
          action { [:R_ANCHOR, text] }
 
       when (text = @ss.scan(/<(\w+)>/))
