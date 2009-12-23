@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'Reginald' <<
                      '--main' << 'README.rdoc'
 
-  s.authors  = ['Carl Lerche', 'Joshua Peek']
-  s.email    = ['clerche@engineyard.com', 'josh@joshpeek.com']
+  s.author   = 'Joshua Peek'
+  s.email    = 'josh@joshpeek.com'
   s.homepage = 'http://github.com/josh/reginald'
 end
