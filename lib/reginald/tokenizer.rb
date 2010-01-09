@@ -142,6 +142,9 @@ class Parser < Racc::Parser
       when (text = @ss.scan(/:(alnum|alpha|ascii|blank|cntrl|digit|graph|lower|print|punct|space|upper|word|xdigit):/))
          action { [@ss[1], text] }
 
+      when (text = @ss.scan(/\\-/))
+         action { [:CHAR, text] }
+
       when (text = @ss.scan(/\\(.)/))
          action { [:CHAR, @ss[1]] }
 

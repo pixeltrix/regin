@@ -131,6 +131,10 @@ describe Reginald::Parser do
     %r{[a-z]+}.should parse([range('a-z', :quantifier => '+')])
   end
 
+  it "should parse bracket expression with escaped characters" do
+    %r{[A-Za-z0-9\-\_\.]}.should parse(expr(range('A-Za-z0-9\-_.')))
+  end
+
   it "should parse alternation" do
     %r{foo|bar}.should parse(
       expr(alt(
