@@ -1,16 +1,3 @@
-require 'rubygems/specification'
-spec = eval(File.read('reginald.gemspec'))
-
-if spec.has_rdoc
-  require 'rake/rdoctask'
-
-  Rake::RDocTask.new { |rdoc|
-    rdoc.options = spec.rdoc_options
-    rdoc.rdoc_files = spec.files
-  }
-end
-
-
 task :default => [:compile, :spec]
 
 task :compile => [
