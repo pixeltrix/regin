@@ -41,6 +41,30 @@ module Reginald
       !ignorecase && all? { |e| e.literal? }
     end
 
+    def anchored?
+      anchored_to_start? && anchored_to_end?
+    end
+
+    def anchored_to_start?
+      first.is_a?(Anchor) && first == '\A'
+    end
+
+    def anchored_to_end?
+      last.is_a?(Anchor) && last == '\Z'
+    end
+
+    def anchored_to_line?
+      anchored_to_start_of_line? && anchored_to_end_of_line?
+    end
+
+    def anchored_to_start_of_line?
+      anchored_to_start? || (first.is_a?(Anchor) && first == '^')
+    end
+
+    def anchored_to_end_of_line?
+      anchored_to_end? || (last.is_a?(Anchor) && last == '$')
+    end
+
     def options
       flag = 0
       flag |= Regexp::MULTILINE if multiline

@@ -42,19 +42,36 @@ describe Reginald::Parser do
       anchor('^'), 'f', 'o', 'o'
     ))
 
+    Reginald.parse(%r{^foo}).should be_anchored_to_start_of_line
+
     %r{\Afoo}.should parse(expr(
       anchor('\A'), 'f', 'o', 'o'
     ))
+
+    Reginald.parse(%r{\Afoo}).should be_anchored_to_start
+    Reginald.parse(%r{\Afoo}).should be_anchored_to_start_of_line
 
     %r{foo$}.should parse(expr(
       'f', 'o', 'o',
       anchor('$')
     ))
 
+    Reginald.parse(%r{foo$}).should be_anchored_to_end_of_line
+
     %r{foo\Z}.should parse(expr(
       'f', 'o', 'o',
       anchor('\Z')
     ))
+
+    Reginald.parse(%r{foo\Z}).should be_anchored_to_end
+    Reginald.parse(%r{foo\Z}).should be_anchored_to_end_of_line
+
+    Reginald.parse(%r{^foo$}).should be_anchored_to_line
+    Reginald.parse(%r{\Afoo\Z}).should be_anchored_to_line
+    Reginald.parse(%r{\Afoo$}).should be_anchored_to_line
+    Reginald.parse(%r{^foo\Z}).should be_anchored_to_line
+    Reginald.parse(%r{\Afoo\Z}).should be_anchored
+    Reginald.parse(%r{^foo$}).should_not be_anchored
   end
 
   it "should parse wild card range" do
