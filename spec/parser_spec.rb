@@ -283,39 +283,27 @@ describe Reginald::Parser do
   end
 
   private
-    def anchor(value)
-      Reginald::Anchor.new(value)
+    def anchor(*args)
+      Reginald::Anchor.new(*args)
     end
 
     def alt(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
-      alternation = Reginald::Alternation.new(*args)
-      options.each { |k, v| alternation.send("#{k}=", v) }
-      alternation
+      Reginald::Alternation.new(*args)
     end
 
-    def char(value, options = {})
-      char = Reginald::Character.new(value)
-      options.each { |k, v| char.send("#{k}=", v) }
-      char
+    def char(*args)
+      Reginald::Character.new(*args)
     end
 
-    def range(value, options = {})
-      range = Reginald::CharacterClass.new(value)
-      options.each { |k, v| range.send("#{k}=", v) }
-      range
+    def range(*args)
+      Reginald::CharacterClass.new(*args)
     end
 
     def expr(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
-      expression = Reginald::Expression.new(*args)
-      options.each { |k, v| expression.send("#{k}=", v) }
-      expression
+      Reginald::Expression.new(*args)
     end
 
-    def group(value, options = {})
-      group = Reginald::Group.new(value)
-      options.each { |k, v| group.send("#{k}=", v) }
-      group
+    def group(*args)
+      Reginald::Group.new(*args)
     end
 end

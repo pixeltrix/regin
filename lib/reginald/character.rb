@@ -2,6 +2,11 @@ module Reginald
   class Character < Atom
     attr_accessor :quantifier
 
+    def initialize(value, options = {})
+      @quantifier = options[:quantifier]
+      super(value, options)
+    end
+
     # Returns true if expression could be treated as a literal string.
     #
     # A Character is literal is there is no quantifier attached to it.

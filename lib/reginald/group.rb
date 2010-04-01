@@ -3,8 +3,19 @@ module Reginald
     attr_accessor :quantifier, :capture, :index, :name
 
     def initialize(*args)
+      if args.last.is_a?(Hash)
+        options = args.last
+        args    = args[0..-2]
+      else
+        options = {}
+      end
+
+      @quantifier = @index = @name = nil
       @capture = true
-      super
+
+      super(*args)
+
+      options.each { |k, v| self.send("#{k}=", v) }
     end
 
     def ignorecase=(ignorecase)

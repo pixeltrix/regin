@@ -15,14 +15,25 @@ module Reginald
     end
 
     def initialize(*args)
+      if args.last.is_a?(Hash)
+        options = args.last
+        args    = args[0..-2]
+      else
+        options = {}
+      end
+
       @multiline = @ignorecase = @extended = nil
 
       if args.length == 1 && args.first.instance_of?(Array)
-        super(args.first)
+        super(args.first, options)
       else
         args = args.map { |e| e.instance_of?(String) ? Character.new(e) : e }
-        super(args)
+        super(args, options)
       end
+
+      self.multiline  = options[:multiline]
+      self.ignorecase = options[:ignorecase]
+      self.extended   = options[:extended]
     end
 
     def ignorecase=(ignorecase)

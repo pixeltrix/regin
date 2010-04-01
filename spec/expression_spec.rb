@@ -85,9 +85,9 @@ describe Reginald::Expression, "with ignorecase" do
     @expression = Reginald::Expression.new(
       Reginald::Character.new('f'),
       Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+      Reginald::Character.new('o'),
+      :ignorecase => true
     )
-    @expression.ignorecase = true
   end
 
   it "should be a literal expression" do

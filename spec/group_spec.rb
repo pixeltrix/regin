@@ -65,9 +65,9 @@ describe Reginald::Group, "with ignorecase capture expression" do
     @expression = Reginald::Expression.new(
       Reginald::Character.new('f'),
       Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+      Reginald::Character.new('o'),
+      :ignorecase => true
     )
-    @expression.ignorecase = true
     @group = Reginald::Group.new(@expression)
   end
 
@@ -121,11 +121,10 @@ describe Reginald::Group, "with ignorecase optional capture expression" do
     @expression = Reginald::Expression.new(
       Reginald::Character.new('f'),
       Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+      Reginald::Character.new('o'),
+      :ignorecase => true
     )
-    @expression.ignorecase = true
-    @group = Reginald::Group.new(@expression)
-    @group.quantifier = '?'
+    @group = Reginald::Group.new(@expression, :quantifier => '?')
   end
 
   it "should have optional quantifier" do

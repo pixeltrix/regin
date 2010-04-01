@@ -117,12 +117,7 @@ describe Reginald::CharacterClass do
 
   context "from a-z and and repeator quantifier" do
     before do
-      @range = Reginald::CharacterClass.new('a-z')
-
-      # TODO: Repeator should be constructed from an integer
-      # Range not a string. We should do the parsing
-      # in the actual parser, not here.
-      @range.quantifier = '{2,3}'
+      @range = Reginald::CharacterClass.new('a-z', :quantifier => '{2,3}')
     end
 
     it_should_behave_like "all range character classes"
@@ -152,8 +147,7 @@ describe Reginald::CharacterClass do
 
   context "from negated a-z" do
     before do
-      @range = Reginald::CharacterClass.new('a-z')
-      @range.negate = true
+      @range = Reginald::CharacterClass.new('a-z', :negate => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -190,8 +184,7 @@ describe Reginald::CharacterClass do
       # TODO: Character class should be constructed from a set
       # of chars not a string. We should do the parsing
       # in the actual parser, not here.
-      @range = Reginald::CharacterClass.new('a-z')
-      @range.ignorecase = true
+      @range = Reginald::CharacterClass.new('a-z', :ignorecase => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -228,8 +221,7 @@ describe Reginald::CharacterClass do
 
   context "from '.' and ignorecase" do
     before do
-      @range = Reginald::CharacterClass.new('.')
-      @range.ignorecase = true
+      @range = Reginald::CharacterClass.new('.', :ignorecase => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -263,8 +255,7 @@ describe Reginald::CharacterClass do
 
   context "that is frozen" do
     before do
-      @range = Reginald::CharacterClass.new('a-z')
-      @range.quantifier = '?'
+      @range = Reginald::CharacterClass.new('a-z', :quantifier => '?')
       @range.freeze
     end
 

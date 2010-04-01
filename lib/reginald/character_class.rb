@@ -15,6 +15,11 @@ module Reginald
     WORD = new(':word:').freeze
     XDIGIT = new(':xdigit:').freeze
 
+    def initialize(value, options = {})
+      @negate = options[:negate]
+      super(value, options)
+    end
+
     def ignorecase=(ignorecase)
       if to_s !~ /\A\[:.*:\]\Z/
         super

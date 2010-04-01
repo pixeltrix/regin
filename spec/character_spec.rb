@@ -58,8 +58,7 @@ describe Reginald::Character do
 
   context "with value 'a' and optional quantifier" do
     before do
-      @character = Reginald::Character.new('a')
-      @character.quantifier = '?'
+      @character = Reginald::Character.new('a', :quantifier => '?')
     end
 
     it "should have optional quantifier" do
@@ -105,12 +104,7 @@ describe Reginald::Character do
 
   context "with value 'a' and repeator quantifier" do
     before do
-      @character = Reginald::Character.new('a')
-
-      # TODO: Repeator should be constructed from an integer
-      # Range not a string. We should do the parsing
-      # in the actual parser, not here.
-      @character.quantifier = '{2,3}'
+      @character = Reginald::Character.new('a', :quantifier => '{2,3}')
     end
 
     it "should have repeator quantifier" do
@@ -143,8 +137,7 @@ describe Reginald::Character do
 
   context "with value 'a' and ignorecase" do
     before do
-      @character = Reginald::Character.new('a')
-      @character.ignorecase = true
+      @character = Reginald::Character.new('a', :ignorecase => true)
     end
 
     it "should have no quantifier" do
@@ -177,8 +170,7 @@ describe Reginald::Character do
 
   context "that is frozen" do
     before do
-      @character = Reginald::Character.new('a')
-      @character.quantifier = '?'
+      @character = Reginald::Character.new('a', :quantifier => '?')
       @character.freeze
     end
 

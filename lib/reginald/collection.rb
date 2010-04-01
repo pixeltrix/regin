@@ -1,5 +1,13 @@
 module Reginald
   class Collection < Array
+    def initialize(*args)
+      if args.last.is_a?(Hash)
+        super(*args[0..-2])
+      else
+        super(*args)
+      end
+    end
+
     def ignorecase=(ignorecase)
       each { |e| e.ignorecase = ignorecase }
       ignorecase
