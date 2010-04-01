@@ -43,6 +43,12 @@ module Reginald
       value != '.' && value !~ /^\\[dDsSwW]$/
     end
 
+    def dup(options = {})
+      char = super
+      char.negate = options[:negate] if options[:negate]
+      char
+    end
+
     def to_s(parent = false)
       if bracketed?
         if !parent && ignorecase

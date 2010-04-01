@@ -55,6 +55,22 @@ describe Reginald::CharacterClass do
     it "should not eql another character if the quantifier is different" do
       @range.should_not eql(Reginald::CharacterClass.new('a-z', :quantifier => '?'))
     end
+
+    it "should dup" do
+      @range.dup.should == @range
+    end
+
+    it "should dup with quantifier" do
+      @range.dup(:quantifier => '?').should == Reginald::CharacterClass.new('a-z', :quantifier => '?')
+    end
+
+    it "should dup with ignorecase" do
+      @range.dup(:ignorecase => true).should == Reginald::CharacterClass.new('a-z', :ignorecase => true)
+    end
+
+    it "should dup with negate" do
+      @range.dup(:negate => true).should == Reginald::CharacterClass.new('a-z', :negate => true)
+    end
   end
 
   context "from '.'" do
