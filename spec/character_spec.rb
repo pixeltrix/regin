@@ -50,6 +50,18 @@ describe Reginald::Character do
     it "should not eql another 'a' character if the quantifier is different" do
       @character.should_not eql(Reginald::Character.new('a', :quantifier => '?'))
     end
+
+    it "should dup" do
+      @character.dup.should == @character
+    end
+
+    it "should dup with quantifier" do
+      @character.dup(:quantifier => '?').should == Reginald::Character.new('a', :quantifier => '?')
+    end
+
+    it "should dup with ignorecase" do
+      @character.dup(:ignorecase => true).should == Reginald::Character.new('a', :ignorecase => true)
+    end
   end
 
   context "with value 'a' and optional quantifier" do

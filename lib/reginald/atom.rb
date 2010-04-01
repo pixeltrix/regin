@@ -16,6 +16,12 @@ module Reginald
       ignorecase ? true : false
     end
 
+    def dup(options = {})
+      atom = super()
+      atom.ignorecase = options[:ignorecase] if options[:ignorecase]
+      atom
+    end
+
     def to_s(parent = false)
       "#{value}"
     end
