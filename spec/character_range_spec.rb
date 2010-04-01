@@ -49,15 +49,11 @@ describe Reginald::CharacterClass do
     end
 
     it "should not == another character if the quantifier is different" do
-      other_range = Reginald::CharacterClass.new('a-z')
-      other_range.quantifier = '?'
-      @range.should_not == other_range
+      @range.should_not == Reginald::CharacterClass.new('a-z', :quantifier => '?')
     end
 
     it "should not eql another character if the quantifier is different" do
-      other_range = Reginald::CharacterClass.new('a-z')
-      other_range.quantifier = '?'
-      @range.should_not eql(other_range)
+      @range.should_not eql(Reginald::CharacterClass.new('a-z', :quantifier => '?'))
     end
   end
 
@@ -103,15 +99,11 @@ describe Reginald::CharacterClass do
     end
 
     it "should not == another character if the quantifier is different" do
-      other_range = Reginald::CharacterClass.new('.')
-      other_range.quantifier = '?'
-      @range.should_not == other_range
+      @range.should_not == Reginald::CharacterClass.new('.', :quantifier => '?')
     end
 
     it "should not eql another character if the quantifier is different" do
-      other_range = Reginald::CharacterClass.new('.')
-      other_range.quantifier = '?'
-      @range.should_not eql(other_range)
+      @range.should_not eql(Reginald::CharacterClass.new('.', :quantifier => '?'))
     end
   end
 

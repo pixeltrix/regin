@@ -44,15 +44,11 @@ describe Reginald::Character do
     end
 
     it "should not == another 'a' character if the quantifier is different" do
-      other_char = Reginald::Character.new('a')
-      other_char.quantifier = '?'
-      @character.should_not == other_char
+      @character.should_not == Reginald::Character.new('a', :quantifier => '?')
     end
 
     it "should not eql another 'a' character if the quantifier is different" do
-      other_char = Reginald::Character.new('a')
-      other_char.quantifier = '?'
-      @character.should_not eql(other_char)
+      @character.should_not eql(Reginald::Character.new('a', :quantifier => '?'))
     end
   end
 
@@ -92,9 +88,7 @@ describe Reginald::Character do
     end
 
     it "should == another 'a' character" do
-      other_char = Reginald::Character.new('a')
-      other_char.quantifier = '?'
-      @character.should == other_char
+      @character.should == Reginald::Character.new('a', :quantifier => '?')
     end
 
     it "should == another 'a' character if the quantifier is different" do
