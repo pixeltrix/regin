@@ -50,6 +50,23 @@ describe Reginald::Expression, "with capture" do
     @expression.should be_frozen
     @expression.each { |child| child.should be_frozen }
   end
+
+  it "should dup" do
+    @expression.dup.should == @expression
+  end
+
+  it "should dup with ignorecase" do
+    @expression.dup(:ignorecase => true).should == Reginald::Expression.new(
+      Reginald::Character.new('f', :ignorecase => true),
+      Reginald::Character.new('o', :ignorecase => true),
+      Reginald::Character.new('o', :ignorecase => true),
+      :ignorecase => true
+    )
+  end
+
+  it "should dup with ignorecase and apply to children" do
+    @expression.dup(:ignorecase => true).first.should == Reginald::Character.new('f', :ignorecase => true)
+  end
 end
 
 describe Reginald::Expression, "initialize with array" do

@@ -13,6 +13,12 @@ module Reginald
       ignorecase
     end
 
+    def dup(options = {})
+      collection = super()
+      collection.ignorecase = options[:ignorecase] if options[:ignorecase]
+      collection
+    end
+
     def to_regexp
       Regexp.compile("\\A#{to_s(true)}\\Z", options)
     end
