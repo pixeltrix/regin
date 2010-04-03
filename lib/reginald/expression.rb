@@ -15,12 +15,7 @@ module Reginald
     end
 
     def initialize(*args)
-      if args.last.is_a?(Hash)
-        options = args.last
-        args    = args[0..-2]
-      else
-        options = {}
-      end
+      args, options = extract_options(args)
 
       @multiline = @ignorecase = @extended = nil
 
@@ -31,9 +26,8 @@ module Reginald
         super(args, options)
       end
 
-      self.multiline  = options[:multiline]
-      self.ignorecase = options[:ignorecase]
-      self.extended   = options[:extended]
+      self.multiline = options[:multiline]
+      self.extended  = options[:extended]
     end
 
     def ignorecase=(ignorecase)

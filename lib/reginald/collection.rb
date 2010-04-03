@@ -1,11 +1,9 @@
 module Reginald
   class Collection < Array
     def initialize(*args)
-      if args.last.is_a?(Hash)
-        super(*args[0..-2])
-      else
-        super(*args)
-      end
+      args, options = extract_options(args)
+      super(*args)
+      self.ignorecase = options[:ignorecase]
     end
 
     def ignorecase=(ignorecase)
@@ -50,5 +48,14 @@ module Reginald
       each { |e| e.freeze }
       super
     end
+
+    protected
+      def extract_options(args)
+        if args.last.is_a?(Hash)
+          return args[0..-2], args.last
+        else
+          return args, {}
+        end
+      end
   end
 end

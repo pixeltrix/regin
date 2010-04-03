@@ -11,10 +11,12 @@ module Reginald
     end
 
     def initialize(*args)
+      args, options = extract_options(args)
+
       if args.length == 1 && args.first.instance_of?(Array)
-        super(args.first)
+        super(args.first, options)
       else
-        super(args)
+        super(args, options)
       end
     end
 

@@ -57,9 +57,9 @@ describe Reginald::Expression, "with capture" do
 
   it "should dup with ignorecase" do
     @expression.dup(:ignorecase => true).should == Reginald::Expression.new(
-      Reginald::Character.new('f', :ignorecase => true),
-      Reginald::Character.new('o', :ignorecase => true),
-      Reginald::Character.new('o', :ignorecase => true),
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o'),
       :ignorecase => true
     )
   end
@@ -121,5 +121,9 @@ describe Reginald::Expression, "with ignorecase" do
 
   it "should have ignorecase option" do
     @expression.options.should == Regexp::IGNORECASE
+  end
+
+  it "should apply ignorecase to child characters" do
+    @expression.first.should be_casefold
   end
 end
