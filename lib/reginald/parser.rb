@@ -357,8 +357,7 @@ def _reduce_15(val, _values, result)
 end
 
 def _reduce_16(val, _values, result)
-          result = Group.new(val[4]);
-          result.capture = false;
+          result = Group.new(val[4], :capture => false);
           options = val[2];
           result.expression.multiline  = options[:multiline];
           result.expression.ignorecase = options[:ignorecase];
@@ -369,8 +368,7 @@ def _reduce_16(val, _values, result)
 end
 
 def _reduce_17(val, _values, result)
-          result = Group.new(val[3]);
-          result.capture = false;
+          result = Group.new(val[3], :capture => false);
         
     result
 end
