@@ -9,19 +9,17 @@ module Reginald
   class Parser < Racc::Parser #:nodoc: all
 
 def self.parse_regexp(regexp)
-  parser = new
-  parser.options_stack << {
+  options = {
     :multiline => (regexp.options & Regexp::MULTILINE != 0),
     :ignorecase => (regexp.options & Regexp::IGNORECASE != 0),
     :extended => (regexp.options & Regexp::EXTENDED != 0)
   }
 
+  parser = new
+  parser.options_stack << options
+
   expression = parser.scan_str(regexp.source)
-  if regexp.options == 0
-    expression
-  else
-    expression.dup(:flags => regexp.options)
-  end
+  expression.dup(options)
 end
 
 attr_accessor :options_stack

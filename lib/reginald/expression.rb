@@ -84,7 +84,9 @@ module Reginald
 
     def dup(options = {})
       expression = super
-      expression.flags = options[:flags] if options[:flags]
+      expression.multiline  = options[:multiline] if options[:multiline]
+      expression.ignorecase = options[:ignorecase] if options[:ignorecase]
+      expression.extended   = options[:extended] if options[:extended]
       expression
     end
 
@@ -118,14 +120,5 @@ module Reginald
         !!self.ignorecase == !!other.ignorecase &&
         !!self.extended == !!other.extended
     end
-
-    protected
-      # TODO Remove flags writer
-      def flags=(flag)
-        self.multiline  = flag & Regexp::MULTILINE != 0
-        self.ignorecase = flag & Regexp::IGNORECASE != 0
-        self.extended   = flag & Regexp::EXTENDED != 0
-        nil
-      end
   end
 end
