@@ -78,11 +78,10 @@ module Reginald
       flag
     end
 
-    def flags=(flag)
-      self.multiline  = flag & Regexp::MULTILINE != 0
-      self.ignorecase = flag & Regexp::IGNORECASE != 0
-      self.extended   = flag & Regexp::EXTENDED != 0
-      nil
+    def dup(options = {})
+      expression = super
+      expression.flags = options[:flags] if options[:flags]
+      expression
     end
 
     def to_s(parent = false)
@@ -115,5 +114,14 @@ module Reginald
         !!self.ignorecase == !!other.ignorecase &&
         !!self.extended == !!other.extended
     end
+
+    protected
+      # TODO Remove flags writer
+      def flags=(flag)
+        self.multiline  = flag & Regexp::MULTILINE != 0
+        self.ignorecase = flag & Regexp::IGNORECASE != 0
+        self.extended   = flag & Regexp::EXTENDED != 0
+        nil
+      end
   end
 end

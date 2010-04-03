@@ -67,6 +67,15 @@ describe Reginald::Expression, "with capture" do
   it "should dup with ignorecase and apply to children" do
     @expression.dup(:ignorecase => true).first.should == Reginald::Character.new('f', :ignorecase => true)
   end
+
+  it "should dup with flags" do
+    @expression.dup(:flags => /foo/ix.options).should == Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o'),
+      :ignorecase => true, :extended => true
+    )
+  end
 end
 
 describe Reginald::Expression, "initialize with array" do
