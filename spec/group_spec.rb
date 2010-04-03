@@ -58,6 +58,24 @@ describe Reginald::Group, "with capture" do
     @group.freeze
     @group.should be_frozen
   end
+
+  it "should dup" do
+    @group.dup.should == @group
+  end
+
+  it "should dup with ignorecase" do
+    @group.dup(:ignorecase => true).should == Reginald::Group.new(Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o')), :ignorecase => true)
+  end
+
+  it "should dup with ignorecase" do
+    @group.dup(:quantifier => '?').should == Reginald::Group.new(Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o')), :quantifier => '?')
+  end
 end
 
 describe Reginald::Group, "with ignorecase capture expression" do
