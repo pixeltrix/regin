@@ -3,15 +3,9 @@ rule
   expression: expression BAR branch { result = Expression.new(Alternation.reduce(val[0], val[2])) }
             | branch { result = Expression.reduce(val[0]) }
 
-  branch: branch atom quantifier {
-            val[1].quantifier = val[2]
-            result = Expression.reduce(val[0], val[1])
-          }
+  branch: branch atom quantifier { result = Expression.reduce(val[0], val[1].dup(:quantifier => val[2])) }
         | branch atom { result = Expression.reduce(val[0], val[1]) }
-        | atom quantifier {
-            val[0].quantifier = val[1]
-            result = val[0]
-          }
+        | atom quantifier { result = val[0].dup(:quantifier => val[1]) }
         | atom
 
   atom: group

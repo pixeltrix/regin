@@ -296,9 +296,7 @@ def _reduce_2(val, _values, result)
 end
 
 def _reduce_3(val, _values, result)
-            val[1].quantifier = val[2]
-            result = Expression.reduce(val[0], val[1])
-          
+ result = Expression.reduce(val[0], val[1].dup(:quantifier => val[2])) 
     result
 end
 
@@ -308,9 +306,7 @@ def _reduce_4(val, _values, result)
 end
 
 def _reduce_5(val, _values, result)
-            val[0].quantifier = val[1]
-            result = val[0]
-          
+ result = val[0].dup(:quantifier => val[1]) 
     result
 end
 
