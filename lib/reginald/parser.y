@@ -18,8 +18,7 @@ rule
       | CHAR { result = Character.new(val[0]) }
 
   group: LPAREN expression RPAREN {
-          result = Group.new(val[1])
-          result.index = @capture_index_stack.pop
+          result = Group.new(val[1], :index => @capture_index_stack.pop)
         }
        | LPAREN QMARK options COLON expression RPAREN {
           result = Group.new(val[4], :capture => false);
@@ -33,9 +32,7 @@ rule
           result = Group.new(val[3], :capture => false);
         }
        | LPAREN QMARK NAME expression RPAREN {
-          result = Group.new(val[3]);
-          result.name = val[2];
-          result.index = @capture_index_stack.pop
+          result = Group.new(val[3], :name => val[2], :index => @capture_index_stack.pop);
         }
 
   anchor: L_ANCHOR

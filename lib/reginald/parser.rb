@@ -350,8 +350,7 @@ def _reduce_14(val, _values, result)
 end
 
 def _reduce_15(val, _values, result)
-          result = Group.new(val[1])
-          result.index = @capture_index_stack.pop
+          result = Group.new(val[1], :index => @capture_index_stack.pop)
         
     result
 end
@@ -374,9 +373,7 @@ def _reduce_17(val, _values, result)
 end
 
 def _reduce_18(val, _values, result)
-          result = Group.new(val[3]);
-          result.name = val[2];
-          result.index = @capture_index_stack.pop
+          result = Group.new(val[3], :name => val[2], :index => @capture_index_stack.pop);
         
     result
 end
