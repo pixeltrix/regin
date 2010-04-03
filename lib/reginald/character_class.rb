@@ -17,7 +17,7 @@ module Reginald
 
     def initialize(value, options = {})
       @negate = options[:negate]
-      super(value, options)
+      super
     end
 
     def ignorecase=(ignorecase)

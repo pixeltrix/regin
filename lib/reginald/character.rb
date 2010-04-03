@@ -4,7 +4,7 @@ module Reginald
 
     def initialize(value, options = {})
       @quantifier = options[:quantifier]
-      super(value, options)
+      super
     end
 
     # Returns true if expression could be treated as a literal string.
