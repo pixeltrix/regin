@@ -1,6 +1,6 @@
 module Reginald
   class Character < Atom
-    attr_accessor :quantifier
+    attr_reader :quantifier
 
     def initialize(value, options = {})
       @quantifier = options[:quantifier]
@@ -52,5 +52,11 @@ module Reginald
       quantifier.freeze
       super
     end
+
+    protected
+      # TODO Remove quantifier writer
+      def quantifier=(quantifier)
+        @quantifier = quantifier
+      end
   end
 end

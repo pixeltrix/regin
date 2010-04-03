@@ -1,7 +1,7 @@
 module Reginald
   class Group
-    attr_reader :expression
-    attr_accessor :quantifier, :capture, :index, :name
+    attr_reader :expression, :quantifier
+    attr_accessor :capture, :index, :name
 
     def initialize(expression, options = {})
       @quantifier = @index = @name = nil
@@ -84,5 +84,11 @@ module Reginald
       expression.freeze
       super
     end
+
+    protected
+      # TODO Remove quantifier writer
+      def quantifier=(quantifier)
+        @quantifier = quantifier
+      end
   end
 end
