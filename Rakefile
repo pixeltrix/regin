@@ -1,6 +1,6 @@
-task :default => [:compile, :spec]
+task :default => :test
 
-task :compile => [
+task :setup => [
   'lib/reginald/parser.rb',
   'lib/reginald/tokenizer.rb'
 ]
@@ -18,6 +18,8 @@ end
 
 require 'spec/rake/spectask'
 
-Spec::Rake::SpecTask.new do |t|
+Spec::Rake::SpecTask.new(:test) do |t|
   t.warning = true
 end
+
+Rake::Task[:test].enhance [:setup]
