@@ -356,11 +356,7 @@ def _reduce_15(val, _values, result)
 end
 
 def _reduce_16(val, _values, result)
-          result = Group.new(val[4], :capture => false);
-          options = val[2];
-          result.expression.multiline  = options[:multiline];
-          result.expression.ignorecase = options[:ignorecase];
-          result.expression.extended   = options[:extended];
+          result = Group.new(val[4], val[2].merge(:capture => false))
           @options_stack.pop
         
     result

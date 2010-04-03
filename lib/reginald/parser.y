@@ -21,11 +21,7 @@ rule
           result = Group.new(val[1], :index => @capture_index_stack.pop)
         }
        | LPAREN QMARK options COLON expression RPAREN {
-          result = Group.new(val[4], :capture => false);
-          options = val[2];
-          result.expression.multiline  = options[:multiline];
-          result.expression.ignorecase = options[:ignorecase];
-          result.expression.extended   = options[:extended];
+          result = Group.new(val[4], val[2].merge(:capture => false))
           @options_stack.pop
         }
        | LPAREN QMARK COLON expression RPAREN {
