@@ -25,6 +25,10 @@ describe Reginald::Expression, "with capture" do
     @expression.flags.should == 0
   end
 
+  it "should not have options" do
+    @expression.should_not be_options
+  end
+
   it "should match 'foo'" do
     @expression.match('foo').should be_true
   end
@@ -134,5 +138,40 @@ describe Reginald::Expression, "with ignorecase" do
 
   it "should apply ignorecase to child characters" do
     @expression.first.should be_casefold
+  end
+
+  it "should have options" do
+    @expression.should be_options
+  end
+end
+
+describe Reginald::Expression, "with explicit case" do
+  before do
+    @expression = Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o'),
+      :ignorecase => false
+    )
+  end
+
+  it "should be a literal expression" do
+    @expression.should be_literal
+  end
+
+  it "should return a string expression of itself" do
+    @expression.to_s.should == "(?-mix:foo)"
+  end
+
+  it "should return a regexp of itself" do
+    @expression.to_regexp.should == /\Afoo\Z/
+  end
+
+  it "should have ignorecase flag" do
+    @expression.flags.should == 0
+  end
+
+  it "should have options" do
+    @expression.should be_options
   end
 end

@@ -8,8 +8,4 @@ describe Reginald::Parser do
   it "should recompile simple regexp" do
     /foo(bar)?/.should compile(/foo(bar)?/)
   end
-
-  it "should simplify top level inline options" do
-    /(?-mix:foo)/.should compile(/(?:foo)/)
-  end
 end

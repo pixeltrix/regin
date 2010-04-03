@@ -17,7 +17,11 @@ def self.parse_regexp(regexp)
   }
 
   expression = parser.scan_str(regexp.source)
-  expression.dup(:flags => regexp.options)
+  if regexp.options == 0
+    expression
+  else
+    expression.dup(:flags => regexp.options)
+  end
 end
 
 attr_accessor :options_stack

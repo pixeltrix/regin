@@ -198,6 +198,20 @@ describe Reginald::Parser do
     re.to_regexp.should eql(%r{\Aabc\Z}i)
   end
 
+  it "should parse explict nested ignorecase" do
+    re = Reginald.parse(%r{(?-mix:foo)}i)
+    re.should be_casefold
+    re.to_s.should eql('(?i-mx:(?-mix:foo))')
+    re.to_regexp.should eql(%r{\A(?-mix:foo)\Z}i)
+  end
+
+  it "should parse implicit nested ignorecase" do
+    re = Reginald.parse(%r{(?:foo)}i)
+    re.should be_casefold
+    re.to_s.should eql('(?i-mx:(?i-mx:foo))')
+    re.to_regexp.should eql(%r{\A(?i-mx:foo)\Z}i)
+  end
+
   it "should parse spaces and pound sign in normal expression" do
     /foo # bar/.should parse(expr('f', 'o', 'o', ' ', '#', ' ', 'b', 'a', 'r'))
   end
