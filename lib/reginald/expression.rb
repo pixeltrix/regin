@@ -70,7 +70,7 @@ module Reginald
       anchored_to_end? || (last.is_a?(Anchor) && last == '$')
     end
 
-    def options
+    def flags
       flag = 0
       flag |= Regexp::MULTILINE if multiline
       flag |= Regexp::IGNORECASE if ignorecase
@@ -78,7 +78,7 @@ module Reginald
       flag
     end
 
-    def options=(flag)
+    def flags=(flag)
       self.multiline  = flag & Regexp::MULTILINE != 0
       self.ignorecase = flag & Regexp::IGNORECASE != 0
       self.extended   = flag & Regexp::EXTENDED != 0
@@ -86,7 +86,7 @@ module Reginald
     end
 
     def to_s(parent = false)
-      if parent || options == 0
+      if parent || flags == 0
         map { |e| e.to_s(parent) }.join
       else
         with, without = [], []

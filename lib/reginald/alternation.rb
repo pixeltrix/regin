@@ -27,7 +27,7 @@ module Reginald
       false
     end
 
-    def options
+    def flags
       0
     end
 

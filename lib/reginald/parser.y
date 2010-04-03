@@ -91,7 +91,7 @@ def self.parse_regexp(regexp)
   }
 
   expression = parser.scan_str(regexp.source)
-  expression.options = regexp.options
+  expression.flags = regexp.options
   expression
 end
 

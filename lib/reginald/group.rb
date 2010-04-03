@@ -22,7 +22,7 @@ module Reginald
     end
 
     def to_s(parent = false)
-      if expression.options == 0
+      if expression.flags == 0
         "(#{capture ? '' : '?:'}#{expression.to_s(parent)})#{quantifier}"
       elsif capture == false
         "#{expression.to_s}#{quantifier}"

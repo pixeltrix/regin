@@ -18,7 +18,7 @@ module Reginald
     end
 
     def to_regexp
-      Regexp.compile("\\A#{to_s(true)}\\Z", options)
+      Regexp.compile("\\A#{to_s(true)}\\Z", flags)
     end
 
     def match(char)

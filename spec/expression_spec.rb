@@ -21,8 +21,8 @@ describe Reginald::Expression, "with capture" do
     @expression.to_regexp.should == /\Afoo\Z/
   end
 
-  it "should have no options" do
-    @expression.options.should == 0
+  it "should have no flags" do
+    @expression.flags.should == 0
   end
 
   it "should match 'foo'" do
@@ -119,8 +119,8 @@ describe Reginald::Expression, "with ignorecase" do
     @expression.to_regexp.should == /\Afoo\Z/i
   end
 
-  it "should have ignorecase option" do
-    @expression.options.should == Regexp::IGNORECASE
+  it "should have ignorecase flag" do
+    @expression.flags.should == Regexp::IGNORECASE
   end
 
   it "should apply ignorecase to child characters" do
