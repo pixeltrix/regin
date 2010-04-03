@@ -325,7 +325,7 @@ def _reduce_9(val, _values, result)
 end
 
 def _reduce_10(val, _values, result)
- result = CharacterClass.new(val[2]); result.negate = true 
+ result = CharacterClass.new(val[2], :negate => true) 
     result
 end
 

@@ -26,7 +26,7 @@ module Reginald
       end
     end
 
-    attr_accessor :negate
+    attr_reader :negate
 
     def negated?
       negate ? true : false
@@ -74,5 +74,11 @@ module Reginald
       negate.freeze
       super
     end
+
+    protected
+      # TODO Remove negate writer
+      def negate=(negate)
+        @negate = negate
+      end
   end
 end
