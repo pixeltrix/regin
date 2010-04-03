@@ -10,16 +10,8 @@ module Reginald
       options.each { |k, v| self.send("#{k}=", v) }
     end
 
-    def multiline=(multiline)
-      expression.multiline = multiline
-    end
-
     def ignorecase=(ignorecase)
       expression.ignorecase = ignorecase
-    end
-
-    def extended=(extended)
-      expression.extended = extended
     end
 
     # Returns true if expression could be treated as a literal string.
@@ -111,6 +103,16 @@ module Reginald
       # TODO Remove name writer
       def name=(name)
         @name = name
+      end
+
+      # TODO Remove multiline writer
+      def multiline=(multiline)
+        expression.multiline = multiline
+      end
+
+      # TODO Remove extended writer
+      def extended=(extended)
+        expression.extended = extended
       end
   end
 end
