@@ -1,6 +1,8 @@
 = Reginald
 
-Reginald is a Ruby Reginald syntax parser. Its parser and tokenizer are written in racc/rexical. Since racc is part of Ruby's standard library, there are extra runtime dependencies.
+Reginald is a Ruby Reginald syntax parser.
+
+Its parser and tokenizer are written in racc/rexical. Since racc is part of Ruby's standard library, there are no extra runtime dependencies.
 
 === Examples
 
