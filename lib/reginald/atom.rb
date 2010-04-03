@@ -1,10 +1,11 @@
 module Reginald
-  class Atom < Struct.new(:value)
+  class Atom
+    attr_reader :value
     attr_accessor :ignorecase
 
     def initialize(value, options = {})
+      @value = value
       @ignorecase = options[:ignorecase]
-      super(value)
     end
 
     # Returns true if expression could be treated as a literal string.

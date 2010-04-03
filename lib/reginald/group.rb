@@ -1,19 +1,12 @@
 module Reginald
-  class Group < Struct.new(:expression)
+  class Group
+    attr_reader :expression
     attr_accessor :quantifier, :capture, :index, :name
 
-    def initialize(*args)
-      if args.last.is_a?(Hash)
-        options = args.last
-        args    = args[0..-2]
-      else
-        options = {}
-      end
-
+    def initialize(expression, options = {})
       @quantifier = @index = @name = nil
       @capture = true
-
-      super(*args)
+      @expression = expression
 
       options.each { |k, v| self.send("#{k}=", v) }
     end
