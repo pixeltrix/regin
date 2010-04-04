@@ -37,7 +37,7 @@ module Reginald
 
     def dup(options = {})
       alternation = super()
-      alternation.ignorecase = options[:ignorecase] if options[:ignorecase]
+      alternation.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
       alternation
     end
 

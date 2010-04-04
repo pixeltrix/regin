@@ -34,8 +34,6 @@ module Reginald
       if @ignorecase.nil?
         each { |e| e.ignorecase = ignorecase }
         @ignorecase = ignorecase
-      else
-        false
       end
     end
 

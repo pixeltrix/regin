@@ -134,6 +134,28 @@ describe Reginald::Expression, "with ignorecase" do
   it "should have options" do
     @expression.should be_options
   end
+
+  it "should dup" do
+    @expression.dup.should == @expression
+  end
+
+  it "should dup but not reset ignorecase" do
+    @expression.dup(:ignorecase => nil).should == Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o'),
+      :ignorecase => true
+    )
+  end
+
+  it "should dup but not disable ignorecase" do
+    @expression.dup(:ignorecase => false).should == Reginald::Expression.new(
+      Reginald::Character.new('f'),
+      Reginald::Character.new('o'),
+      Reginald::Character.new('o'),
+      :ignorecase => true
+    )
+  end
 end
 
 describe Reginald::Expression, "with explicit case" do
