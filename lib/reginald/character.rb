@@ -16,7 +16,7 @@ module Reginald
 
     def dup(options = {})
       char = super
-      char.quantifier = options[:quantifier] if options[:quantifier]
+      char.quantifier = options[:quantifier] if options.key?(:quantifier)
       char
     end
 

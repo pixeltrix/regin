@@ -45,7 +45,7 @@ module Reginald
 
     def dup(options = {})
       char = super
-      char.negate = options[:negate] if options[:negate]
+      char.negate = options[:negate] if options.key?(:negate)
       char
     end
 

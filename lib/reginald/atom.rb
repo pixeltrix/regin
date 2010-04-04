@@ -19,7 +19,7 @@ module Reginald
 
     def dup(options = {})
       atom = super()
-      atom.ignorecase = options[:ignorecase] if options[:ignorecase]
+      atom.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
       atom
     end
 

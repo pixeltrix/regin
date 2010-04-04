@@ -44,11 +44,11 @@ module Reginald
 
     def dup(options = {})
       group = super()
-      group.ignorecase = options[:ignorecase] if options[:ignorecase]
-      group.quantifier = options[:quantifier] if options[:quantifier]
-      group.capture = options[:capture] if options[:capture]
-      group.index = options[:index] if options[:index]
-      group.name = options[:name] if options[:name]
+      group.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
+      group.quantifier = options[:quantifier] if options.key?(:quantifier)
+      group.capture = options[:capture] if options.key?(:capture)
+      group.index = options[:index] if options.key?(:index)
+      group.name = options[:name] if options.key?(:name)
       group
     end
 
