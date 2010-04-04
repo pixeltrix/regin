@@ -7,7 +7,14 @@ module Reginald
       @capture = true
       @expression = expression
 
-      options.each { |k, v| self.send("#{k}=", v) }
+      self.quantifier = options[:quantifier] if options.key?(:quantifier)
+      self.capture    = options[:capture] if options.key?(:capture)
+      self.index      = options[:index] if options.key?(:index)
+      self.name       = options[:name] if options.key?(:name)
+
+      self.multiline  = options[:multiline] if options.key?(:multiline)
+      self.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
+      self.extended   = options[:extended] if options.key?(:extended)
     end
 
     def ignorecase=(ignorecase)
