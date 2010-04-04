@@ -19,7 +19,14 @@ def self.parse_regexp(regexp)
   parser.options_stack << options
 
   expression = parser.scan_str(regexp.source)
-  expression.dup(options)
+
+  if options.any? { |k, v| v }
+    expression.multiline  = options[:multiline]
+    expression.ignorecase = options[:ignorecase]
+    expression.extended   = options[:extended]
+  end
+
+  expression
 end
 
 attr_accessor :options_stack
