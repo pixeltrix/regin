@@ -24,10 +24,6 @@ module Reginald
       end
     end
 
-    def ignorecase=(ignorecase)
-      map! { |e| e.dup(:ignorecase => ignorecase) }
-    end
-
     # Returns true if expression could be treated as a literal string.
     #
     # Alternation groups are never literal.
