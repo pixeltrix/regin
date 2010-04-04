@@ -40,7 +40,7 @@ module Reginald
 
     def dup(options = {})
       group = super()
-      group.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
+      group.expression = group.expression.dup(options)
       group.quantifier = options[:quantifier] if options.key?(:quantifier)
       group.capture = options[:capture] if options.key?(:capture)
       group.index = options[:index] if options.key?(:index)
@@ -88,6 +88,10 @@ module Reginald
     end
 
     protected
+      def expression=(expression)
+        @expression = expression
+      end
+
       # TODO Remove quantifier writer
       def quantifier=(quantifier)
         @quantifier = quantifier
