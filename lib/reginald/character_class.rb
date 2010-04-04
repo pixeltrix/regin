@@ -45,7 +45,9 @@ module Reginald
 
     def dup(options = {})
       char = super
-      char.negate = options[:negate] if options.key?(:negate)
+      char.instance_eval do
+        @negate = options[:negate] if options.key?(:negate)
+      end
       char
     end
 
@@ -74,11 +76,5 @@ module Reginald
       negate.freeze
       super
     end
-
-    protected
-      # TODO Remove negate writer
-      def negate=(negate)
-        @negate = negate
-      end
   end
 end
