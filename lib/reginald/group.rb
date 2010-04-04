@@ -17,10 +17,6 @@ module Reginald
       %w( quantifier capture index name )
     end
 
-    def ignorecase=(ignorecase)
-      expression.ignorecase = ignorecase
-    end
-
     # Returns true if expression could be treated as a literal string.
     #
     # A Group is literal if its expression is literal and it has no quantifier.
