@@ -19,7 +19,9 @@ module Reginald
         super(args)
       end
 
-      self.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
+      if options.key?(:ignorecase)
+        map! { |e| e.dup(:ignorecase => options[:ignorecase]) }
+      end
     end
 
     def ignorecase=(ignorecase)
@@ -38,9 +40,7 @@ module Reginald
     end
 
     def dup(options = {})
-      alternation = super()
-      alternation.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
-      alternation
+      self.class.new(to_a, options)
     end
 
     def to_s(parent = false)
