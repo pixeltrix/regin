@@ -6,17 +6,6 @@ module Reginald
       self.ignorecase = options[:ignorecase]
     end
 
-    def ignorecase=(ignorecase)
-      each { |e| e.ignorecase = ignorecase }
-      ignorecase
-    end
-
-    def dup(options = {})
-      collection = super()
-      collection.ignorecase = options[:ignorecase] if options[:ignorecase]
-      collection
-    end
-
     def to_regexp
       Regexp.compile("\\A#{to_s(true)}\\Z", flags)
     end

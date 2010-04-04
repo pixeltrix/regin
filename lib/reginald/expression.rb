@@ -32,7 +32,7 @@ module Reginald
 
     def ignorecase=(ignorecase)
       if @ignorecase.nil?
-        super
+        each { |e| e.ignorecase = ignorecase }
         @ignorecase = ignorecase
       else
         false
@@ -83,9 +83,10 @@ module Reginald
     end
 
     def dup(options = {})
-      expression = super
-      expression.multiline = options[:multiline] if options.key?(:multiline)
-      expression.extended  = options[:extended] if options.key?(:extended)
+      expression = super()
+      expression.multiline  = options[:multiline] if options.key?(:multiline)
+      expression.ignorecase = options[:ignorecase] if options[:ignorecase]
+      expression.extended   = options[:extended] if options.key?(:extended)
       expression
     end
 

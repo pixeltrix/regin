@@ -20,6 +20,10 @@ module Reginald
       end
     end
 
+    def ignorecase=(ignorecase)
+      each { |e| e.ignorecase = ignorecase }
+    end
+
     # Returns true if expression could be treated as a literal string.
     #
     # Alternation groups are never literal.
@@ -29,6 +33,12 @@ module Reginald
 
     def flags
       0
+    end
+
+    def dup(options = {})
+      alternation = super()
+      alternation.ignorecase = options[:ignorecase] if options[:ignorecase]
+      alternation
     end
 
     def to_s(parent = false)
