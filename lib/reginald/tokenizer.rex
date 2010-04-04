@@ -50,7 +50,7 @@ rule
 
   :CCLASS \]           { @state = nil; [:RBRACK, text] }
   :CCLASS \^           { [:NEGATE, text] }
-  :CCLASS :({CTYPES}): { [@ss[1], text] }
+  :CCLASS :({CTYPES}): { [:CTYPE, text] }
   :CCLASS \\-          { [:CHAR, text] }
   :CCLASS \\(.)        { [:CHAR, @ss[1]] }
   :CCLASS .            { [:CHAR, text] }

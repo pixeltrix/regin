@@ -9,7 +9,7 @@ rule
         | atom
 
   atom: group
-      | LBRACK ctype RBRACK { result = val[1] }
+      | LBRACK CTYPE RBRACK { result = CharacterClass.new(val[1]) }
       | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
       | LBRACK NEGATE bracket_expression RBRACK { result = CharacterClass.new(val[2], :negate => true) }
       | CCLASS { result = CharacterClass.new(val[0]) }
@@ -46,21 +46,6 @@ rule
                     | bracket_expression NEGATE { result = val.join }
                     | CHAR
                     | NEGATE
-
-  ctype: "alnum"  { result = CharacterClass::ALNUM }
-       | "alpha"  { result = CharacterClass::ALPHA }
-       | "ascii"  { result = CharacterClass::ASCII }
-       | "blank"  { result = CharacterClass::BLANK }
-       | "cntrl"  { result = CharacterClass::CNTRL }
-       | "digit"  { result = CharacterClass::DIGIT }
-       | "graph"  { result = CharacterClass::GRAPH }
-       | "lower"  { result = CharacterClass::LOWER }
-       | "print"  { result = CharacterClass::PRINT }
-       | "punct"  { result = CharacterClass::PUNCT }
-       | "space"  { result = CharacterClass::SPACE }
-       | "upper"  { result = CharacterClass::UPPER }
-       | "word"   { result = CharacterClass::WORD  }
-       | "xdigit" { result = CharacterClass::XDIGIT }
 
   # Inline options
   options: MINUS modifier modifier modifier {
