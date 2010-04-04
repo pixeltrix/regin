@@ -69,15 +69,11 @@ module Reginald
     end
 
     def options?
-      !multiline.nil? || !ignorecase.nil? || !extended.nil?
+      options.any?(true)
     end
 
     def flags
-      flag = 0
-      flag |= Regexp::MULTILINE if multiline
-      flag |= Regexp::IGNORECASE if ignorecase
-      flag |= Regexp::EXTENDED if extended
-      flag
+      options.to_i
     end
 
     def dup(options = {})
@@ -118,5 +114,10 @@ module Reginald
         !!self.ignorecase == !!other.ignorecase &&
         !!self.extended == !!other.extended
     end
+
+    protected
+      def options
+        Options.new(multiline, ignorecase, extended)
+      end
   end
 end

@@ -7,6 +7,7 @@ module Reginald
   autoload :Collection, 'reginald/collection'
   autoload :Expression, 'reginald/expression'
   autoload :Group, 'reginald/group'
+  autoload :Options, 'reginald/options'
   autoload :Parser, 'reginald/parser'
 
   class << self

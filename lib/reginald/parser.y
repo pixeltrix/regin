@@ -83,21 +83,17 @@ end
 
 ---- inner
 def self.parse_regexp(regexp)
-  options = {
-    :multiline => (regexp.options & Regexp::MULTILINE != 0),
-    :ignorecase => (regexp.options & Regexp::IGNORECASE != 0),
-    :extended => (regexp.options & Regexp::EXTENDED != 0)
-  }
+  options = Options.from_int(regexp.options)
 
   parser = new
-  parser.options_stack << options
+  parser.options_stack << options.to_h
 
   expression = parser.scan_str(regexp.source)
 
-  if options.any? { |k, v| v }
-    expression.multiline  = options[:multiline]
-    expression.ignorecase = options[:ignorecase]
-    expression.extended   = options[:extended]
+  if options.any?
+    expression.multiline  = options.multiline
+    expression.ignorecase = options.ignorecase
+    expression.extended   = options.extended
   end
 
   expression
