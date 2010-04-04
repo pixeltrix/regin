@@ -33,7 +33,7 @@ module Reginald
 
     def ignorecase=(ignorecase)
       if @ignorecase.nil?
-        each { |e| e.ignorecase = ignorecase }
+        map! { |e| e.dup(:ignorecase => ignorecase) }
         @ignorecase = ignorecase
       end
     end

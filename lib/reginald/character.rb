@@ -7,6 +7,10 @@ module Reginald
       super
     end
 
+    def option_names
+      %w( quantifier ) + super
+    end
+
     # Returns true if expression could be treated as a literal string.
     #
     # A Character is literal is there is no quantifier attached to it.

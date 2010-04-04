@@ -25,7 +25,7 @@ module Reginald
     end
 
     def ignorecase=(ignorecase)
-      each { |e| e.ignorecase = ignorecase }
+      map! { |e| e.dup(:ignorecase => ignorecase) }
     end
 
     # Returns true if expression could be treated as a literal string.
