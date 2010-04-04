@@ -31,13 +31,6 @@ module Reginald
       self.extended   = options[:extended] if options.key?(:extended)
     end
 
-    def ignorecase=(ignorecase)
-      if @ignorecase.nil?
-        map! { |e| e.dup(:ignorecase => ignorecase) }
-        @ignorecase = ignorecase
-      end
-    end
-
     # Returns true if expression could be treated as a literal string.
     #
     # A Expression is literal if all its elements are literal.
@@ -119,6 +112,13 @@ module Reginald
     protected
       def options
         Options.new(multiline, ignorecase, extended)
+      end
+
+      def ignorecase=(ignorecase)
+        if @ignorecase.nil?
+          map! { |e| e.dup(:ignorecase => ignorecase) }
+          @ignorecase = ignorecase
+        end
       end
   end
 end
