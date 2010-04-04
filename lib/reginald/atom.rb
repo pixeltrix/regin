@@ -1,11 +1,19 @@
 module Reginald
   class Atom
-    attr_reader :value
-    attr_accessor :ignorecase
+    attr_reader :value, :ignorecase
 
     def initialize(value, options = {})
       @value = value
       @ignorecase = options[:ignorecase]
+    end
+
+    def option_names
+      %w( ignorecase )
+    end
+
+    # TODO remove
+    def ignorecase=(ignorecase)
+      @ignorecase = ignorecase
     end
 
     # Returns true if expression could be treated as a literal string.
@@ -18,9 +26,11 @@ module Reginald
     end
 
     def dup(options = {})
-      atom = super()
-      atom.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
-      atom
+      original_options = option_names.inject({}) do |h, m|
+        h[m.to_sym] = send(m)
+        h
+      end
+      self.class.new(value, original_options.merge(options))
     end
 
     def to_s(parent = false)

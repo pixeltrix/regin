@@ -14,14 +14,6 @@ module Reginald
       quantifier.nil? && !ignorecase
     end
 
-    def dup(options = {})
-      char = super
-      char.instance_eval do
-        @quantifier = options[:quantifier] if options.key?(:quantifier)
-      end
-      char
-    end
-
     def to_s(parent = false)
       if !parent && ignorecase
         "(?i-mx:#{value})#{quantifier}"

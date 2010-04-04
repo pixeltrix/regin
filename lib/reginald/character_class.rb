@@ -20,6 +20,10 @@ module Reginald
       super
     end
 
+    def option_names
+      %w( negate ) + super
+    end
+
     def ignorecase=(ignorecase)
       if to_s !~ /\A\[:.*:\]\Z/
         super
@@ -41,14 +45,6 @@ module Reginald
 
     def bracketed?
       value != '.' && value !~ /^\\[dDsSwW]$/
-    end
-
-    def dup(options = {})
-      char = super
-      char.instance_eval do
-        @negate = options[:negate] if options.key?(:negate)
-      end
-      char
     end
 
     def to_s(parent = false)
