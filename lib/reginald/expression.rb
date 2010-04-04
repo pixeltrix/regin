@@ -79,7 +79,7 @@ module Reginald
     def dup(options = {})
       expression = super()
       expression.multiline  = options[:multiline] if options.key?(:multiline)
-      expression.ignorecase = options[:ignorecase] if options[:ignorecase]
+      expression.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
       expression.extended   = options[:extended] if options.key?(:extended)
       expression
     end
