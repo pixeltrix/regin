@@ -11,11 +11,6 @@ module Reginald
       %w( ignorecase )
     end
 
-    # TODO remove
-    def ignorecase=(ignorecase)
-      @ignorecase = ignorecase
-    end
-
     # Returns true if expression could be treated as a literal string.
     def literal?
       false
