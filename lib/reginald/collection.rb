@@ -1,11 +1,5 @@
 module Reginald
   class Collection < Array
-    def initialize(*args)
-      args, options = extract_options(args)
-      super(*args)
-      self.ignorecase = options[:ignorecase]
-    end
-
     def to_regexp
       Regexp.compile("\\A#{to_s(true)}\\Z", flags)
     end

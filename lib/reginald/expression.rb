@@ -20,14 +20,15 @@ module Reginald
       @multiline = @ignorecase = @extended = nil
 
       if args.length == 1 && args.first.instance_of?(Array)
-        super(args.first, options)
+        super(args.first)
       else
         args = args.map { |e| e.instance_of?(String) ? Character.new(e) : e }
-        super(args, options)
+        super(args)
       end
 
-      self.multiline = options[:multiline]
-      self.extended  = options[:extended]
+      self.multiline  = options[:multiline] if options.key?(:multiline)
+      self.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
+      self.extended   = options[:extended] if options.key?(:extended)
     end
 
     def ignorecase=(ignorecase)

@@ -14,10 +14,12 @@ module Reginald
       args, options = extract_options(args)
 
       if args.length == 1 && args.first.instance_of?(Array)
-        super(args.first, options)
+        super(args.first)
       else
-        super(args, options)
+        super(args)
       end
+
+      self.ignorecase = options[:ignorecase] if options.key?(:ignorecase)
     end
 
     def ignorecase=(ignorecase)
