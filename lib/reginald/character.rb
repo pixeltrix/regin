@@ -16,7 +16,9 @@ module Reginald
 
     def dup(options = {})
       char = super
-      char.quantifier = options[:quantifier] if options.key?(:quantifier)
+      char.instance_eval do
+        @quantifier = options[:quantifier] if options.key?(:quantifier)
+      end
       char
     end
 
@@ -52,11 +54,5 @@ module Reginald
       quantifier.freeze
       super
     end
-
-    protected
-      # TODO Remove quantifier writer
-      def quantifier=(quantifier)
-        @quantifier = quantifier
-      end
   end
 end
