@@ -13,6 +13,10 @@ module Reginald
       @name       = options[:name] if options.key?(:name)
     end
 
+    def option_names
+      %w( quantifier capture index name )
+    end
+
     def ignorecase=(ignorecase)
       expression.ignorecase = ignorecase
     end
@@ -39,15 +43,11 @@ module Reginald
     end
 
     def dup(options = {})
-      group = super()
-      group.instance_eval do
-        @expression = group.expression.dup(options)
-        @quantifier = options[:quantifier] if options.key?(:quantifier)
-        @capture = options[:capture] if options.key?(:capture)
-        @index = options[:index] if options.key?(:index)
-        @name = options[:name] if options.key?(:name)
+      original_options = option_names.inject({}) do |h, m|
+        h[m.to_sym] = send(m)
+        h
       end
-      group
+      self.class.new(expression, original_options.merge(options))
     end
 
     def inspect #:nodoc:
