@@ -15,13 +15,7 @@ def self.parse_regexp(regexp)
   parser.options_stack << options.to_h
 
   expression = parser.scan_str(regexp.source)
-
-  if options.any?
-    expression.multiline  = options.multiline
-    expression.ignorecase = options.ignorecase
-    expression.extended   = options.extended
-  end
-
+  expression = expression.dup(options.to_h) if options.any?
   expression
 end
 
