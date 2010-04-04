@@ -131,7 +131,7 @@ describe Reginald::Parser do
   it "should parse bracket expression with special characters" do
     %r{/foo/([^/.?]+)}.should parse([
       '/', 'f', 'o', 'o', '/',
-      group([range('/.?', :negate => true, :quantifier => '+')], :index => 0)
+      group(expr(range('/.?', :negate => true, :quantifier => '+')), :index => 0)
     ])
   end
 
@@ -287,12 +287,12 @@ describe Reginald::Parser do
     it "should parse nested named group" do
       regexp = eval('%r{a((?<b>c))?}')
 
-      regexp.should parse([
+      regexp.should parse(expr(
         'a',
-        group([
+        group(expr(
           group(expr('c'), :name => 'b', :index => 1)
-        ], :quantifier => '?', :index => 0)
-      ])
+        ), :quantifier => '?', :index => 0)
+      ))
     end
   end
 
