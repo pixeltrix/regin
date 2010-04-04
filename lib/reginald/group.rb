@@ -7,10 +7,10 @@ module Reginald
       @capture = true
       @expression = expression.dup(options)
 
-      self.quantifier = options[:quantifier] if options.key?(:quantifier)
-      self.capture    = options[:capture] if options.key?(:capture)
-      self.index      = options[:index] if options.key?(:index)
-      self.name       = options[:name] if options.key?(:name)
+      @quantifier = options[:quantifier] if options.key?(:quantifier)
+      @capture    = options[:capture] if options.key?(:capture)
+      @index      = options[:index] if options.key?(:index)
+      @name       = options[:name] if options.key?(:name)
     end
 
     def ignorecase=(ignorecase)
@@ -40,11 +40,13 @@ module Reginald
 
     def dup(options = {})
       group = super()
-      group.expression = group.expression.dup(options)
-      group.quantifier = options[:quantifier] if options.key?(:quantifier)
-      group.capture = options[:capture] if options.key?(:capture)
-      group.index = options[:index] if options.key?(:index)
-      group.name = options[:name] if options.key?(:name)
+      group.instance_eval do
+        @expression = group.expression.dup(options)
+        @quantifier = options[:quantifier] if options.key?(:quantifier)
+        @capture = options[:capture] if options.key?(:capture)
+        @index = options[:index] if options.key?(:index)
+        @name = options[:name] if options.key?(:name)
+      end
       group
     end
 
@@ -86,30 +88,5 @@ module Reginald
       expression.freeze
       super
     end
-
-    protected
-      def expression=(expression)
-        @expression = expression
-      end
-
-      # TODO Remove quantifier writer
-      def quantifier=(quantifier)
-        @quantifier = quantifier
-      end
-
-      # TODO Remove capture writer
-      def capture=(capture)
-        @capture = capture
-      end
-
-      # TODO Remove index writer
-      def index=(index)
-        @index = index
-      end
-
-      # TODO Remove name writer
-      def name=(name)
-        @name = name
-      end
   end
 end
