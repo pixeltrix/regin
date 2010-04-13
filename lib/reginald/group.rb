@@ -81,7 +81,7 @@ module Reginald
     end
 
     def freeze #:nodoc:
-      expression.freeze
+      expression.freeze if expression
       super
     end
   end

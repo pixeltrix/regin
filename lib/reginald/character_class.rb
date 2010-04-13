@@ -48,7 +48,7 @@ module Reginald
     end
 
     def freeze #:nodoc:
-      negate.freeze
+      negate.freeze if negate
       super
     end
   end

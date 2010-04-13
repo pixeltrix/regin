@@ -47,7 +47,7 @@ module Reginald
     end
 
     def freeze #:nodoc:
-      quantifier.freeze
+      quantifier.freeze if quantifier
       super
     end
   end
