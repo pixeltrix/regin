@@ -19,17 +19,17 @@ module Reginald
     end
     alias_method :size, :length
 
-    # TODO: Deprecate
-    def <<(obj)
-      @array << obj
-    end
-
     def first
       @array.first
     end
 
     def last
       @array.last
+    end
+
+    def +(other)
+      ary = other.is_a?(Collection) ? other.internal_array : other
+      self.class.new(@array + ary)
     end
 
     def to_regexp
