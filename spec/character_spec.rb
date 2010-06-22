@@ -17,7 +17,7 @@ describe Regin::Character do
     end
 
     it "should return a regexp of itself" do
-      @character.to_regexp.should == /\Aa\Z/
+      @character.to_regexp.should == /a/
     end
 
     it "should be inspectable" do
@@ -80,7 +80,7 @@ describe Regin::Character do
     end
 
     it "should return a regexp of itself" do
-      @character.to_regexp.should == /\Aa?\Z/
+      @character.to_regexp.should == /a?/
     end
 
     it "should be inspectable" do
@@ -124,7 +124,7 @@ describe Regin::Character do
     end
 
     it "should return a regexp of itself" do
-      @character.to_regexp.should == /\Aa{2,3}\Z/
+      @character.to_regexp.should == /a{2,3}/
     end
 
     it "should be inspectable" do
@@ -157,7 +157,7 @@ describe Regin::Character do
     end
 
     it "should return a regexp of itself" do
-      @character.to_regexp.should == /\Aa\Z/i
+      @character.to_regexp.should == /a/i
     end
 
     it "should be inspectable" do

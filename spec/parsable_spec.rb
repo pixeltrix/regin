@@ -4,7 +4,7 @@ Spec::Matchers.define :be_parsable do
   match do |actual|
     expression = Regin.parse(actual)
     expression.should be_a(Regin::Expression)
-    expected = Regexp.compile("\\A#{actual.source}\\Z", actual.options)
+    expected = Regexp.compile(actual.source, actual.options)
     expression.to_regexp.should eql(expected)
   end
 end

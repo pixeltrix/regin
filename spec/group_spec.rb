@@ -31,7 +31,7 @@ describe Regin::Group, "with capture" do
   end
 
   it "should return a regexp of itself" do
-    @group.to_regexp.should == /\A(foo)\Z/
+    @group.to_regexp.should == /(foo)/
   end
 
   it "should match 'foo'" do
@@ -110,7 +110,7 @@ describe Regin::Group, "with ignorecase capture expression" do
   end
 
   it "should return a regexp of itself" do
-    @group.to_regexp.should == /\A((?i-mx:foo))\Z/
+    @group.to_regexp.should == /((?i-mx:foo))/
   end
 
   it "should match 'foo'" do
@@ -166,7 +166,7 @@ describe Regin::Group, "with ignorecase optional capture expression" do
   end
 
   it "should return a regexp of itself" do
-    @group.to_regexp.should == /\A((?i-mx:foo))?\Z/
+    @group.to_regexp.should == /((?i-mx:foo))?/
   end
 
   it "should match 'foo'" do

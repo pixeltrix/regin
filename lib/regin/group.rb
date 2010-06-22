@@ -34,7 +34,7 @@ module Regin
       end
     end
 
-    def to_regexp(anchored = true)
+    def to_regexp(anchored = false)
       re = to_s
       re = "\\A#{re}\\Z" if anchored
       Regexp.compile(re)

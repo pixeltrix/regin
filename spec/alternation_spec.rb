@@ -19,7 +19,7 @@ describe Regin::Alternation do
     end
 
     it "should return a regexp of itself" do
-      @alternation.to_regexp.should == /\Aa|b|c\Z/
+      @alternation.to_regexp.should == /a|b|c/
     end
 
     it "should match 'a'" do
@@ -97,7 +97,7 @@ describe Regin::Alternation do
     end
 
     it "should return a regexp of itself" do
-      @alternation.to_regexp.should == /\Aa|b|c\Z/
+      @alternation.to_regexp.should == /a|b|c/
     end
 
     it "should apply ignorecase to child expression" do

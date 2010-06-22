@@ -18,7 +18,7 @@ describe Regin::Expression, "with capture" do
   end
 
   it "should return a regexp of itself" do
-    @expression.to_regexp.should == /\Afoo\Z/
+    @expression.to_regexp.should == /foo/
   end
 
   it "should have no flags" do
@@ -120,7 +120,7 @@ describe Regin::Expression, "with ignorecase" do
   end
 
   it "should return a regexp of itself" do
-    @expression.to_regexp.should == /\Afoo\Z/i
+    @expression.to_regexp.should == /foo/i
   end
 
   it "should have ignorecase flag" do
@@ -177,7 +177,7 @@ describe Regin::Expression, "with explicit case" do
   end
 
   it "should return a regexp of itself" do
-    @expression.to_regexp.should == /\Afoo\Z/
+    @expression.to_regexp.should == /foo/
   end
 
   it "should have ignorecase flag" do

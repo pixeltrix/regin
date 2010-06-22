@@ -26,7 +26,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A[a-z]\Z/
+      @range.to_regexp.should == /[a-z]/
     end
 
     it "should be inspectable" do
@@ -92,7 +92,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A.\Z/
+      @range.to_regexp.should == /./
     end
 
     it "should be inspectable" do
@@ -137,7 +137,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A[a-z]{2,3}\Z/
+      @range.to_regexp.should == /[a-z]{2,3}/
     end
 
     it "should be inspectable" do
@@ -167,7 +167,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A[^a-z]\Z/
+      @range.to_regexp.should == /[^a-z]/
     end
 
     it "should be inspectable" do
@@ -209,7 +209,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A[a-z]\Z/i
+      @range.to_regexp.should == /[a-z]/i
     end
 
     it "should be inspectable" do
@@ -246,7 +246,7 @@ describe Regin::CharacterClass do
     end
 
     it "should return a regexp of itself" do
-      @range.to_regexp.should == /\A.\Z/i
+      @range.to_regexp.should == /./i
     end
 
     it "should be inspectable" do

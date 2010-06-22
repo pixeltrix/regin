@@ -195,21 +195,21 @@ describe Regin::Parser do
     re = Regin.parse(/abc/i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:abc)')
-    re.to_regexp.should eql(%r{\Aabc\Z}i)
+    re.to_regexp.should eql(%r{abc}i)
   end
 
   it "should parse explict nested ignorecase" do
     re = Regin.parse(%r{(?-mix:foo)}i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:(?-mix:foo))')
-    re.to_regexp.should eql(%r{\A(?-mix:foo)\Z}i)
+    re.to_regexp.should eql(%r{(?-mix:foo)}i)
   end
 
   it "should parse implicit nested ignorecase" do
     re = Regin.parse(%r{(?:foo)}i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:(?i-mx:foo))')
-    re.to_regexp.should eql(%r{\A(?i-mx:foo)\Z}i)
+    re.to_regexp.should eql(%r{(?i-mx:foo)}i)
   end
 
   it "should parse spaces and pound sign in normal expression" do
