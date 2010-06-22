@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe Reginald::CharacterClass do
+describe Regin::CharacterClass do
   shared_examples_for "all range character classes" do
     it { @range.should_not be_literal }
   end
@@ -10,7 +10,7 @@ describe Reginald::CharacterClass do
       # TODO: Character class should be constructed from a set
       # of chars not a string. We should do the parsing
       # in the actual parser, not here.
-      @range = Reginald::CharacterClass.new('a-z')
+      @range = Regin::CharacterClass.new('a-z')
     end
 
     it_should_behave_like "all range character classes"
@@ -41,19 +41,19 @@ describe Reginald::CharacterClass do
     it { @range.should_not include('1') }
 
     it "should == another character with the same value" do
-      @range.should == Reginald::CharacterClass.new('a-z')
+      @range.should == Regin::CharacterClass.new('a-z')
     end
 
     it "should eql another character with the same value" do
-      @range.should eql(Reginald::CharacterClass.new('a-z'))
+      @range.should eql(Regin::CharacterClass.new('a-z'))
     end
 
     it "should not == another character if the quantifier is different" do
-      @range.should_not == Reginald::CharacterClass.new('a-z', :quantifier => '?')
+      @range.should_not == Regin::CharacterClass.new('a-z', :quantifier => '?')
     end
 
     it "should not eql another character if the quantifier is different" do
-      @range.should_not eql(Reginald::CharacterClass.new('a-z', :quantifier => '?'))
+      @range.should_not eql(Regin::CharacterClass.new('a-z', :quantifier => '?'))
     end
 
     it "should dup" do
@@ -61,21 +61,21 @@ describe Reginald::CharacterClass do
     end
 
     it "should dup with quantifier" do
-      @range.dup(:quantifier => '?').should == Reginald::CharacterClass.new('a-z', :quantifier => '?')
+      @range.dup(:quantifier => '?').should == Regin::CharacterClass.new('a-z', :quantifier => '?')
     end
 
     it "should dup with ignorecase" do
-      @range.dup(:ignorecase => true).should == Reginald::CharacterClass.new('a-z', :ignorecase => true)
+      @range.dup(:ignorecase => true).should == Regin::CharacterClass.new('a-z', :ignorecase => true)
     end
 
     it "should dup with negate" do
-      @range.dup(:negate => true).should == Reginald::CharacterClass.new('a-z', :negate => true)
+      @range.dup(:negate => true).should == Regin::CharacterClass.new('a-z', :negate => true)
     end
   end
 
   context "from '.'" do
     before do
-      @range = Reginald::CharacterClass.new('.')
+      @range = Regin::CharacterClass.new('.')
     end
 
     it_should_behave_like "all range character classes"
@@ -107,25 +107,25 @@ describe Reginald::CharacterClass do
     it { @range.should include('1') }
 
     it "should == another character with the same value" do
-      @range.should == Reginald::CharacterClass.new('.')
+      @range.should == Regin::CharacterClass.new('.')
     end
 
     it "should eql another character with the same value" do
-      @range.should eql(Reginald::CharacterClass.new('.'))
+      @range.should eql(Regin::CharacterClass.new('.'))
     end
 
     it "should not == another character if the quantifier is different" do
-      @range.should_not == Reginald::CharacterClass.new('.', :quantifier => '?')
+      @range.should_not == Regin::CharacterClass.new('.', :quantifier => '?')
     end
 
     it "should not eql another character if the quantifier is different" do
-      @range.should_not eql(Reginald::CharacterClass.new('.', :quantifier => '?'))
+      @range.should_not eql(Regin::CharacterClass.new('.', :quantifier => '?'))
     end
   end
 
   context "from a-z and and repeator quantifier" do
     before do
-      @range = Reginald::CharacterClass.new('a-z', :quantifier => '{2,3}')
+      @range = Regin::CharacterClass.new('a-z', :quantifier => '{2,3}')
     end
 
     it_should_behave_like "all range character classes"
@@ -155,7 +155,7 @@ describe Reginald::CharacterClass do
 
   context "from negated a-z" do
     before do
-      @range = Reginald::CharacterClass.new('a-z', :negate => true)
+      @range = Regin::CharacterClass.new('a-z', :negate => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -192,7 +192,7 @@ describe Reginald::CharacterClass do
       # TODO: Character class should be constructed from a set
       # of chars not a string. We should do the parsing
       # in the actual parser, not here.
-      @range = Reginald::CharacterClass.new('a-z', :ignorecase => true)
+      @range = Regin::CharacterClass.new('a-z', :ignorecase => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -229,7 +229,7 @@ describe Reginald::CharacterClass do
 
   context "from '.' and ignorecase" do
     before do
-      @range = Reginald::CharacterClass.new('.', :ignorecase => true)
+      @range = Regin::CharacterClass.new('.', :ignorecase => true)
     end
 
     it_should_behave_like "all range character classes"
@@ -263,7 +263,7 @@ describe Reginald::CharacterClass do
 
   context "that is frozen" do
     before do
-      @range = Reginald::CharacterClass.new('a-z', :quantifier => '?')
+      @range = Regin::CharacterClass.new('a-z', :quantifier => '?')
       @range.freeze
     end
 

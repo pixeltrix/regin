@@ -1,13 +1,13 @@
 require 'test_helper'
 
-describe Reginald::Group, "with capture" do
+describe Regin::Group, "with capture" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')
     )
-    @group = Reginald::Group.new(@expression)
+    @group = Regin::Group.new(@expression)
   end
 
   it "should have no quantifier" do
@@ -64,29 +64,29 @@ describe Reginald::Group, "with capture" do
   end
 
   it "should dup with ignorecase" do
-    @group.dup(:ignorecase => true).should == Reginald::Group.new(Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')), :ignorecase => true)
+    @group.dup(:ignorecase => true).should == Regin::Group.new(Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')), :ignorecase => true)
   end
 
   it "should dup with ignorecase" do
-    @group.dup(:quantifier => '?').should == Reginald::Group.new(Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')), :quantifier => '?')
+    @group.dup(:quantifier => '?').should == Regin::Group.new(Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')), :quantifier => '?')
   end
 end
 
-describe Reginald::Group, "with ignorecase capture expression" do
+describe Regin::Group, "with ignorecase capture expression" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
-    @group = Reginald::Group.new(@expression)
+    @group = Regin::Group.new(@expression)
   end
 
   it "should have no quantifier" do
@@ -134,15 +134,15 @@ describe Reginald::Group, "with ignorecase capture expression" do
   end
 end
 
-describe Reginald::Group, "with ignorecase optional capture expression" do
+describe Regin::Group, "with ignorecase optional capture expression" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
-    @group = Reginald::Group.new(@expression, :quantifier => '?')
+    @group = Regin::Group.new(@expression, :quantifier => '?')
   end
 
   it "should have optional quantifier" do

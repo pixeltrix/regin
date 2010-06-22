@@ -5,7 +5,7 @@
 #
 
 require 'racc/parser.rb'
-module Reginald
+module Regin
   class Parser < Racc::Parser #:nodoc: all
 
 def self.parse_regexp(regexp)
@@ -399,6 +399,6 @@ def _reduce_none(val, _values, result)
 end
 
   end   # class Parser
-end   # module Reginald
+end   # module Regin
 
-require 'reginald/tokenizer'
+require 'regin/tokenizer'

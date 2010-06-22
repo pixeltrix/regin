@@ -1,4 +1,4 @@
-class Reginald::Parser
+class Regin::Parser
 rule
   expression: expression BAR branch { result = Expression.new(Alternation.reduce(val[0], val[2])) }
             | branch { result = Expression.reduce(val[0]) }
@@ -87,4 +87,4 @@ def initialize
 end
 
 ---- footer
-require 'reginald/tokenizer'
+require 'regin/tokenizer'

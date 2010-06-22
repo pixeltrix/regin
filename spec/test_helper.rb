@@ -1,4 +1,4 @@
-require 'reginald'
+require 'regin'
 
 class NilClass
   def freeze
@@ -8,12 +8,12 @@ end
 
 Spec::Matchers.define :parse do |expected|
   match do |actual|
-    Reginald.parse(actual).should == expected
+    Regin.parse(actual).should == expected
   end
 end
 
 Spec::Matchers.define :compile do |expected|
   match do |actual|
-    Reginald.compile(actual).should == expected
+    Regin.compile(actual).should == expected
   end
 end

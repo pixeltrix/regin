@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Options
     def self.from_int(flags)
       multiline  = flags & Regexp::MULTILINE != 0

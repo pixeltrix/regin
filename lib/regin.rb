@@ -1,14 +1,14 @@
-module Reginald
-  autoload :Alternation, 'reginald/alternation'
-  autoload :Anchor, 'reginald/anchor'
-  autoload :Atom, 'reginald/atom'
-  autoload :Character, 'reginald/character'
-  autoload :CharacterClass, 'reginald/character_class'
-  autoload :Collection, 'reginald/collection'
-  autoload :Expression, 'reginald/expression'
-  autoload :Group, 'reginald/group'
-  autoload :Options, 'reginald/options'
-  autoload :Parser, 'reginald/parser'
+module Regin
+  autoload :Alternation, 'regin/alternation'
+  autoload :Anchor, 'regin/anchor'
+  autoload :Atom, 'regin/atom'
+  autoload :Character, 'regin/character'
+  autoload :CharacterClass, 'regin/character_class'
+  autoload :Collection, 'regin/collection'
+  autoload :Expression, 'regin/expression'
+  autoload :Group, 'regin/group'
+  autoload :Options, 'regin/options'
+  autoload :Parser, 'regin/parser'
 
   class << self
     begin
@@ -34,7 +34,7 @@ module Reginald
 
     # Recompiles Regexp by parsing it and turning it back into a Regexp.
     #
-    # (In the future Reginald will perform some Regexp optimizations
+    # (In the future Regin will perform some Regexp optimizations
     # such as removing unnecessary captures and options)
     def compile(source)
       regexp = Regexp.compile(source)

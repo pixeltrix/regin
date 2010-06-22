@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Alternation < Collection
     def self.reduce(alternation_or_expression, expression) #:nodoc:
       if alternation_or_expression.first.is_a?(Alternation)

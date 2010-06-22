@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Group
     attr_reader :expression, :quantifier, :capture, :index, :name
 

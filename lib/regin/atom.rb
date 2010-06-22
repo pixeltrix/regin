@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Atom
     attr_reader :value, :ignorecase
 
@@ -33,7 +33,7 @@ module Reginald
     end
 
     def inspect #:nodoc:
-      "#<#{self.class.to_s.sub('Reginald::', '')} #{to_s.inspect}>"
+      "#<#{self.class.to_s.sub('Regin::', '')} #{to_s.inspect}>"
     end
 
     def ==(other) #:nodoc:

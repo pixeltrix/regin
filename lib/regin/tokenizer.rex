@@ -1,4 +1,4 @@
-class Reginald::Parser
+class Regin::Parser
 macro
   CTYPES      alnum|alpha|ascii|blank|cntrl|digit|graph|lower|print|punct|space|upper|word|xdigit
 rule

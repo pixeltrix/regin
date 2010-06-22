@@ -1,9 +1,9 @@
 require 'test_helper'
 
-describe Reginald::Character do
+describe Regin::Character do
   context "with value 'a'" do
     before do
-      @character = Reginald::Character.new('a')
+      @character = Regin::Character.new('a')
     end
 
     it "should have no quantifier" do
@@ -36,19 +36,19 @@ describe Reginald::Character do
     end
 
     it "should == another 'a' character" do
-      @character.should == Reginald::Character.new('a')
+      @character.should == Regin::Character.new('a')
     end
 
     it "should eql another 'a' character" do
-      @character.should eql(Reginald::Character.new('a'))
+      @character.should eql(Regin::Character.new('a'))
     end
 
     it "should not == another 'a' character if the quantifier is different" do
-      @character.should_not == Reginald::Character.new('a', :quantifier => '?')
+      @character.should_not == Regin::Character.new('a', :quantifier => '?')
     end
 
     it "should not eql another 'a' character if the quantifier is different" do
-      @character.should_not eql(Reginald::Character.new('a', :quantifier => '?'))
+      @character.should_not eql(Regin::Character.new('a', :quantifier => '?'))
     end
 
     it "should dup" do
@@ -56,17 +56,17 @@ describe Reginald::Character do
     end
 
     it "should dup with quantifier" do
-      @character.dup(:quantifier => '?').should == Reginald::Character.new('a', :quantifier => '?')
+      @character.dup(:quantifier => '?').should == Regin::Character.new('a', :quantifier => '?')
     end
 
     it "should dup with ignorecase" do
-      @character.dup(:ignorecase => true).should == Reginald::Character.new('a', :ignorecase => true)
+      @character.dup(:ignorecase => true).should == Regin::Character.new('a', :ignorecase => true)
     end
   end
 
   context "with value 'a' and optional quantifier" do
     before do
-      @character = Reginald::Character.new('a', :quantifier => '?')
+      @character = Regin::Character.new('a', :quantifier => '?')
     end
 
     it "should have optional quantifier" do
@@ -100,17 +100,17 @@ describe Reginald::Character do
     end
 
     it "should == another 'a' character" do
-      @character.should == Reginald::Character.new('a', :quantifier => '?')
+      @character.should == Regin::Character.new('a', :quantifier => '?')
     end
 
     it "should == another 'a' character if the quantifier is different" do
-      @character.should_not == Reginald::Character.new('a')
+      @character.should_not == Regin::Character.new('a')
     end
   end
 
   context "with value 'a' and repeator quantifier" do
     before do
-      @character = Reginald::Character.new('a', :quantifier => '{2,3}')
+      @character = Regin::Character.new('a', :quantifier => '{2,3}')
     end
 
     it "should have repeator quantifier" do
@@ -143,7 +143,7 @@ describe Reginald::Character do
 
   context "with value 'a' and ignorecase" do
     before do
-      @character = Reginald::Character.new('a', :ignorecase => true)
+      @character = Regin::Character.new('a', :ignorecase => true)
     end
 
     it "should have no quantifier" do
@@ -176,7 +176,7 @@ describe Reginald::Character do
 
   context "that is frozen" do
     before do
-      @character = Reginald::Character.new('a', :quantifier => '?')
+      @character = Regin::Character.new('a', :quantifier => '?')
       @character.freeze
     end
 

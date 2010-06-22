@@ -1,23 +1,23 @@
-= Reginald
+= Regin
 
-Reginald is a Ruby Reginald syntax parser.
+Regin allows you to introspect on Ruby Regexps.
 
-Its parser and tokenizer are written in racc/rexical. Since racc is part of Ruby's standard library, there are no extra runtime dependencies.
+Powered by an over the top regexp syntax parser written in racc/rexical.
 
 === Examples
 
 Determine if a Regexp could be treated as a literal String
 
-  Reginald.parse(/foo/).literal? # => true
-  Reginald.parse(/ba./).literal? # => false
+  Regin.parse(/foo/).literal? # => true
+  Regin.parse(/ba./).literal? # => false
 
 Determine whether a character could match a part of a Regexp
 
-  Reginald.parse(/foo\/bar/).include?("/")    # => true
-  Reginald.parse(/foo.bar/).include?("/")     # => true
-  Reginald.parse(/foo[a-z]bar/).include?("/") # => false
+  Regin.parse(/foo\/bar/).include?("/")    # => true
+  Regin.parse(/foo.bar/).include?("/")     # => true
+  Regin.parse(/foo[a-z]bar/).include?("/") # => false
 
 Extract a substring of a Regexp
 
-  Reginald.parse(/foobar/)[3..6] => #<Expression "bar">
-  Reginald.parse(/fo{2}[bB]ar/)[2..5] => #<Expression "[bB]ar">
+  Regin.parse(/foobar/)[3..6] => #<Expression "bar">
+  Regin.parse(/fo{2}[bB]ar/)[2..5] => #<Expression "[bB]ar">

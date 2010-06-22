@@ -1,11 +1,11 @@
 require 'test_helper'
 
-describe Reginald::Expression, "with capture" do
+describe Regin::Expression, "with capture" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')
     )
   end
 
@@ -60,25 +60,25 @@ describe Reginald::Expression, "with capture" do
   end
 
   it "should dup with ignorecase" do
-    @expression.dup(:ignorecase => true).should == Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression.dup(:ignorecase => true).should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
   end
 
   it "should dup with ignorecase and apply to children" do
-    @expression.dup(:ignorecase => true).first.should == Reginald::Character.new('f', :ignorecase => true)
+    @expression.dup(:ignorecase => true).first.should == Regin::Character.new('f', :ignorecase => true)
   end
 end
 
-describe Reginald::Expression, "initialize with array" do
+describe Regin::Expression, "initialize with array" do
   before do
-    @expression = Reginald::Expression.new([
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+    @expression = Regin::Expression.new([
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')
     ])
   end
 
@@ -87,12 +87,12 @@ describe Reginald::Expression, "initialize with array" do
   end
 end
 
-describe Reginald::Expression, "initialize with args" do
+describe Regin::Expression, "initialize with args" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o')
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o')
     )
   end
 
@@ -101,12 +101,12 @@ describe Reginald::Expression, "initialize with args" do
   end
 end
 
-describe Reginald::Expression, "with ignorecase" do
+describe Regin::Expression, "with ignorecase" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
   end
@@ -140,30 +140,30 @@ describe Reginald::Expression, "with ignorecase" do
   end
 
   it "should dup but not reset ignorecase" do
-    @expression.dup(:ignorecase => nil).should == Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression.dup(:ignorecase => nil).should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
   end
 
   it "should dup but not disable ignorecase" do
-    @expression.dup(:ignorecase => false).should == Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression.dup(:ignorecase => false).should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => true
     )
   end
 end
 
-describe Reginald::Expression, "with explicit case" do
+describe Regin::Expression, "with explicit case" do
   before do
-    @expression = Reginald::Expression.new(
-      Reginald::Character.new('f'),
-      Reginald::Character.new('o'),
-      Reginald::Character.new('o'),
+    @expression = Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
       :ignorecase => false
     )
   end

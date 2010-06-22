@@ -1,12 +1,12 @@
 require 'test_helper'
 
-describe Reginald::Alternation do
+describe Regin::Alternation do
   context "a|b|c" do
     before do
-      @alternation = Reginald::Alternation.new(
-        Reginald::Expression.new(Reginald::Character.new('a')),
-        Reginald::Expression.new(Reginald::Character.new('b')),
-        Reginald::Expression.new(Reginald::Character.new('c'))
+      @alternation = Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('a')),
+        Regin::Expression.new(Regin::Character.new('b')),
+        Regin::Expression.new(Regin::Character.new('c'))
       )
     end
 
@@ -65,25 +65,25 @@ describe Reginald::Alternation do
     end
 
     it "should dup with ignorecase" do
-      @alternation.dup(:ignorecase => true).should == Reginald::Alternation.new(
-        Reginald::Expression.new(Reginald::Character.new('a')),
-        Reginald::Expression.new(Reginald::Character.new('b')),
-        Reginald::Expression.new(Reginald::Character.new('c')),
+      @alternation.dup(:ignorecase => true).should == Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('a')),
+        Regin::Expression.new(Regin::Character.new('b')),
+        Regin::Expression.new(Regin::Character.new('c')),
         :ignorecase => true
       )
     end
 
     it "should dup with ignorecase and apply to children" do
-      @alternation.dup(:ignorecase => true).first.should == Reginald::Expression.new(Reginald::Character.new('a', :ignorecase => true), :ignorecase => true)
+      @alternation.dup(:ignorecase => true).first.should == Regin::Expression.new(Regin::Character.new('a', :ignorecase => true), :ignorecase => true)
     end
   end
 
   context "case insensitive a|b|c" do
     before do
-      @alternation = Reginald::Alternation.new(
-        Reginald::Expression.new(Reginald::Character.new('a')),
-        Reginald::Expression.new(Reginald::Character.new('b')),
-        Reginald::Expression.new(Reginald::Character.new('c')),
+      @alternation = Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('a')),
+        Regin::Expression.new(Regin::Character.new('b')),
+        Regin::Expression.new(Regin::Character.new('c')),
         :ignorecase => true
       )
     end

@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Collection
     include Enumerable
 

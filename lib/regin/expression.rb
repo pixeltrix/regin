@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class Expression < Collection
     attr_reader :ignorecase
     attr_accessor :multiline, :extended

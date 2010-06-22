@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe Reginald::Parser do
+describe Regin::Parser do
   it "should parse slashes" do
     /\//.should parse(expr(char('/')))
     %r{/}.should parse(expr(char('/')))
@@ -42,36 +42,36 @@ describe Reginald::Parser do
       anchor('^'), 'f', 'o', 'o'
     ))
 
-    Reginald.parse(%r{^foo}).should be_anchored_to_start_of_line
+    Regin.parse(%r{^foo}).should be_anchored_to_start_of_line
 
     %r{\Afoo}.should parse(expr(
       anchor('\A'), 'f', 'o', 'o'
     ))
 
-    Reginald.parse(%r{\Afoo}).should be_anchored_to_start
-    Reginald.parse(%r{\Afoo}).should be_anchored_to_start_of_line
+    Regin.parse(%r{\Afoo}).should be_anchored_to_start
+    Regin.parse(%r{\Afoo}).should be_anchored_to_start_of_line
 
     %r{foo$}.should parse(expr(
       'f', 'o', 'o',
       anchor('$')
     ))
 
-    Reginald.parse(%r{foo$}).should be_anchored_to_end_of_line
+    Regin.parse(%r{foo$}).should be_anchored_to_end_of_line
 
     %r{foo\Z}.should parse(expr(
       'f', 'o', 'o',
       anchor('\Z')
     ))
 
-    Reginald.parse(%r{foo\Z}).should be_anchored_to_end
-    Reginald.parse(%r{foo\Z}).should be_anchored_to_end_of_line
+    Regin.parse(%r{foo\Z}).should be_anchored_to_end
+    Regin.parse(%r{foo\Z}).should be_anchored_to_end_of_line
 
-    Reginald.parse(%r{^foo$}).should be_anchored_to_line
-    Reginald.parse(%r{\Afoo\Z}).should be_anchored_to_line
-    Reginald.parse(%r{\Afoo$}).should be_anchored_to_line
-    Reginald.parse(%r{^foo\Z}).should be_anchored_to_line
-    Reginald.parse(%r{\Afoo\Z}).should be_anchored
-    Reginald.parse(%r{^foo$}).should_not be_anchored
+    Regin.parse(%r{^foo$}).should be_anchored_to_line
+    Regin.parse(%r{\Afoo\Z}).should be_anchored_to_line
+    Regin.parse(%r{\Afoo$}).should be_anchored_to_line
+    Regin.parse(%r{^foo\Z}).should be_anchored_to_line
+    Regin.parse(%r{\Afoo\Z}).should be_anchored
+    Regin.parse(%r{^foo$}).should_not be_anchored
   end
 
   it "should parse wild card range" do
@@ -82,7 +82,7 @@ describe Reginald::Parser do
       'k'
     ))
 
-    result = Reginald.parse(%r{f..k})
+    result = Regin.parse(%r{f..k})
     result[0].should include('f')
     result[0].should_not include('F')
     result[1].should include('u')
@@ -98,20 +98,20 @@ describe Reginald::Parser do
     %r{\w}.should parse([range('\w')])
     %r{\W}.should parse([range('\W')])
 
-    %r{[:alnum:]}.should parse([Reginald::CharacterClass.new(':alnum:')])
-    %r{[:alpha:]}.should parse([Reginald::CharacterClass.new(':alpha:')])
-    %r{[:ascii:]}.should parse([Reginald::CharacterClass.new(':ascii:')])
-    %r{[:blank:]}.should parse([Reginald::CharacterClass.new(':blank:')])
-    %r{[:cntrl:]}.should parse([Reginald::CharacterClass.new(':cntrl:')])
-    %r{[:digit:]}.should parse([Reginald::CharacterClass.new(':digit:')])
-    %r{[:graph:]}.should parse([Reginald::CharacterClass.new(':graph:')])
-    %r{[:lower:]}.should parse([Reginald::CharacterClass.new(':lower:')])
-    %r{[:print:]}.should parse([Reginald::CharacterClass.new(':print:')])
-    %r{[:punct:]}.should parse([Reginald::CharacterClass.new(':punct:')])
-    %r{[:space:]}.should parse([Reginald::CharacterClass.new(':space:')])
-    %r{[:upper:]}.should parse([Reginald::CharacterClass.new(':upper:')])
-    %r{[:word:]}.should parse([Reginald::CharacterClass.new(':word:')])
-    %r{[:xdigit:]}.should parse([Reginald::CharacterClass.new(':xdigit:')])
+    %r{[:alnum:]}.should parse([Regin::CharacterClass.new(':alnum:')])
+    %r{[:alpha:]}.should parse([Regin::CharacterClass.new(':alpha:')])
+    %r{[:ascii:]}.should parse([Regin::CharacterClass.new(':ascii:')])
+    %r{[:blank:]}.should parse([Regin::CharacterClass.new(':blank:')])
+    %r{[:cntrl:]}.should parse([Regin::CharacterClass.new(':cntrl:')])
+    %r{[:digit:]}.should parse([Regin::CharacterClass.new(':digit:')])
+    %r{[:graph:]}.should parse([Regin::CharacterClass.new(':graph:')])
+    %r{[:lower:]}.should parse([Regin::CharacterClass.new(':lower:')])
+    %r{[:print:]}.should parse([Regin::CharacterClass.new(':print:')])
+    %r{[:punct:]}.should parse([Regin::CharacterClass.new(':punct:')])
+    %r{[:space:]}.should parse([Regin::CharacterClass.new(':space:')])
+    %r{[:upper:]}.should parse([Regin::CharacterClass.new(':upper:')])
+    %r{[:word:]}.should parse([Regin::CharacterClass.new(':word:')])
+    %r{[:xdigit:]}.should parse([Regin::CharacterClass.new(':xdigit:')])
   end
 
   it "should parse unknown character range" do
@@ -192,21 +192,21 @@ describe Reginald::Parser do
   it "should parse ignorecase option" do
     %r{abc}i.should parse(expr('a', 'b', 'c', :ignorecase => true))
 
-    re = Reginald.parse(/abc/i)
+    re = Regin.parse(/abc/i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:abc)')
     re.to_regexp.should eql(%r{\Aabc\Z}i)
   end
 
   it "should parse explict nested ignorecase" do
-    re = Reginald.parse(%r{(?-mix:foo)}i)
+    re = Regin.parse(%r{(?-mix:foo)}i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:(?-mix:foo))')
     re.to_regexp.should eql(%r{\A(?-mix:foo)\Z}i)
   end
 
   it "should parse implicit nested ignorecase" do
-    re = Reginald.parse(%r{(?:foo)}i)
+    re = Regin.parse(%r{(?:foo)}i)
     re.should be_casefold
     re.to_s.should eql('(?i-mx:(?i-mx:foo))')
     re.to_regexp.should eql(%r{\A(?i-mx:foo)\Z}i)
@@ -241,7 +241,7 @@ describe Reginald::Parser do
   end
 
   it "should parse capture and noncapture groups and set their indexes" do
-    re = Reginald.parse(/(foo(?:non))(bar(sub))(baz)/)
+    re = Regin.parse(/(foo(?:non))(bar(sub))(baz)/)
     re[0].index.should eql(0)
     re[0].expression[3].index.should be_nil
     re[1].index.should eql(1)
@@ -274,7 +274,7 @@ describe Reginald::Parser do
     ))
   end
 
-  if Reginald.regexp_supports_named_captures?
+  if Regin.regexp_supports_named_captures?
     it "should parse named group" do
       regexp = eval('%r{/foo(?<bar>baz)}')
 
@@ -298,26 +298,26 @@ describe Reginald::Parser do
 
   private
     def anchor(*args)
-      Reginald::Anchor.new(*args)
+      Regin::Anchor.new(*args)
     end
 
     def alt(*args)
-      Reginald::Alternation.new(*args)
+      Regin::Alternation.new(*args)
     end
 
     def char(*args)
-      Reginald::Character.new(*args)
+      Regin::Character.new(*args)
     end
 
     def range(*args)
-      Reginald::CharacterClass.new(*args)
+      Regin::CharacterClass.new(*args)
     end
 
     def expr(*args)
-      Reginald::Expression.new(*args)
+      Regin::Expression.new(*args)
     end
 
     def group(*args)
-      Reginald::Group.new(*args)
+      Regin::Group.new(*args)
     end
 end

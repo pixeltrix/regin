@@ -1,4 +1,4 @@
-module Reginald
+module Regin
   class CharacterClass < Character
     def initialize(value, options = {})
       @negate = options[:negate]

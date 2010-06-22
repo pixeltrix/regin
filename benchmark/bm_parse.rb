@@ -1,12 +1,12 @@
-require 'reginald'
+require 'regin'
 require 'benchmark'
 
 TIMES = 10_000.to_i
 
 Benchmark.bmbm do |x|
-  x.report('foo')               { TIMES.times { Reginald.parse(/foo/) } }
-  x.report('foo(/bar)?')        { TIMES.times { Reginald.parse(/foo(\/bar)?/) } }
-  x.report('foo(/bar(/baz)?)?') { TIMES.times { Reginald.parse(/foo(\/bar(\/baz)?)?/) } }
+  x.report('foo')               { TIMES.times { Regin.parse(/foo/) } }
+  x.report('foo(/bar)?')        { TIMES.times { Regin.parse(/foo(\/bar)?/) } }
+  x.report('foo(/bar(/baz)?)?') { TIMES.times { Regin.parse(/foo(\/bar(\/baz)?)?/) } }
 end
 
 #                         user     system      total        real

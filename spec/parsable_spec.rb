@@ -2,14 +2,14 @@ require 'test_helper'
 
 Spec::Matchers.define :be_parsable do
   match do |actual|
-    expression = Reginald.parse(actual)
-    expression.should be_a(Reginald::Expression)
+    expression = Regin.parse(actual)
+    expression.should be_a(Regin::Expression)
     expected = Regexp.compile("\\A#{actual.source}\\Z", actual.options)
     expression.to_regexp.should eql(expected)
   end
 end
 
-describe Reginald::Parser do
+describe Regin::Parser do
   it { %r{foo}.should be_parsable }
   it { %r{foo(bar)}.should be_parsable }
   it { %r{foo(bar(baz))}.should be_parsable }
