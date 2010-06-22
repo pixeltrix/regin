@@ -6,8 +6,8 @@ module Regin
       @array = Array.new(*args)
     end
 
-    def each(&block)
-      @array.each(&block)
+    def each
+      @array.each{ |item| yield item }
     end
 
     def [](i)
