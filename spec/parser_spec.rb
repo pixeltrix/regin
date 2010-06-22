@@ -129,10 +129,10 @@ describe Reginald::Parser do
   end
 
   it "should parse bracket expression with special characters" do
-    %r{/foo/([^/.?]+)}.should parse([
+    %r{/foo/([^/.?]+)}.should parse(expr(
       '/', 'f', 'o', 'o', '/',
       group(expr(range('/.?', :negate => true, :quantifier => '+')), :index => 0)
-    ])
+    ))
   end
 
   it "should parse negated bracket expression" do
@@ -176,17 +176,17 @@ describe Reginald::Parser do
   end
 
   it "should parse group" do
-    %r{/foo(/bar)}.should parse([
+    %r{/foo(/bar)}.should parse(expr(
       '/', 'f', 'o', 'o',
       group(expr('/', 'b', 'a', 'r'), :index => 0)
-    ])
+    ))
   end
 
   it "should parse group with quantifier" do
-    %r{/foo(/bar)?}.should parse([
+    %r{/foo(/bar)?}.should parse(expr(
       '/', 'f', 'o', 'o',
       group(expr('/', 'b', 'a', 'r'), :quantifier => '?', :index => 0)
-    ])
+    ))
   end
 
   it "should parse ignorecase option" do
@@ -220,7 +220,7 @@ describe Reginald::Parser do
     re = /     # foo
            bar # baz
          /x
-    re.should parse(['b', 'a', 'r'])
+    re.should parse(expr('b', 'a', 'r', :extended => true))
   end
 
   it "should parse inline extended expression" do
@@ -250,10 +250,10 @@ describe Reginald::Parser do
   end
 
   it "should parse noncapture group" do
-    %r{/foo(?:/bar)}.should parse([
+    %r{/foo(?:/bar)}.should parse(expr(
       '/', 'f', 'o', 'o',
       group(expr('/', 'b', 'a', 'r'), :capture => false)
-    ])
+    ))
   end
 
   it "should parse joined expression with no options" do

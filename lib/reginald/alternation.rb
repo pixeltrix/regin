@@ -20,7 +20,7 @@ module Reginald
       end
 
       if options.key?(:ignorecase)
-        map! { |e| e.dup(:ignorecase => options[:ignorecase]) }
+        @array.map! { |e| e.dup(:ignorecase => options[:ignorecase]) }
       end
     end
 
