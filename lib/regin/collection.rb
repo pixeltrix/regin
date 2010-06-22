@@ -32,8 +32,10 @@ module Regin
       self.class.new(@array + ary)
     end
 
-    def to_regexp
-      Regexp.compile("\\A#{to_s(true)}\\Z", flags)
+    def to_regexp(anchored = true)
+      re = to_s(true)
+      re = "\\A#{re}\\Z" if anchored
+      Regexp.compile(re, flags)
     end
 
     def match(char)

@@ -34,8 +34,10 @@ module Regin
       end
     end
 
-    def to_regexp
-      Regexp.compile("\\A#{to_s}\\Z")
+    def to_regexp(anchored = true)
+      re = to_s
+      re = "\\A#{re}\\Z" if anchored
+      Regexp.compile(re)
     end
 
     def dup(options = {})
