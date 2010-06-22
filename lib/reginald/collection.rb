@@ -24,12 +24,10 @@ module Reginald
       @array << obj
     end
 
-    # TODO: Deprecate
     def first
       @array.first
     end
 
-    # TODO: Deprecate
     def last
       @array.last
     end
