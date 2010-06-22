@@ -71,6 +71,44 @@ describe Regin::Expression, "with capture" do
   it "should dup with ignorecase and apply to children" do
     @expression.dup(:ignorecase => true).first.should == Regin::Character.new('f', :ignorecase => true)
   end
+
+  it "should + with other expression" do
+    expression = @expression + Regin::Expression.new(
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    )
+
+    expression.should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    )
+  end
+
+  it "should + with other array" do
+    expression = @expression + [
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    ]
+
+    expression.should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    )
+  end
+
+  it "should not + with other class" do
+    lambda { @expression + Regin::Alternation.new }.should raise_error(TypeError)
+  end
 end
 
 describe Regin::Expression, "initialize with array" do
@@ -156,6 +194,24 @@ describe Regin::Expression, "with ignorecase" do
       :ignorecase => true
     )
   end
+
+  it "should + with other expression" do
+    expression = @expression + Regin::Expression.new(
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    )
+
+    expression.should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r'),
+      :ignorecase => true
+    )
+  end
 end
 
 describe Regin::Expression, "with explicit case" do
@@ -186,5 +242,23 @@ describe Regin::Expression, "with explicit case" do
 
   it "should have options" do
     @expression.should be_options
+  end
+
+  it "should + with other expression" do
+    expression = @expression + Regin::Expression.new(
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r')
+    )
+
+    expression.should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
+      Regin::Character.new('b'),
+      Regin::Character.new('a'),
+      Regin::Character.new('r'),
+      :ignorecase => false
+    )
   end
 end

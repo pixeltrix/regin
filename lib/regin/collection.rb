@@ -28,7 +28,7 @@ module Regin
     end
 
     def +(other)
-      ary = other.is_a?(Collection) ? other.internal_array : other
+      ary = other.is_a?(self.class) ? other.internal_array : other
       self.class.new(@array + ary)
     end
 

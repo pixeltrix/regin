@@ -70,6 +70,12 @@ module Regin
       options.to_i
     end
 
+    def +(other)
+      ary = other.is_a?(self.class) ? other.internal_array : other
+      ary = @array + ary + [options.to_h]
+      self.class.new(*ary)
+    end
+
     def dup(options = {})
       expression = super()
       expression.multiline  = options[:multiline] if options.key?(:multiline)

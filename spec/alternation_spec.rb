@@ -76,6 +76,44 @@ describe Regin::Alternation do
     it "should dup with ignorecase and apply to children" do
       @alternation.dup(:ignorecase => true).first.should == Regin::Expression.new(Regin::Character.new('a', :ignorecase => true), :ignorecase => true)
     end
+
+    it "should + with other alternation" do
+      alternation = @alternation + Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('x')),
+        Regin::Expression.new(Regin::Character.new('y')),
+        Regin::Expression.new(Regin::Character.new('z'))
+      )
+
+      alternation.should == Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('a')),
+        Regin::Expression.new(Regin::Character.new('b')),
+        Regin::Expression.new(Regin::Character.new('c')),
+        Regin::Expression.new(Regin::Character.new('x')),
+        Regin::Expression.new(Regin::Character.new('y')),
+        Regin::Expression.new(Regin::Character.new('z'))
+      )
+    end
+
+    it "should + with other array" do
+      alternation = @alternation + [
+        Regin::Expression.new(Regin::Character.new('x')),
+        Regin::Expression.new(Regin::Character.new('y')),
+        Regin::Expression.new(Regin::Character.new('z'))
+      ]
+
+      alternation.should == Regin::Alternation.new(
+        Regin::Expression.new(Regin::Character.new('a')),
+        Regin::Expression.new(Regin::Character.new('b')),
+        Regin::Expression.new(Regin::Character.new('c')),
+        Regin::Expression.new(Regin::Character.new('x')),
+        Regin::Expression.new(Regin::Character.new('y')),
+        Regin::Expression.new(Regin::Character.new('z'))
+      )
+    end
+
+    it "should not + with other class" do
+      lambda { @alternation + Regin::Expression.new }.should raise_error(TypeError)
+    end
   end
 
   context "case insensitive a|b|c" do
