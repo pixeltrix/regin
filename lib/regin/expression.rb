@@ -1,7 +1,6 @@
 module Regin
   class Expression < Collection
-    attr_reader :ignorecase
-    attr_accessor :multiline, :extended
+    attr_reader :ignorecase, :multiline, :extended
 
     def self.reduce(expression_or_atom, atom = nil) #:nodoc:
       if expression_or_atom.is_a?(Expression)
@@ -120,11 +119,19 @@ module Regin
         Options.new(multiline, ignorecase, extended)
       end
 
+      def multiline=(multiline)
+        @multiline = multiline
+      end
+
       def ignorecase=(ignorecase)
         if @ignorecase.nil?
           @array.map! { |e| e.dup(:ignorecase => ignorecase) }
           @ignorecase = ignorecase
         end
+      end
+
+      def extended=(extended)
+        @extended = extended
       end
   end
 end
