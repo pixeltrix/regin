@@ -278,10 +278,10 @@ describe Reginald::Parser do
     it "should parse named group" do
       regexp = eval('%r{/foo(?<bar>baz)}')
 
-      regexp.should parse([
+      regexp.should parse(expr(
         '/', 'f', 'o', 'o',
         group(expr('b', 'a', 'z'), :name => 'bar', :index => 0)
-      ])
+      ))
     end
 
     it "should parse nested named group" do
