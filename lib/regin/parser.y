@@ -1,12 +1,22 @@
 class Regin::Parser
 rule
-  expression: expression BAR branch { result = Expression.new(Alternation.reduce(val[0], val[2])) }
-            | branch { result = Expression.reduce(val[0]) }
+  expression: expression BAR subexpression {
+                # TODO remove this conditional by breaking
+                # it into another production
+                if val[0][0].is_a?(Regin::Alternation)
+                  alt = val[0][0] + [Expression.new(val[2])]
+                else
+                  alt = Alternation.new(val[0], Expression.new(val[2]))
+                end
+                result = Expression.new(alt)
+              }
+            | subexpression { result = Expression.new(val[0]) }
 
-  branch: branch atom quantifier { result = Expression.reduce(val[0], val[1].dup(:quantifier => val[2])) }
-        | branch atom { result = Expression.reduce(val[0], val[1]) }
-        | atom quantifier { result = val[0].dup(:quantifier => val[1]) }
-        | atom
+  subexpression: subexpression quantified_atom { result = val[0] + [val[1]] }
+               | quantified_atom { result = [val[0]] }
+
+  quantified_atom: atom quantifier { result = val[0].dup(:quantifier => val[1]) }
+                 | atom
 
   atom: group
       | LBRACK CTYPE RBRACK { result = CharacterClass.new(val[1]) }
@@ -42,6 +52,7 @@ rule
 
 
   # Bracketed expressions
+  # TODO fix shift/reduce conflicts
   bracket_expression: bracket_expression CHAR   { result = val.join }
                     | bracket_expression NEGATE { result = val.join }
                     | CHAR

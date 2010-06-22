@@ -173,6 +173,30 @@ describe Regin::Parser do
       ), :index => 0),
       '/', 'x', 'y', 'z'
     ))
+
+    %r{a|b}.should parse(expr(
+      alt(expr('a'), expr('b'))
+    ))
+
+    %r{a|b|c}.should parse(expr(
+      alt(expr('a'), expr('b'), expr('c'))
+    ))
+
+    %r{a|b|c|d}.should parse(expr(
+      alt(expr('a'), expr('b'), expr('c'), expr('d'))
+    ))
+
+    %r{a|b|c|d|e}.should parse(expr(
+      alt(expr('a'), expr('b'), expr('c'), expr('d'), expr('e'))
+    ))
+
+    %r{a|b|c|d|e|f}.should parse(expr(
+      alt(expr('a'), expr('b'), expr('c'), expr('d'), expr('e'), expr('f'))
+    ))
+
+    %r{a|b|c|d|e|f|g}.should parse(expr(
+      alt(expr('a'), expr('b'), expr('c'), expr('d'), expr('e'), expr('f'), expr('g'))
+    ))
   end
 
   it "should parse group" do
@@ -260,7 +284,7 @@ describe Regin::Parser do
     Regexp.union(/skiing/, /sledding/).should parse(expr(
       alt(
         expr(group(expr('s', 'k', 'i', 'i', 'n', 'g'), :capture => false)),
-        group(expr('s', 'l', 'e', 'd', 'd', 'i', 'n', 'g'), :capture => false)
+        expr(group(expr('s', 'l', 'e', 'd', 'd', 'i', 'n', 'g'), :capture => false))
       )
     ))
   end
@@ -269,7 +293,7 @@ describe Regin::Parser do
     Regexp.union(/dogs/, /cats/i).should parse(expr(
       alt(
         expr(group(expr('d', 'o', 'g', 's'), :capture => false)),
-        group(expr('c', 'a', 't', 's', :ignorecase => true), :capture => false)
+        expr(group(expr('c', 'a', 't', 's', :ignorecase => true), :capture => false))
       )
     ))
   end

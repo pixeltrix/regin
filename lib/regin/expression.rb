@@ -2,17 +2,6 @@ module Regin
   class Expression < Collection
     attr_reader :ignorecase, :multiline, :extended
 
-    def self.reduce(expression_or_atom, atom = nil) #:nodoc:
-      if expression_or_atom.is_a?(Expression)
-        expression_or_atom += [atom] if atom
-        new(*expression_or_atom)
-      elsif atom.nil?
-        new(expression_or_atom)
-      else
-        new(expression_or_atom, atom)
-      end
-    end
-
     def initialize(*args)
       args, options = extract_options(args)
 
