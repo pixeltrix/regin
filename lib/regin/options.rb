@@ -30,10 +30,18 @@ module Regin
       end
     end
 
-    def to_h
-      { :multiline => multiline,
-        :ignorecase => ignorecase,
-        :extended => extended }
+    def to_h(explicit = false)
+      if explicit
+        options = {}
+        options[:multiline]  = multiline  unless multiline.nil?
+        options[:ignorecase] = ignorecase unless ignorecase.nil?
+        options[:extended]   = extended   unless extended.nil?
+        options
+      else
+        { :multiline => multiline,
+          :ignorecase => ignorecase,
+          :extended => extended }
+      end
     end
 
     def to_i

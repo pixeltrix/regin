@@ -109,6 +109,23 @@ describe Regin::Expression, "with capture" do
   it "should not + with other class" do
     lambda { @expression + Regin::Alternation.new }.should raise_error(TypeError)
   end
+
+  it "should add case insensitive atoms" do
+    expression = @expression + [
+      Regin::Character.new('b', :ignorecase => true),
+      Regin::Character.new('a', :ignorecase => true),
+      Regin::Character.new('r', :ignorecase => true)
+    ]
+
+    expression.should == Regin::Expression.new(
+      Regin::Character.new('f'),
+      Regin::Character.new('o'),
+      Regin::Character.new('o'),
+      Regin::Character.new('b', :ignorecase => true),
+      Regin::Character.new('a', :ignorecase => true),
+      Regin::Character.new('r', :ignorecase => true)
+    )
+  end
 end
 
 describe Regin::Expression, "initialize with array" do

@@ -60,7 +60,7 @@ module Regin
 
     def +(other)
       ary = other.is_a?(self.class) ? other.internal_array : other
-      ary = @array + ary + [options.to_h]
+      ary = @array + ary + [options.to_h(true)]
       self.class.new(*ary)
     end
 
