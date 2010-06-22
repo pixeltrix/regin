@@ -1,3 +1,3 @@
 module Regin
-  Version = '0.2.0'
+  Version = '0.3.1'
 end
