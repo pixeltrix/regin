@@ -49,7 +49,7 @@ rule
 
 
   :CCLASS \]           { @state = nil; [:RBRACK, text] }
-  :CCLASS \^           { [:NEGATE, text] }
+  :CCLASS \^           { [@ss.string[@ss.pos-2, 1] == '[' ? :NEGATE : :CHAR, text] }
   :CCLASS :({CTYPES}): { [:CTYPE, text] }
   :CCLASS \\-          { [:CHAR, text] }
   :CCLASS \\(.)        { [:CHAR, @ss[1]] }

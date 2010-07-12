@@ -54,11 +54,8 @@ rule
 
 
   # Bracketed expressions
-  # TODO fix shift/reduce conflicts
-  bracket_expression: bracket_expression CHAR   { result = val.join }
-                    | bracket_expression NEGATE { result = val.join }
+  bracket_expression: bracket_expression CHAR { result = val.join }
                     | CHAR
-                    | NEGATE
 
   # Inline options
   options: MINUS modifier modifier modifier {
