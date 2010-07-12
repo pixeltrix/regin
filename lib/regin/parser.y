@@ -1,19 +1,15 @@
 class Regin::Parser
 rule
-  expression: expression BAR subexpression {
-                # TODO remove this conditional by breaking
-                # it into another production
-                if val[0][0].is_a?(Regin::Alternation)
-                  alt = val[0][0] + [Expression.new(val[2])]
-                else
-                  alt = Alternation.new(val[0], Expression.new(val[2]))
-                end
-                result = Expression.new(alt)
-              }
-            | subexpression { result = Expression.new(val[0]) }
+  expression: alternation { result = Expression.new(val[0]) }
+            | subexpression
 
-  subexpression: subexpression quantified_atom { result = val[0] + [val[1]] }
-               | quantified_atom { result = [val[0]] }
+  alternation: alternation BAR subexpression { result = val[0] + [val[2]] }
+             | subexpression BAR subexpression { result = Alternation.new(val[0], val[2])  }
+
+  subexpression: expression_ary { result = Expression.new(val[0]) }
+
+  expression_ary: expression_ary quantified_atom { result = val[0] + [val[1]] }
+                | quantified_atom { result = [val[0]] }
 
   quantified_atom: atom quantifier { result = val[0].dup(:quantifier => val[1]) }
                  | atom
