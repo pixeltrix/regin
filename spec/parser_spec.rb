@@ -37,6 +37,11 @@ describe Regin::Parser do
     %r{a{3,4}}.should parse(expr(char('a', :quantifier => '{3,4}')))
   end
 
+  it "should parse non-greedy quantifiers" do
+    %r{a+?}.should parse(expr(char('a', :quantifier => '+?')))
+    %r{a*?}.should parse(expr(char('a', :quantifier => '*?')))
+  end
+
   it "should parse anchors" do
     %r{^foo}.should parse(expr(
       anchor('^'), 'f', 'o', 'o'

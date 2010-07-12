@@ -9,6 +9,16 @@ Spec::Matchers.define :be_parsable do
   end
 end
 
+InvalidRegexp = Struct.new(:source, :options)
+
+Spec::Matchers.define :not_be_parsable do
+  match do |actual|
+    lambda { Regexp.compile(actual) }.should raise_error(RegexpError)
+    invalid_regexp = InvalidRegexp.new(actual, 0)
+    lambda { Regin.parse(Regin.parse(invalid_regexp)) }.should raise_error(Racc::ParseError)
+  end
+end
+
 describe Regin::Parser do
   it { %r{foo}.should be_parsable }
   it { %r{foo(bar)}.should be_parsable }
@@ -51,4 +61,7 @@ describe Regin::Parser do
   it { Regexp.new('cat', true).should be_parsable }
   it { (/ab+c/ix).should be_parsable }
   it { Regexp.new(/ab+c/ix.to_s).should be_parsable }
+
+  it { '+?'.should not_be_parsable }
+  it { '*?'.should not_be_parsable }
 end

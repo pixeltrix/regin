@@ -47,6 +47,8 @@ rule
   quantifier: STAR
             | PLUS
             | QMARK
+            | STAR QMARK { result = val.join }
+            | PLUS QMARK { result = val.join }
             | LCURLY CHAR CHAR CHAR RCURLY { result = val.join }
             | LCURLY CHAR RCURLY { result = val.join }
 
