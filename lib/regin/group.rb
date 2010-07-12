@@ -81,10 +81,5 @@ module Regin
         self.index == other.index &&
         self.name == other.name
     end
-
-    def freeze #:nodoc:
-      expression.freeze if expression
-      super
-    end
   end
 end

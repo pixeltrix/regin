@@ -260,21 +260,4 @@ describe Regin::CharacterClass do
     it { @range.should include('a') }
     it { @range.should include('1') }
   end
-
-  context "that is frozen" do
-    before do
-      @range = Regin::CharacterClass.new('a-z', :quantifier => '?')
-      @range.freeze
-    end
-
-    it { @range.should be_frozen }
-
-    it "value should be frozen" do
-      @range.value.should be_frozen
-    end
-
-    it "quantifier should be frozen" do
-      @range.quantifier.should be_frozen
-    end
-  end
 end

@@ -173,21 +173,4 @@ describe Regin::Character do
     it { @character.should_not include('b') }
     it { @character.should_not include('') }
   end
-
-  context "that is frozen" do
-    before do
-      @character = Regin::Character.new('a', :quantifier => '?')
-      @character.freeze
-    end
-
-    it { @character.should be_frozen }
-
-    it "value should be frozen" do
-      @character.value.should be_frozen
-    end
-
-    it "quantifier should be frozen" do
-      @character.quantifier.should be_frozen
-    end
-  end
 end

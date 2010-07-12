@@ -50,10 +50,5 @@ module Regin
         self.value.eql?(other.value) &&
         (!!self.ignorecase).eql?(!!other.ignorecase)
     end
-
-    def freeze #:nodoc:
-      value.freeze
-      super
-    end
   end
 end

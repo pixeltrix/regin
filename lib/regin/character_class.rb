@@ -46,10 +46,5 @@ module Regin
     def eql?(other) #:nodoc:
       super && negate == other.negate
     end
-
-    def freeze #:nodoc:
-      negate.freeze if negate
-      super
-    end
   end
 end

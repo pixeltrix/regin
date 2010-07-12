@@ -61,12 +61,6 @@ module Regin
       other.instance_of?(self.class) && @array.eql?(other.internal_array)
     end
 
-    def freeze #:nodoc:
-      each { |e| e.freeze }
-      @array.freeze
-      super
-    end
-
     protected
       def internal_array #:nodoc:
         @array

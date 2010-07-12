@@ -49,12 +49,6 @@ describe Regin::Expression, "with capture" do
     @expression.should_not include('b')
   end
 
-  it "should be freezable" do
-    @expression.freeze
-    @expression.should be_frozen
-    @expression.each { |child| child.should be_frozen }
-  end
-
   it "should dup" do
     @expression.dup.should == @expression
   end

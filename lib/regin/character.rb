@@ -47,10 +47,5 @@ module Regin
     def eql?(other) #:nodoc:
       super && quantifier.eql?(other.quantifier)
     end
-
-    def freeze #:nodoc:
-      quantifier.freeze if quantifier
-      super
-    end
   end
 end

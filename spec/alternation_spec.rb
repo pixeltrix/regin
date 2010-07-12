@@ -54,12 +54,6 @@ describe Regin::Alternation do
       @alternation.should_not include('z')
     end
 
-    it "should be freezable" do
-      @alternation.freeze
-      @alternation.should be_frozen
-      @alternation.each { |child| child.should be_frozen }
-    end
-
     it "should dup" do
       @alternation.dup.should == @alternation
     end

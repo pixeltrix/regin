@@ -54,11 +54,6 @@ describe Regin::Group, "with capture" do
     @expression.should_not include('b')
   end
 
-  it "should be freezable" do
-    @group.freeze
-    @group.should be_frozen
-  end
-
   it "should dup" do
     @group.dup.should == @group
   end
