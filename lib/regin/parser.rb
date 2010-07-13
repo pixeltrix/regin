@@ -6,7 +6,7 @@
 
 require 'racc/parser.rb'
 module Regin
-  class Parser < Racc::Parser
+  class Parser < Racc::Parser #:nodoc: all
 
 def self.parse_regexp(regexp)
   options = Options.from_int(regexp.options)
@@ -424,6 +424,6 @@ def _reduce_none(val, _values, result)
 end
 
   end   # class Parser
-  end   # module Regin
+end   # module Regin
 
 require 'regin/tokenizer'
