@@ -45,9 +45,10 @@ rule
             | QMARK
             | STAR QMARK { result = val.join }
             | PLUS QMARK { result = val.join }
-            | LCURLY CHAR CHAR CHAR RCURLY { result = val.join }
-            | LCURLY CHAR RCURLY { result = val.join }
+            | LCURLY quantifier_char RCURLY { result = val.join }
 
+  quantifier_char: quantifier_char CHAR { result = val.join }
+                 | CHAR
 
   # Bracketed expressions
   bracket_expression: bracket_expression CHAR { result = val.join }

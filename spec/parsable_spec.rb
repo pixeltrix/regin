@@ -64,4 +64,14 @@ describe Regin::Parser do
 
   it { '+?'.should not_be_parsable }
   it { '*?'.should not_be_parsable }
+
+  it { %r{a{3}}.should be_parsable }
+  it { %r{a{2,4}}.should be_parsable }
+  it { %r{a{1,23}}.should be_parsable }
+  it { %r{a{1,23}}.should be_parsable }
+  it { %r{a{1,234}}.should be_parsable }
+  it { %r{a{12,34}}.should be_parsable }
+  it { %r{a{0,}}.should be_parsable }
+  it { %r{a{1,}}.should be_parsable }
+  # it { 'a{2,1}'.should not_be_parsable }
 end

@@ -35,6 +35,9 @@ describe Regin::Parser do
     %r{a?}.should parse(expr(char('a', :quantifier => '?')))
     %r{a{3}}.should parse(expr(char('a', :quantifier => '{3}')))
     %r{a{3,4}}.should parse(expr(char('a', :quantifier => '{3,4}')))
+    %r{a{1,23}}.should parse(expr(char('a', :quantifier => '{1,23}')))
+    %r{a{1,123}}.should parse(expr(char('a', :quantifier => '{1,123}')))
+    %r{a{23,24}}.should parse(expr(char('a', :quantifier => '{23,24}')))
   end
 
   it "should parse non-greedy quantifiers" do
