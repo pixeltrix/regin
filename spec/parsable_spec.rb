@@ -24,22 +24,6 @@ describe Regin::Parser do
   it { %r{foo(bar)}.should be_parsable }
   it { %r{foo(bar(baz))}.should be_parsable }
 
-  # POSIX character classes
-  it { %r{[:alnum:]}.should be_parsable }
-  it { %r{[:alpha:]}.should be_parsable }
-  it { %r{[:ascii:]}.should be_parsable }
-  it { %r{[:blank:]}.should be_parsable }
-  it { %r{[:cntrl:]}.should be_parsable }
-  it { %r{[:digit:]}.should be_parsable }
-  it { %r{[:graph:]}.should be_parsable }
-  it { %r{[:lower:]}.should be_parsable }
-  it { %r{[:print:]}.should be_parsable }
-  it { %r{[:punct:]}.should be_parsable }
-  it { %r{[:space:]}.should be_parsable }
-  it { %r{[:upper:]}.should be_parsable }
-  it { %r{[:word:]}.should be_parsable }
-  it { %r{[:xdigit:]}.should be_parsable }
-
   # Examples from http://www.ruby-doc.org/core/classes/Regexp.html
   it { (/c(.)t/).should be_parsable }
   it { Regexp.new('^a-z+:\\s+\w+').should be_parsable }

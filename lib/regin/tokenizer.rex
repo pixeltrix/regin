@@ -1,6 +1,4 @@
 class Regin::Parser
-macro
-  CTYPES      alnum|alpha|ascii|blank|cntrl|digit|graph|lower|print|punct|space|upper|word|xdigit
 rule
   \\[dDsSwW]  { [:CCLASS, text] }
 
@@ -50,7 +48,6 @@ rule
 
   :CCLASS \]           { @state = nil; [:RBRACK, text] }
   :CCLASS \^           { [@ss.string[@ss.pos-2, 1] == '[' ? :NEGATE : :CHAR, text] }
-  :CCLASS :({CTYPES}): { [:CTYPE, text] }
   :CCLASS \\-          { [:CHAR, text] }
   :CCLASS \\(.)        { [:CHAR, @ss[1]] }
   :CCLASS .            { [:CHAR, text] }

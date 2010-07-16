@@ -15,7 +15,6 @@ rule
                  | atom
 
   atom: group
-      | LBRACK CTYPE RBRACK { result = CharacterClass.new(val[1]) }
       | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
       | LBRACK NEGATE bracket_expression RBRACK { result = CharacterClass.new(val[2], :negate => true) }
       | CCLASS { result = CharacterClass.new(val[0]) }

@@ -105,25 +105,6 @@ describe Regin::Parser do
     %r{\S}.should parse([range('\S')])
     %r{\w}.should parse([range('\w')])
     %r{\W}.should parse([range('\W')])
-
-    %r{[:alnum:]}.should parse([Regin::CharacterClass.new(':alnum:')])
-    %r{[:alpha:]}.should parse([Regin::CharacterClass.new(':alpha:')])
-    %r{[:ascii:]}.should parse([Regin::CharacterClass.new(':ascii:')])
-    %r{[:blank:]}.should parse([Regin::CharacterClass.new(':blank:')])
-    %r{[:cntrl:]}.should parse([Regin::CharacterClass.new(':cntrl:')])
-    %r{[:digit:]}.should parse([Regin::CharacterClass.new(':digit:')])
-    %r{[:graph:]}.should parse([Regin::CharacterClass.new(':graph:')])
-    %r{[:lower:]}.should parse([Regin::CharacterClass.new(':lower:')])
-    %r{[:print:]}.should parse([Regin::CharacterClass.new(':print:')])
-    %r{[:punct:]}.should parse([Regin::CharacterClass.new(':punct:')])
-    %r{[:space:]}.should parse([Regin::CharacterClass.new(':space:')])
-    %r{[:upper:]}.should parse([Regin::CharacterClass.new(':upper:')])
-    %r{[:word:]}.should parse([Regin::CharacterClass.new(':word:')])
-    %r{[:xdigit:]}.should parse([Regin::CharacterClass.new(':xdigit:')])
-  end
-
-  it "should parse unknown character range" do
-    %r{[:foo:]}.should parse(expr(range(':foo:')))
   end
 
   it "should parse alnum as a character range" do
