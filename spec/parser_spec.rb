@@ -105,6 +105,22 @@ describe Regin::Parser do
     %r{\S}.should parse([range('\S')])
     %r{\w}.should parse([range('\w')])
     %r{\W}.should parse([range('\W')])
+
+    %r{[[:alnum:]]}.should parse([range('[:alnum:]')])
+    %r{[[:alpha:]]}.should parse([range('[:alpha:]')])
+    %r{[[:blank:]]}.should parse([range('[:blank:]')])
+    %r{[[:cntrl:]]}.should parse([range('[:cntrl:]')])
+    %r{[[:digit:]]}.should parse([range('[:digit:]')])
+    %r{[[:graph:]]}.should parse([range('[:graph:]')])
+    %r{[[:lower:]]}.should parse([range('[:lower:]')])
+    %r{[[:print:]]}.should parse([range('[:print:]')])
+    %r{[[:punct:]]}.should parse([range('[:punct:]')])
+    %r{[[:space:]]}.should parse([range('[:space:]')])
+    %r{[[:upper:]]}.should parse([range('[:upper:]')])
+    %r{[[:xdigit:]]}.should parse([range('[:xdigit:]')])
+
+    %r{[[:alnum:]]{40}}.should parse([range('[:alnum:]', :quantifier => '{40}')])
+    %r{[[:upper:]ab]}.should parse([range('[:upper:]ab')])
   end
 
   it "should parse alnum as a character range" do

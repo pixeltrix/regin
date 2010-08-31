@@ -50,8 +50,16 @@ rule
                  | CHAR
 
   # Bracketed expressions
-  bracket_expression: bracket_expression CHAR { result = val.join }
+  bracket_expression: bracket_expression posix_bracket_expression { result = val.join }
+                    | bracket_expression CHAR  { result = val.join }
+                    | posix_bracket_expression
                     | CHAR
+
+  posix_bracket_expression: LBRACK COLON posix_bracket_type COLON RBRACK { result = val.join }
+
+  posix_bracket_type: "alnum" | "alpha" | "ascii" | "blank" | "cntrl"
+                    | "digit" | "graph" | "lower" | "print" | "punct"
+                    | "space" | "upper" | "word"  | "xdigit"
 
   # Inline options
   options: MINUS modifier modifier modifier {

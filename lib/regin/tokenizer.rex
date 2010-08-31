@@ -46,11 +46,24 @@ rule
   .           { [:CHAR, text] }
 
 
+  :CCLASS \[           { [:LBRACK,  text] }
   :CCLASS \]           { @state = nil; [:RBRACK, text] }
   :CCLASS \^           { [@ss.string[@ss.pos-2, 1] == '[' ? :NEGATE : :CHAR, text] }
+  :CCLASS :            {
+    if @ss.string[@ss.pos-2, 1] == '['
+      @state = :POSIX_CCLASS
+      [:COLON, text]
+    else
+      [:CHAR, text]
+    end
+  }
   :CCLASS \\-          { [:CHAR, text] }
   :CCLASS \\(.)        { [:CHAR, @ss[1]] }
   :CCLASS .            { [:CHAR, text] }
+
+  :POSIX_CCLASS \w+    { [text, text] }
+  :POSIX_CCLASS :      { [:COLON, text] }
+  :POSIX_CCLASS \]     { @state = :CCLASS; [:RBRACK, text] }
 
 
   :OPTIONS  \?  {

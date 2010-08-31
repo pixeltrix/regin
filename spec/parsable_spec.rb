@@ -46,6 +46,31 @@ describe Regin::Parser do
   it { (/ab+c/ix).should be_parsable }
   it { Regexp.new(/ab+c/ix.to_s).should be_parsable }
 
+  # POSIX bracket types
+  it { %r{[[:alnum:]]}.should be_parsable }
+  it { %r{[[:alpha:]]}.should be_parsable }
+  it { %r{[[:cntrl:]]}.should be_parsable }
+  it { %r{[[:digit:]]}.should be_parsable }
+  it { %r{[[:graph:]]}.should be_parsable }
+  it { %r{[[:lower:]]}.should be_parsable }
+  it { %r{[[:print:]]}.should be_parsable }
+  it { %r{[[:punct:]]}.should be_parsable }
+  it { %r{[[:space:]]}.should be_parsable }
+  it { %r{[[:upper:]]}.should be_parsable }
+  it { %r{[[:xdigit:]]}.should be_parsable }
+  it { %r{[[:upper:]ab]}.should be_parsable }
+
+  if Regin.supported_posix_bracket_types.include?('word')
+    it { Regexp.new('[[:word:]]').should be_parsable }
+  end
+
+  if Regin.supported_posix_bracket_types.include?('ascii')
+    it { Regexp.new('[[:ascii:]]').should be_parsable }
+  end
+
+  it { Regin.supported_posix_bracket_types.should_not include('foo') }
+  it { '[[:foo:]]'.should not_be_parsable }
+
   it { '+?'.should not_be_parsable }
   it { '*?'.should not_be_parsable }
 
