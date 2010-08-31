@@ -12,6 +12,7 @@ module Regin
 
   class << self
     begin
+      old_debug, $DEBUG = $DEBUG, nil
       eval('foo = /(?<foo>.*)/').named_captures
 
       # Returns true if the interpreter is using the Oniguruma Regexp lib
@@ -25,6 +26,8 @@ module Regin
       def regexp_supports_named_captures? #:nodoc:
         false
       end
+    ensure
+      $DEBUG = old_debug
     end
 
     # Parses Regexp and returns a Expression data structure.
