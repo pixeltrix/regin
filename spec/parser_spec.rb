@@ -157,6 +157,15 @@ describe Regin::Parser do
     %r{[A-Za-z0-9\-\_\.]}.should parse(expr(range('A-Za-z0-9\-_.')))
   end
 
+  it "should parse bracket expression with character ranges" do
+    %r{[\d]+}.should parse(expr(range("\\d", :quantifier => '+')))
+    %r{[\D]+}.should parse(expr(range("\\D", :quantifier => '+')))
+    %r{[\s]+}.should parse(expr(range("\\s", :quantifier => '+')))
+    %r{[\S]+}.should parse(expr(range("\\S", :quantifier => '+')))
+    %r{[\w]+}.should parse(expr(range("\\w", :quantifier => '+')))
+    %r{[\W]+}.should parse(expr(range("\\W", :quantifier => '+')))
+  end
+
   it "should parse alternation" do
     %r{foo|bar}.should parse(
       expr(alt(

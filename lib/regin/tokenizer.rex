@@ -58,6 +58,7 @@ rule
     end
   }
   :CCLASS \\-          { [:CHAR, text] }
+  :CCLASS \\[dDsSwW]   { [:CHAR, text] }
   :CCLASS \\(.)        { [:CHAR, @ss[1]] }
   :CCLASS .            { [:CHAR, text] }
 
