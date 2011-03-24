@@ -16,10 +16,10 @@ file 'lib/regin/tokenizer.rb' => 'lib/regin/tokenizer.rex' do |t|
 end
 
 
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 
-Spec::Rake::SpecTask.new(:test) do |t|
-  t.warning = true
+RSpec::Core::RakeTask.new(:test) do |t|
+  t.ruby_opts = "-w"
 end
 
 Rake::Task[:test].enhance [:compile]

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-Spec::Matchers.define :be_parsable do
+RSpec::Matchers.define :be_parsable do
   match do |actual|
     expression = Regin.parse(actual)
     expression.should be_a(Regin::Expression)
@@ -11,7 +11,7 @@ end
 
 InvalidRegexp = Struct.new(:source, :options)
 
-Spec::Matchers.define :not_be_parsable do
+RSpec::Matchers.define :not_be_parsable do
   match do |actual|
     lambda { Regexp.compile(actual) }.should raise_error(RegexpError)
     invalid_regexp = InvalidRegexp.new(actual, 0)
