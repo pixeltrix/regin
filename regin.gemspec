@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name      = 'regin'
-  s.version   = '0.3.7'
-  s.date      = '2010-08-31'
+  s.version   = '0.3.8'
+  s.date      = '2011-03-23'
 
   s.homepage    = "https://github.com/josh/regin"
   s.summary     = "Ruby Regexp Introspection"
