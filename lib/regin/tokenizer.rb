@@ -96,6 +96,12 @@ class Regin::Parser < Racc::Parser
       when (text = @ss.scan(/\./))
          action { [:DOT, text]   }
 
+      when (text = @ss.scan(/\!/))
+         action { [:BANG, text]  }
+
+      when (text = @ss.scan(/\=/))
+         action { [:EQUAL, text] }
+
       when (text = @ss.scan(/\?/))
          action { [:QMARK, text] }
 

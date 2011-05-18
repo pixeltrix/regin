@@ -1,18 +1,18 @@
 class Regin::Parser
 rule
   expression: alternation { result = Expression.new(val[0]) }
-            | subexpression
+	    | subexpression
 
   alternation: alternation BAR subexpression { result = val[0] + [val[2]] }
-             | subexpression BAR subexpression { result = Alternation.new(val[0], val[2])  }
+	     | subexpression BAR subexpression { result = Alternation.new(val[0], val[2])  }
 
   subexpression: expression_ary { result = Expression.new(val[0]) }
 
   expression_ary: expression_ary quantified_atom { result = val[0] + [val[1]] }
-                | quantified_atom { result = [val[0]] }
+		| quantified_atom { result = [val[0]] }
 
   quantified_atom: atom quantifier { result = val[0].dup(:quantifier => val[1]) }
-                 | atom
+		 | atom
 
   atom: group
       | LBRACK bracket_expression RBRACK { result = CharacterClass.new(val[1]) }
@@ -23,61 +23,67 @@ rule
       | CHAR { result = Character.new(val[0]) }
 
   group: LPAREN expression RPAREN {
-          result = Group.new(val[1], :index => @capture_index_stack.pop)
-        }
+	  result = Group.new(val[1], :index => @capture_index_stack.pop)
+	}
+       | LPAREN QMARK EQUAL expression RPAREN {
+	 result = Group.new(val[3], :index => @capture_index_stack.pop, :lookahead => :postive)
+       }
+       | LPAREN QMARK BANG expression RPAREN {
+	 result = Group.new(val[3], :index => @capture_index_stack.pop, :lookahead => :negative)
+       }
        | LPAREN QMARK options COLON expression RPAREN {
-          result = Group.new(val[4], val[2].merge(:capture => false))
-          @options_stack.pop
-        }
+	  result = Group.new(val[4], val[2].merge(:capture => false))
+	  @options_stack.pop
+	}
        | LPAREN QMARK COLON expression RPAREN {
-          result = Group.new(val[3], :capture => false);
-        }
+	  result = Group.new(val[3], :capture => false);
+	}
        | LPAREN QMARK NAME expression RPAREN {
-          result = Group.new(val[3], :name => val[2], :index => @capture_index_stack.pop);
-        }
+	  result = Group.new(val[3], :name => val[2], :index => @capture_index_stack.pop);
+	}
 
   anchor: L_ANCHOR
-        | R_ANCHOR
+	| R_ANCHOR
 
   quantifier: STAR
-            | PLUS
-            | QMARK
-            | STAR QMARK { result = val.join }
-            | PLUS QMARK { result = val.join }
-            | LCURLY quantifier_char RCURLY { result = val.join }
+	    | PLUS
+	    | QMARK
+	    | STAR QMARK { result = val.join }
+	    | PLUS QMARK { result = val.join }
+	    | LCURLY quantifier_char RCURLY { result = val.join }
 
   quantifier_char: quantifier_char CHAR { result = val.join }
-                 | CHAR
+		 | CHAR
 
   # Bracketed expressions
   bracket_expression: bracket_expression posix_bracket_expression { result = val.join }
-                    | bracket_expression CHAR  { result = val.join }
-                    | posix_bracket_expression
-                    | CHAR
+		    | bracket_expression CHAR  { result = val.join }
+		    | posix_bracket_expression
+		    | CHAR
 
   posix_bracket_expression: LBRACK COLON posix_bracket_type COLON RBRACK { result = val.join }
 
   posix_bracket_type: "alnum" | "alpha" | "ascii" | "blank" | "cntrl"
-                    | "digit" | "graph" | "lower" | "print" | "punct"
-                    | "space" | "upper" | "word"  | "xdigit"
+		    | "digit" | "graph" | "lower" | "print" | "punct"
+		    | "space" | "upper" | "word"  | "xdigit"
 
   # Inline options
   options: MINUS modifier modifier modifier {
-            @options_stack << result = { val[1] => false, val[2] => false, val[3] => false }
-          }
-         | modifier MINUS modifier modifier {
-            @options_stack << result = { val[0] => true, val[2] => false, val[3] => false }
-          }
-         | modifier modifier MINUS modifier {
-            @options_stack << result = { val[0] => true, val[1] => true, val[3] => false }
-          }
-         | modifier modifier modifier       {
-            @options_stack << result = { val[0] => true, val[1] => true, val[2] => true }
-          }
+	    @options_stack << result = { val[1] => false, val[2] => false, val[3] => false }
+	  }
+	 | modifier MINUS modifier modifier {
+	    @options_stack << result = { val[0] => true, val[2] => false, val[3] => false }
+	  }
+	 | modifier modifier MINUS modifier {
+	    @options_stack << result = { val[0] => true, val[1] => true, val[3] => false }
+	  }
+	 | modifier modifier modifier	    {
+	    @options_stack << result = { val[0] => true, val[1] => true, val[2] => true }
+	  }
 
   modifier: MULTILINE  { result = :multiline }
-          | IGNORECASE { result = :ignorecase }
-          | EXTENDED   { result = :extended }
+	  | IGNORECASE { result = :ignorecase }
+	  | EXTENDED   { result = :extended }
 end
 
 ---- inner

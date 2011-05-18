@@ -166,6 +166,20 @@ describe Regin::Parser do
     %r{[\W]+}.should parse(expr(range("\\W", :quantifier => '+')))
   end
 
+  it "should parse postive look-ahead" do
+    %r{^(?=a)}.should parse(expr(
+      anchor('^'),
+      group(expr('a'), :index => 0, :lookahead => :postive)
+    ))
+  end
+
+  it "should parse negative look-ahead" do
+    %r{^(?!a)}.should parse(expr(
+      anchor('^'),
+      group(expr('a'), :index => 0, :lookahead => :negative)
+    ))
+  end
+
   it "should parse alternation" do
     %r{foo|bar}.should parse(
       expr(alt(

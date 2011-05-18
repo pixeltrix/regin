@@ -184,3 +184,73 @@ describe Regin::Group, "with ignorecase optional capture expression" do
     @expression.should_not include('b')
   end
 end
+
+describe Regin::Group, "with postive look-ahead" do
+  before do
+    @expression = Regin::Expression.new(Regin::Character.new('a'))
+    @group = Regin::Group.new(@expression, :lookahead => :postive)
+  end
+
+  it "should not be a literal expression" do
+    @group.should_not be_literal
+  end
+
+  it "should return a string expression of itself" do
+    @group.to_s.should == "(?=a)"
+  end
+
+  it "should return a regexp of itself" do
+    @group.to_regexp.should == /(?=a)/
+  end
+
+  it "should match 'a'" do
+    @expression.match('a').should be_true
+  end
+
+  it "should not match 'b'" do
+    @expression.match('b').should be_nil
+  end
+
+  it "should include 'a'" do
+    @expression.should include('a')
+  end
+
+  it "should not include 'b'" do
+    @expression.should_not include('b')
+  end
+end
+
+describe Regin::Group, "with negative look-ahead" do
+  before do
+    @expression = Regin::Expression.new(Regin::Character.new('a'))
+    @group = Regin::Group.new(@expression, :lookahead => :negative)
+  end
+
+  it "should not be a literal expression" do
+    @group.should_not be_literal
+  end
+
+  it "should return a string expression of itself" do
+    @group.to_s.should == "(?!a)"
+  end
+
+  it "should return a regexp of itself" do
+    @group.to_regexp.should == /(?!a)/
+  end
+
+  it "should match 'a'" do
+    @expression.match('a').should be_true
+  end
+
+  it "should match 'b'" do
+    @expression.match('b').should be_nil
+  end
+
+  it "should include 'a'" do
+    @expression.should include('a')
+  end
+
+  it "should include 'b'" do
+    @expression.should_not include('b')
+  end
+end

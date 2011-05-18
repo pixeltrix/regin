@@ -1,6 +1,6 @@
 module Regin
   class Group
-    attr_reader :expression, :quantifier, :capture, :index, :name
+    attr_reader :expression, :quantifier, :lookahead, :capture, :index, :name
 
     def initialize(expression, options = {})
       @quantifier = @index = @name = nil
@@ -8,6 +8,7 @@ module Regin
       @expression = expression.dup(options)
 
       @quantifier = options[:quantifier] if options.key?(:quantifier)
+      @lookahead  = options[:lookahead] if options.key?(:lookahead)
       @capture    = options[:capture] if options.key?(:capture)
       @index      = options[:index] if options.key?(:index)
       @name       = options[:name] if options.key?(:name)
@@ -21,11 +22,15 @@ module Regin
     #
     # A Group is literal if its expression is literal and it has no quantifier.
     def literal?
-      quantifier.nil? && expression.literal?
+      quantifier.nil? && lookahead.nil? && expression.literal?
     end
 
     def to_s(parent = false)
-      if !expression.options?
+      if lookahead == :postive
+        "(?=#{expression.to_s(parent)})#{quantifier}"
+      elsif lookahead == :negative
+        "(?!#{expression.to_s(parent)})#{quantifier}"
+      elsif !expression.options?
         "(#{capture ? '' : '?:'}#{expression.to_s(parent)})#{quantifier}"
       elsif capture == false
         "#{expression.to_s}#{quantifier}"

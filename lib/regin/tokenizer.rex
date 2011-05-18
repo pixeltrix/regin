@@ -22,6 +22,8 @@ rule
 
   \|          { [:BAR, text]   }
   \.          { [:DOT, text]   }
+  \!          { [:BANG, text]  }
+  \=          { [:EQUAL, text] }
   \?          { [:QMARK, text] }
   \+          { [:PLUS,  text] }
   \*          { [:STAR,  text] }
