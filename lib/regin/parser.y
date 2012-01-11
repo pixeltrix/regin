@@ -21,6 +21,7 @@ rule
       | DOT { result = CharacterClass.new('.') }
       | anchor { result = Anchor.new(val[0]) }
       | CHAR { result = Character.new(val[0]) }
+      | BANG { result = Character.new(val[0]) }
 
   group: LPAREN expression RPAREN {
 	  result = Group.new(val[1], :index => @capture_index_stack.pop)

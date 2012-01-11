@@ -180,6 +180,10 @@ describe Regin::Parser do
     ))
   end
 
+  it "should parse bang characters" do
+    %r{!}.should parse(expr(char('!')))
+  end
+
   it "should parse alternation" do
     %r{foo|bar}.should parse(
       expr(alt(
